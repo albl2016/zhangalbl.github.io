@@ -236,20 +236,20 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>  经过一天的学习，在韩老师的指导下完成了自己hexo博客的搭建，下面和大家分享一下搭建的一些步骤，有什么不对的地方欢迎指正，废话不多说，直接上步骤。</p>
-<p>###首先是配置的环境<br>安装Node，用来生成静态的页面。在这里我们可以直接去<a href="https://nodejs.org/en/" target="_blank" rel="external">Node.js的官方网站</a>下载安装包，安装即可,安装完成后输入 node -v测试一下。</p>
-<p>###安装hexo<br>Node安装完成后，我们打开终端执行以下命令安装Hexo:</p>
+<h3 id="首先是配置的环境"><a href="#首先是配置的环境" class="headerlink" title="首先是配置的环境"></a>首先是配置的环境</h3><p>安装Node，用来生成静态的页面。在这里我们可以直接去<a href="https://nodejs.org/en/" target="_blank" rel="external">Node.js的官方网站</a>下载安装包，安装即可,安装完成后输入 node -v测试一下。</p>
+<h3 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h3><p>Node安装完成后，我们打开终端执行以下命令安装Hexo:</p>
 <p>1.sudo npm install hexo -g</p>
 <p>  输入管理员密码，然后输入hexo测试一下。</p>
 <p>2.在桌面（其他位置也可）创建一个blog文件夹。使用cd命令进入这个文件夹，在该目录下，输入命令：hexo init 初始化hexo目录，输入命令：hexo server 来启动本地服务（按 Ctrl+C 两次可以结束本地服务）。如下图：</p>
 <p><img src="../../../1.jpg" alt="haha/"></p>
 <p>在浏览器地址栏中输入<a href="http://localhost:4000/，可以打开对应的本地的静态网页，就是hexo博客首页，这个blog文件夹就是我们的博客根目录。" target="_blank" rel="external">http://localhost:4000/，可以打开对应的本地的静态网页，就是hexo博客首页，这个blog文件夹就是我们的博客根目录。</a></p>
-<p>###配置github<br>1.先去<a href="https://github.com/" target="_blank" rel="external">github官网</a>注册github账号,注册成功后打开终端，输入命令：ssh-keygen 连续按三次回车键，接着输入命令：vim ~/.ssh/id_rsa.pub 会出现一串字母如图：</p>
+<h3 id="配置github"><a href="#配置github" class="headerlink" title="配置github"></a>配置github</h3><p>1.先去<a href="https://github.com/" target="_blank" rel="external">github官网</a>注册github账号,注册成功后打开终端，输入命令：ssh-keygen 连续按三次回车键，接着输入命令：vim ~/.ssh/id_rsa.pub 会出现一串字母如图：</p>
 <p><img src="../../../2.jpg" alt="haha/"></p>
 <p>把这串SSH keys复制下来粘贴到你注册github账号设置的界面下Settings菜单中SSH and GPG keys子菜单中.</p>
 <p>2.接下来配置github和本地机器验证，在终端中输入命令：git config –global user.name “你的用户名”然后输入命令：git config –global user.email “你注册账号的邮箱地址”</p>
 <p>3.在github中创建域名仓库，注意格式：你的用户名.github.io 这就是你的域名http地址。</p>
 <p>4.打开blog文件夹中“_config.yml”文件，在文件内容最下方的type：后面加上git（注意git前面有个空格）在下面继续添加一项repo： 域名仓库的地址（注意git前面有个空格）</p>
-<p>###将静态页面部署到github上<br>在终端中输入命令：npm install hexo-deployer-git –save 完成后输入命令：hexo g 在输入命令hexo d，将静态网页部署到github上就完成了。</p>
+<h3 id="将静态页面部署到github上"><a href="#将静态页面部署到github上" class="headerlink" title="将静态页面部署到github上"></a>将静态页面部署到github上</h3><p>在终端中输入命令：npm install hexo-deployer-git –save 完成后输入命令：hexo g 在输入命令hexo d，将静态网页部署到github上就完成了。</p>
 
             <div class="clearfix"></div>
             <hr class="nogutter">
