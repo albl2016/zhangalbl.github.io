@@ -1,0 +1,632 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="px&amp;#x50CF;&amp;#x7D20;&amp;#xFF08;pixel&amp;#xFF09;&amp;#x5355;&amp;#x4F4D;&amp;#x50CF;&amp;#x7D20;px&amp;#x5355;&amp;#x4F4D;&amp;#x662F;css&amp;#x4E2D;&amp;#x5E38;&amp;#x89C1;&amp;#x7684;&amp;#x957F;&amp;#x5EA6;&amp;#x5355;&amp;#x4F4D;&amp;#xFF0C;&amp;#x53EF;&amp;#x4EE5;&amp;#x5F88;&amp;#x7">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS中px,em,rem三种单位之间的区别">
+<meta property="og:url" content="http://yoursite.com/2016/06/22/px em rem之间的区别/px em rem之间的区别/index.html">
+<meta property="og:site_name" content="ALBL的个人博客">
+<meta property="og:description" content="px&amp;#x50CF;&amp;#x7D20;&amp;#xFF08;pixel&amp;#xFF09;&amp;#x5355;&amp;#x4F4D;&amp;#x50CF;&amp;#x7D20;px&amp;#x5355;&amp;#x4F4D;&amp;#x662F;css&amp;#x4E2D;&amp;#x5E38;&amp;#x89C1;&amp;#x7684;&amp;#x957F;&amp;#x5EA6;&amp;#x5355;&amp;#x4F4D;&amp;#xFF0C;&amp;#x53EF;&amp;#x4EE5;&amp;#x5F88;&amp;#x7">
+<meta property="og:image" content="http://yoursite.com/2016/06/22/px em rem之间的区别/px em rem之间的区别/danwei.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/06/22/px em rem之间的区别/px em rem之间的区别/rem.jpg">
+<meta property="og:updated_time" content="2016-10-20T03:18:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS中px,em,rem三种单位之间的区别">
+<meta name="twitter:description" content="px&amp;#x50CF;&amp;#x7D20;&amp;#xFF08;pixel&amp;#xFF09;&amp;#x5355;&amp;#x4F4D;&amp;#x50CF;&amp;#x7D20;px&amp;#x5355;&amp;#x4F4D;&amp;#x662F;css&amp;#x4E2D;&amp;#x5E38;&amp;#x89C1;&amp;#x7684;&amp;#x957F;&amp;#x5EA6;&amp;#x5355;&amp;#x4F4D;&amp;#xFF0C;&amp;#x53EF;&amp;#x4EE5;&amp;#x5F88;&amp;#x7">
+<meta name="twitter:image" content="http://yoursite.com/2016/06/22/px em rem之间的区别/px em rem之间的区别/danwei.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/06/22/px em rem之间的区别/px em rem之间的区别/"/>
+
+  <title> CSS中px,em,rem三种单位之间的区别 | ALBL的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">ALBL的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">HTML5</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CSS中px,em,rem三种单位之间的区别
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-22T09:01:13+08:00" content="2016-06-22">
+              2016-06-22
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/22/px em rem之间的区别/px em rem之间的区别/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/22/px em rem之间的区别/px em rem之间的区别/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="px&#x50CF;&#x7D20;&#xFF08;pixel&#xFF09;&#x5355;&#x4F4D;"><a href="#px&#x50CF;&#x7D20;&#xFF08;pixel&#xFF09;&#x5355;&#x4F4D;" class="headerlink" title="px&#x50CF;&#x7D20;&#xFF08;pixel&#xFF09;&#x5355;&#x4F4D;"></a>px&#x50CF;&#x7D20;&#xFF08;pixel&#xFF09;&#x5355;&#x4F4D;</h3><p>&#x50CF;&#x7D20;px&#x5355;&#x4F4D;&#x662F;css&#x4E2D;&#x5E38;&#x89C1;&#x7684;&#x957F;&#x5EA6;&#x5355;&#x4F4D;&#xFF0C;&#x53EF;&#x4EE5;&#x5F88;&#x7CBE;&#x786E;&#x5730;&#x5C55;&#x793A;&#x9875;&#x9762;&#x5185;&#x5BB9;&#x7684;&#x5927;&#x5C0F;&#xFF0C;&#x4F46;&#x662F;&#x5F53;&#x7528;&#x6237;&#x653E;&#x5927;&#x6216;&#x7F29;&#x5C0F;&#x9875;&#x9762;&#x65F6;&#x53EF;&#x80FD;&#x4F7F;&#x9875;&#x9762;&#x5185;&#x5BB9;&#x4EA7;&#x751F;&#x53D8;&#x5F62;&#xFF0C;&#x79FB;&#x4F4D;&#x3002;</p>
+<h3 id="em&#x5355;&#x4F4D;"><a href="#em&#x5355;&#x4F4D;" class="headerlink" title="em&#x5355;&#x4F4D;"></a>em&#x5355;&#x4F4D;</h3><p>em&#x662F;&#x4E00;&#x79CD;&#x76F8;&#x5BF9;&#x5355;&#x4F4D;&#xFF0C;&#x5B83;&#x662F;&#x76F8;&#x5BF9;&#x4E8E;&#x5B83;&#x7684;&#x7236;&#x7EA7;&#x5143;&#x7D20;&#x7684;&#x5B57;&#x53F7;&#x7684;&#x5927;&#x5C0F;&#x6765;&#x8BBE;&#x7F6E;&#xFF0C;&#x6BD4;&#x8F83;&#x9002;&#x5408;&#x4E00;&#x4E9B;&#x81EA;&#x9002;&#x5E94;&#x5C4F;&#x5E55;&#x5C3A;&#x5BF8;&#x7684;&#x7EC8;&#x7AEF;&#x5E03;&#x5C40;&#x65B9;&#x5F0F;.&#x4E00;&#x822C;&#x6765;&#x8BF4;&#xFF0C;&#x6D4F;&#x89C8;&#x5668;&#x9ED8;&#x8BA4;&#x7684;&#x5B57;&#x4F53;&#x5927;&#x5C0F;&#x662F;16px,&#x4E5F;&#x5C31;&#x662F;&#x8BF4;1em&#x7B49;&#x4E8E;16px,&#x6211;&#x4EEC;&#x8981;&#x7ED9;&#x522B;&#x7684;&#x6587;&#x672C;&#x8BBE;&#x7F6E;&#x5B57;&#x4F53;&#x5927;&#x5C0F;&#x65F6;&#xFF0C;&#x5C31;&#x9700;&#x8981;&#x7528;&#x516C;&#x5F0F;&#xFF1A;em = &#x9700;&#x8981;&#x8BBE;&#x7F6E;&#x5B57;&#x4F53;&#x7684;&#x5927;&#x5C0F;/16px&#xFF0C;&#x5F97;&#x51FA;&#x4EE5;em&#x4E3A;&#x5355;&#x4F4D;&#x7684;&#x5C3A;&#x5BF8;&#x3002;&#x5F53;&#x7136;&#xFF0C;&#x5728;&#x4E00;&#x4E2A;&#x9875;&#x9762;&#x5185;&#xFF0C;1em&#x5E76;&#x4E0D;&#x662F;&#x56FA;&#x5B9A;&#x7684;&#x5927;&#x5C0F;&#xFF0C;&#x5B83;&#x4F1A;&#x968F;&#x7740;&#x7236;&#x7EA7;&#x5143;&#x7D20;&#x5927;&#x5C0F;&#x6539;&#x53D8;&#xFF0C;&#x4F8B;&#x5982;&#xFF1A;&#x6211;&#x4EEC;&#x5728;body&#x4E2D;&#x7528;&#x4E00;&#x4E2A;h2&#x6807;&#x7B7E;&#x5D4C;&#x5957;&#x4E00;&#x4E2A;span&#x6807;&#x7B7E;&#xFF0C;&#x5728;css&#x4E2D;&#x8F93;&#x5165;&#x4E0B;&#x65B9;&#x7684;&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre>
+body{
+    margin: 0;
+    font-size: 12px;    /*&#x8BBE;&#x7F6E;body&#x4E2D;&#x5B57;&#x4F53;&#x5927;&#x5C0F;&#x4E3A;12px*/
+}
+h2{
+    font-size: 2em;       /*&#x8BBE;&#x7F6E;h2&#x4E2D;&#x7684;&#x6587;&#x672C;&#x5B57;&#x4F53;&#x5927;&#x5C0F;&#x4E3A;2em&#x5C31;&#x662F;2*12px=24px;&#x56E0;&#x4E3A;&#x5B83;&#x7684;&#x7236;&#x7EA7;&#x662F;body&#x5C5E;&#x6027; */
+}
+h2 span{
+    font-size: 1.5em;   /*&#x8BBE;&#x7F6E;span&#x4E2D;&#x6587;&#x672C;&#x5927;&#x5C0F;&#x4E3A;1.5em&#x5C31;&#x662F;1.5*24px=36px;&#x5B83;&#x7684;&#x7236;&#x7EA7;&#x662F;h2&#xFF0C;&#x6240;&#x4EE5;&#x5B83;&#x7684;&#x5927;&#x5C0F;&#x662F;&#x76F8;&#x5BF9;&#x5B83;&#x7684;&#x7236;&#x7EA7;&#x800C;&#x6539;&#x53D8;&#x7684;*/
+}
+</pre>
+
+<p><img src="/2016/06/22/px em rem&#x4E4B;&#x95F4;&#x7684;&#x533A;&#x522B;/px em rem&#x4E4B;&#x95F4;&#x7684;&#x533A;&#x522B;/danwei.jpg" alt="haha"></p>
+<p>&#x5982;&#x679C;&#x6211;&#x4EEC;&#x7684;css&#x6587;&#x4EF6;&#x90FD;&#x91C7;&#x7528;em&#x4F5C;&#x4E3A;&#x5355;&#x4F4D;&#x8BA1;&#x7B97;&#x5927;&#x5C0F;&#x7684;&#x8BDD;&#xFF0C;&#x90A3;&#x4E48;&#x5728;&#x5C4F;&#x5E55;&#x5C3A;&#x5BF8;&#x7684;&#x7EC8;&#x7AEF;&#x4E0A;&#x6D4F;&#x89C8;&#x6211;&#x4EEC;&#x7684;&#x9875;&#x9762;&#x65F6;&#xFF0C;&#x4E0D;&#x5BB9;&#x6613;&#x53D1;&#x751F;&#x9875;&#x9762;&#x9519;&#x4E71;&#x7684;&#x95EE;&#x9898;&#x3002;</p>
+<h3 id="rem&#x5355;&#x4F4D;"><a href="#rem&#x5355;&#x4F4D;" class="headerlink" title="rem&#x5355;&#x4F4D;"></a>rem&#x5355;&#x4F4D;</h3><p>rem&#x548C;em&#x4E00;&#x6837;&#x662F;&#x4E00;&#x4E2A;&#x76F8;&#x5BF9;&#x5355;&#x4F4D;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x4E3A;root em&#xFF0C;&#x5C31;&#x662F;&#x76F8;&#x5BF9;&#x4E8E;&#x6839;&#x5143;&#x7D20;<html></html>&#x8BA1;&#x7B97;&#x7684;&#x5355;&#x4F4D;&#xFF0C;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x4E3A;&#x6839;&#x5143;&#x7D20;&#x8BBE;&#x7F6E;&#x6709;&#x4E00;&#x4E2A;&#x56FA;&#x5B9A;&#x503C;&#xFF0C;&#x90A3;&#x4E48;&#x6574;&#x4E2A;&#x9875;&#x9762;&#x7684;1rem&#x90FD;&#x76F8;&#x7B49;&#xFF0C;&#x8BA1;&#x7B97;&#x65B9;&#x5F0F;&#x548C;em&#x662F;&#x4E00;&#x6837;&#x7684;&#xFF0C;&#x6211;&#x4EEC;&#x53EA;&#x8981;&#x6539;&#x53D8;&#x6839;&#x5143;&#x7D20;&#x7684;&#x5927;&#x5C0F;&#x5C31;&#x80FD;&#x6210;&#x6BD4;&#x4F8B;&#x7684;&#x8C03;&#x6574;&#x6574;&#x4E2A;&#x9875;&#x9762;&#x7684;&#x5C3A;&#x5BF8;&#xFF0C;&#x4F8B;&#x5982;&#xFF1A;</p>
+<pre>
+html{
+    margin: 0;
+    font-size: 16px;   /*&#x8BBE;&#x7F6E;html&#x6839;&#x5143;&#x7D20;&#x5B57;&#x4F53;&#x5927;&#x5C0F;&#x4E3A;16px*/
+}
+body{
+    margin: 0;   
+}
+h2{
+    font-size: 2rem;   /*&#x8BBE;&#x7F6E;h2&#x4E2D;&#x7684;&#x6587;&#x672C;&#x5B57;&#x4F53;&#x5927;&#x5C0F;&#x4E3A;2rem&#x5C31;&#x662F;2* 16px=32px;*/
+}
+
+h2 span{
+    font-size: 2rem;   /*&#x8BBE;&#x7F6E;span&#x4E2D;&#x6587;&#x672C;&#x5927;&#x5C0F;&#x4E3A;1.5rem&#x5C31;&#x662F;2* 16px=32px;*/
+}
+</pre>
+
+<p>&#x8FD0;&#x884C;&#x7ED3;&#x679C;&#x5982;&#x4E0B;&#x56FE;&#xFF1A;</p>
+<p><img src="/2016/06/22/px em rem&#x4E4B;&#x95F4;&#x7684;&#x533A;&#x522B;/px em rem&#x4E4B;&#x95F4;&#x7684;&#x533A;&#x522B;/rem.jpg" alt="haha"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/10/css3选择器/css3选择器/" rel="next" title="css3选择器">
+                <i class="fa fa-chevron-left"></i> css3选择器
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/30/html5语义化标签/html5语义化标签--音频和视频/" rel="prev" title="html5语义化标签--音频和视频标签">
+                html5语义化标签--音频和视频标签 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.ld12.com/upimg358/allimg/c140918/14109CRX22F-H018.jpg"
+               alt="ALBL" />
+          <p class="site-author-name" itemprop="name">ALBL</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#px像素（pixel）单位"><span class="nav-number">1.</span> <span class="nav-text">px像素（pixel）单位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#em单位"><span class="nav-number">2.</span> <span class="nav-text">em单位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rem单位"><span class="nav-number">3.</span> <span class="nav-text">rem单位</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ALBL</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'your-disqus-shortname';
+      var disqus_identifier = '2016/06/22/px em rem之间的区别/px em rem之间的区别/';
+      var disqus_title = "CSS中px,em,rem三种单位之间的区别";
+      var disqus_url = 'http://yoursite.com/2016/06/22/px em rem之间的区别/px em rem之间的区别/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
