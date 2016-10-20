@@ -92,7 +92,7 @@
 <meta property="og:site_name" content="ALBL的个人博客">
 <meta property="og:description" content="transition(&amp;#x8FC7;&amp;#x6E21;)&amp;#x4E3B;&amp;#x8981;&amp;#x6709;&amp;#x4E0B;&amp;#x9762;&amp;#x56DB;&amp;#x4E2A;&amp;#x5C5E;&amp;#x6027;&amp;#xFF1A;
 1.transition-property:;  //&amp;#x6267;&amp;#x884C;&amp;#x8FC7;&amp;#x6E21;&amp;#x53D8;&amp;#x6362;&amp;#x7684;&amp;#x5C5E;">
-<meta property="og:updated_time" content="2016-08-27T12:33:58.000Z">
+<meta property="og:updated_time" content="2016-10-20T02:14:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="transition的知识点梳理">
 <meta name="twitter:description" content="transition(&amp;#x8FC7;&amp;#x6E21;)&amp;#x4E3B;&amp;#x8981;&amp;#x6709;&amp;#x4E0B;&amp;#x9762;&amp;#x56DB;&amp;#x4E2A;&amp;#x5C5E;&amp;#x6027;&amp;#xFF1A;
@@ -293,42 +293,31 @@
 <p>4.transition-delay:; //&#x5EF6;&#x8FDF;&#x53D8;&#x6362;&#x7684;&#x65F6;&#x95F4;</p>
 <h3 id="transform-2D&#x53D8;&#x5F62;"><a href="#transform-2D&#x53D8;&#x5F62;" class="headerlink" title="transform 2D&#x53D8;&#x5F62;"></a>transform 2D&#x53D8;&#x5F62;</h3><p>transform&#x6709;&#x4E0B;&#x9762;&#x51E0;&#x4E2A;&#x5C5E;&#x6027;:</p>
 <p>   &#x65CB;&#x8F6C;rotate&#x3001;&#x626D;&#x66F2;skew&#x3001;&#x7F29;&#x653E;scale&#x548C;&#x79FB;&#x52A8;translate&#x4EE5;&#x53CA;&#x77E9;&#x9635;&#x53D8;&#x5F62;matrix.</p>
-<p>######1.&#x65CB;&#x8F6C;rotate(&#x89D2;&#x5EA6;&#x53C2;&#x6570;deg&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x8D1F;&#x6570;)</p>
-<p>  &#x901A;&#x8FC7;&#x6307;&#x5B9A;&#x7684;&#x89D2;&#x5EA6;&#x53C2;&#x6570;&#x5BF9;&#x539F;&#x5143;&#x7D20;&#x6307;&#x5B9A;&#x4E00;&#x4E2A;2D rotation (2D&#x65CB;&#x8F6C;)</p>
-<p>######transform-origin</p>
-<p>&#x5143;&#x7D20;&#x7684;&#x57FA;&#x70B9;&#x4F4D;&#x7F6E;</p>
+<h5 id="1-&#x65CB;&#x8F6C;rotate-&#x89D2;&#x5EA6;&#x53C2;&#x6570;deg&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x8D1F;&#x6570;"><a href="#1-&#x65CB;&#x8F6C;rotate-&#x89D2;&#x5EA6;&#x53C2;&#x6570;deg&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x8D1F;&#x6570;" class="headerlink" title="1.&#x65CB;&#x8F6C;rotate(&#x89D2;&#x5EA6;&#x53C2;&#x6570;deg&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x8D1F;&#x6570;)"></a>1.&#x65CB;&#x8F6C;rotate(&#x89D2;&#x5EA6;&#x53C2;&#x6570;deg&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x8D1F;&#x6570;)</h5><p>  &#x901A;&#x8FC7;&#x6307;&#x5B9A;&#x7684;&#x89D2;&#x5EA6;&#x53C2;&#x6570;&#x5BF9;&#x539F;&#x5143;&#x7D20;&#x6307;&#x5B9A;&#x4E00;&#x4E2A;2D rotation (2D&#x65CB;&#x8F6C;)</p>
+<h5 id="transform-origin"><a href="#transform-origin" class="headerlink" title="transform-origin"></a>transform-origin</h5><p>&#x5143;&#x7D20;&#x7684;&#x57FA;&#x70B9;&#x4F4D;&#x7F6E;</p>
 <p>&#x8BA4;&#x57FA;&#x70B9;&#x5C31;&#x662F;&#x5143;&#x7D20;&#x4E2D;&#x5FC3;&#x4F4D;&#x7F6E;,&#x4F8B;&#x5982;&#x5143;&#x7D20;&#x65CB;&#x8F6C;&#x7684;&#x4E2D;&#x5FC3;&#x70B9;&#x8BBE;&#x7F6E;</p>
 <pre><code>transform-origin(X,Y)
 </code></pre><p>&#x5176;&#x4E2D;X&#x548C;Y&#x7684;&#x503C;&#x53EF;&#x4EE5;&#x662F;&#x767E;&#x5206;&#x6BD4;,em,px&#xFF0C;&#x65B9;&#x5411;</p>
-<p>######2.&#x79FB;&#x52A8;translate (&#x5176;&#x4E2D;&#x53C2;&#x6570;&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x6210;&#x8D1F;&#x6570;)</p>
-<p>translate(x,y)&#x6C34;&#x5E73;&#x65B9;&#x5411;&#x548C;&#x5782;&#x76F4;&#x65B9;&#x5411;&#x540C;&#x65F6;&#x79FB;&#x52A8;</p>
+<h5 id="2-&#x79FB;&#x52A8;translate-&#x5176;&#x4E2D;&#x53C2;&#x6570;&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x6210;&#x8D1F;&#x6570;"><a href="#2-&#x79FB;&#x52A8;translate-&#x5176;&#x4E2D;&#x53C2;&#x6570;&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x6210;&#x8D1F;&#x6570;" class="headerlink" title="2.&#x79FB;&#x52A8;translate (&#x5176;&#x4E2D;&#x53C2;&#x6570;&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x6210;&#x8D1F;&#x6570;)"></a>2.&#x79FB;&#x52A8;translate (&#x5176;&#x4E2D;&#x53C2;&#x6570;&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x6210;&#x8D1F;&#x6570;)</h5><p>translate(x,y)&#x6C34;&#x5E73;&#x65B9;&#x5411;&#x548C;&#x5782;&#x76F4;&#x65B9;&#x5411;&#x540C;&#x65F6;&#x79FB;&#x52A8;</p>
 <p>translateX(x)&#x4EC5;&#x6C34;&#x5E73;&#x65B9;&#x5411;&#x79FB;&#x52A8;</p>
 <p>translateY(Y)&#x4EC5;&#x5782;&#x76F4;&#x65B9;&#x5411;&#x79FB;&#x52A8;</p>
-<p>######3.&#x7F29;&#x653E;scale (&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x6574;&#x6570;,&#x5C0F;&#x6570;)</p>
-<p>scale(x,y)&#x4F7F;&#x5143;&#x7D20;&#x6C34;&#x5E73;&#x65B9;&#x5411;&#x548C;&#x5782;&#x76F4;&#x65B9;&#x5411;&#x540C;&#x65F6;&#x7F29;&#x653E;</p>
+<h5 id="3-&#x7F29;&#x653E;scale-&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x6574;&#x6570;-&#x5C0F;&#x6570;"><a href="#3-&#x7F29;&#x653E;scale-&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x6574;&#x6570;-&#x5C0F;&#x6570;" class="headerlink" title="3.&#x7F29;&#x653E;scale (&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x6574;&#x6570;,&#x5C0F;&#x6570;)"></a>3.&#x7F29;&#x653E;scale (&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x6574;&#x6570;,&#x5C0F;&#x6570;)</h5><p>scale(x,y)&#x4F7F;&#x5143;&#x7D20;&#x6C34;&#x5E73;&#x65B9;&#x5411;&#x548C;&#x5782;&#x76F4;&#x65B9;&#x5411;&#x540C;&#x65F6;&#x7F29;&#x653E;</p>
 <p>scaleX(x)&#x5143;&#x7D20;&#x4EC5;&#x6C34;&#x5E73;&#x65B9;&#x5411;&#x7F29;&#x653E;</p>
 <p>scaleY(y)&#x5143;&#x7D20;&#x4EC5;&#x5782;&#x76F4;&#x65B9;&#x5411;&#x7F29;&#x653E;</p>
-<p>######4.&#x626D;&#x66F2;skew(&#x89D2;&#x5EA6; deg)</p>
-<p>skew(x,y)&#x4F7F;&#x5143;&#x7D20;&#x5728;&#x6C34;&#x5E73;&#x548C;&#x5782;&#x76F4;&#x65B9;&#x5411;&#x540C;&#x65F6;&#x626D;&#x66F2;&#x53D8;&#x5F62;</p>
+<h5 id="4-&#x626D;&#x66F2;skew-&#x89D2;&#x5EA6;-deg"><a href="#4-&#x626D;&#x66F2;skew-&#x89D2;&#x5EA6;-deg" class="headerlink" title="4.&#x626D;&#x66F2;skew(&#x89D2;&#x5EA6; deg)"></a>4.&#x626D;&#x66F2;skew(&#x89D2;&#x5EA6; deg)</h5><p>skew(x,y)&#x4F7F;&#x5143;&#x7D20;&#x5728;&#x6C34;&#x5E73;&#x548C;&#x5782;&#x76F4;&#x65B9;&#x5411;&#x540C;&#x65F6;&#x626D;&#x66F2;&#x53D8;&#x5F62;</p>
 <p>skewX(x)&#x4EC5;&#x4F7F;&#x5143;&#x7D20;&#x5728;&#x6C34;&#x5E73;&#x65B9;&#x5411;&#x626D;&#x66F2;&#x53D8;&#x5F62;</p>
 <p>skewY(y)&#x4EC5;&#x4F7F;&#x5143;&#x7D20;&#x5728;&#x5782;&#x76F4;&#x65B9;&#x5411;&#x626D;&#x66F2;&#x53D8;&#x5F62;</p>
-<p>######5.matrix &#x77E9;&#x9635;(&#x6CA1;&#x7528;&#x8FC7;,&#x4F5C;&#x4E3A;&#x4E86;&#x89E3;)</p>
-<pre><code>transform: matrix(1,1,-1,0,0,0);          
-</code></pre><p>###transform-3D</p>
-<p>######&#x65CB;&#x8F6C;rotate</p>
-<p>rotateX&#xFF1A;&#x5143;&#x7D20;&#x56F4;&#x7ED5;&#x5176; X &#x8F74;&#x4EE5;&#x7ED9;&#x5B9A;&#x7684;&#x5EA6;&#x6570;&#x8FDB;&#x884C;&#x65CB;&#x8F6C;</p>
+<h5 id="5-matrix-&#x77E9;&#x9635;-&#x6CA1;&#x7528;&#x8FC7;-&#x4F5C;&#x4E3A;&#x4E86;&#x89E3;"><a href="#5-matrix-&#x77E9;&#x9635;-&#x6CA1;&#x7528;&#x8FC7;-&#x4F5C;&#x4E3A;&#x4E86;&#x89E3;" class="headerlink" title="5.matrix &#x77E9;&#x9635;(&#x6CA1;&#x7528;&#x8FC7;,&#x4F5C;&#x4E3A;&#x4E86;&#x89E3;)"></a>5.matrix &#x77E9;&#x9635;(&#x6CA1;&#x7528;&#x8FC7;,&#x4F5C;&#x4E3A;&#x4E86;&#x89E3;)</h5><pre><code>transform: matrix(1,1,-1,0,0,0);          
+</code></pre><h3 id="transform-3D"><a href="#transform-3D" class="headerlink" title="transform-3D"></a>transform-3D</h3><h5 id="&#x65CB;&#x8F6C;rotate"><a href="#&#x65CB;&#x8F6C;rotate" class="headerlink" title="&#x65CB;&#x8F6C;rotate"></a>&#x65CB;&#x8F6C;rotate</h5><p>rotateX&#xFF1A;&#x5143;&#x7D20;&#x56F4;&#x7ED5;&#x5176; X &#x8F74;&#x4EE5;&#x7ED9;&#x5B9A;&#x7684;&#x5EA6;&#x6570;&#x8FDB;&#x884C;&#x65CB;&#x8F6C;</p>
 <p>rotateY&#xFF1A;&#x5143;&#x7D20;&#x56F4;&#x7ED5;&#x5176; Y &#x8F74;&#x4EE5;&#x7ED9;&#x5B9A;&#x7684;&#x5EA6;&#x6570;&#x8FDB;&#x884C;&#x65CB;&#x8F6C;</p>
 <p>rotateZ&#xFF1A;&#x5143;&#x7D20;&#x56F4;&#x7ED5;&#x5176; Z &#x8F74;&#x4EE5;&#x7ED9;&#x5B9A;&#x7684;&#x5EA6;&#x6570;&#x8FDB;&#x884C;&#x65CB;&#x8F6C;</p>
-<p>######transform-style&#xFF1A;&#x5D4C;&#x5957;&#x5143;&#x7D20;&#x5982;&#x4F55;&#x5728;3D&#x7A7A;&#x95F4;&#x4E2D;&#x5448;&#x73B0;</p>
-<p>transform-style: flat(&#x9ED8;&#x8BA4;&#xFF0C;&#x6240;&#x6709;&#x5B50;&#x5143;&#x7D20;&#x5728;2D&#x5E73;&#x9762;&#x5448;&#x73B0;) | preserve-3d<br>(preserve-3d&#xFF0C;&#x6240;&#x6709;&#x5B50;&#x5143;&#x7D20;&#x5728;3D&#x5E73;&#x9762;&#x5448;&#x73B0;&#xFF0C;&#x8BBE;&#x7F6E;&#x8FD9;&#x4E2A;&#x5C5E;&#x6027;&#x4E4B;&#x540E;&#xFF0C;&#x5C31;&#x4E0D;&#x80FD;<br>overflow:hidden)</p>
-<p>######perspective:&#x89C6;&#x8DDD;&#xFF0C;&#x89C6;&#x89D2; &#x8BBE;&#x7F6E;&#x67E5;&#x770B;&#x8005;&#x7684;&#x4F4D;&#x7F6E;</p>
-<p>&#x4F8B;&#x5982;:perspective: 600px;</p>
+<h5 id="transform-style&#xFF1A;&#x5D4C;&#x5957;&#x5143;&#x7D20;&#x5982;&#x4F55;&#x5728;3D&#x7A7A;&#x95F4;&#x4E2D;&#x5448;&#x73B0;"><a href="#transform-style&#xFF1A;&#x5D4C;&#x5957;&#x5143;&#x7D20;&#x5982;&#x4F55;&#x5728;3D&#x7A7A;&#x95F4;&#x4E2D;&#x5448;&#x73B0;" class="headerlink" title="transform-style&#xFF1A;&#x5D4C;&#x5957;&#x5143;&#x7D20;&#x5982;&#x4F55;&#x5728;3D&#x7A7A;&#x95F4;&#x4E2D;&#x5448;&#x73B0;"></a>transform-style&#xFF1A;&#x5D4C;&#x5957;&#x5143;&#x7D20;&#x5982;&#x4F55;&#x5728;3D&#x7A7A;&#x95F4;&#x4E2D;&#x5448;&#x73B0;</h5><p>transform-style: flat(&#x9ED8;&#x8BA4;&#xFF0C;&#x6240;&#x6709;&#x5B50;&#x5143;&#x7D20;&#x5728;2D&#x5E73;&#x9762;&#x5448;&#x73B0;) | preserve-3d<br>(preserve-3d&#xFF0C;&#x6240;&#x6709;&#x5B50;&#x5143;&#x7D20;&#x5728;3D&#x5E73;&#x9762;&#x5448;&#x73B0;&#xFF0C;&#x8BBE;&#x7F6E;&#x8FD9;&#x4E2A;&#x5C5E;&#x6027;&#x4E4B;&#x540E;&#xFF0C;&#x5C31;&#x4E0D;&#x80FD;<br>overflow:hidden)</p>
+<h5 id="perspective-&#x89C6;&#x8DDD;&#xFF0C;&#x89C6;&#x89D2;-&#x8BBE;&#x7F6E;&#x67E5;&#x770B;&#x8005;&#x7684;&#x4F4D;&#x7F6E;"><a href="#perspective-&#x89C6;&#x8DDD;&#xFF0C;&#x89C6;&#x89D2;-&#x8BBE;&#x7F6E;&#x67E5;&#x770B;&#x8005;&#x7684;&#x4F4D;&#x7F6E;" class="headerlink" title="perspective:&#x89C6;&#x8DDD;&#xFF0C;&#x89C6;&#x89D2; &#x8BBE;&#x7F6E;&#x67E5;&#x770B;&#x8005;&#x7684;&#x4F4D;&#x7F6E;"></a>perspective:&#x89C6;&#x8DDD;&#xFF0C;&#x89C6;&#x89D2; &#x8BBE;&#x7F6E;&#x67E5;&#x770B;&#x8005;&#x7684;&#x4F4D;&#x7F6E;</h5><p>&#x4F8B;&#x5982;:perspective: 600px;</p>
 <p>  transform: perspective(600px) rotateY(45deg);</p>
 <p>perspective-origin &#x89C6;&#x89D2;&#x4E2D;&#x5FC3;</p>
 <pre><code>perspective-origin: x y;
 </code></pre><p>x,y&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x56FA;&#x5B9A;&#x503C;px&#x6216;&#x8005;&#x767E;&#x5206;&#x6BD4;</p>
-<p>######backface-visibility&#x8BE5;&#x5C5E;&#x6027;&#x5B9A;&#x4E49;&#x5F53;&#x5143;&#x7D20;&#x4E0D;&#x9762;&#x5411;&#x5C4F;&#x5E55;&#x65F6;&#x662F;&#x5426;&#x53EF;&#x89C1;</p>
-<pre><code>backface-visibility: visible(&#x663E;&#x793A;) | hidden(&#x9690;&#x85CF;)
+<h5 id="backface-visibility&#x8BE5;&#x5C5E;&#x6027;&#x5B9A;&#x4E49;&#x5F53;&#x5143;&#x7D20;&#x4E0D;&#x9762;&#x5411;&#x5C4F;&#x5E55;&#x65F6;&#x662F;&#x5426;&#x53EF;&#x89C1;"><a href="#backface-visibility&#x8BE5;&#x5C5E;&#x6027;&#x5B9A;&#x4E49;&#x5F53;&#x5143;&#x7D20;&#x4E0D;&#x9762;&#x5411;&#x5C4F;&#x5E55;&#x65F6;&#x662F;&#x5426;&#x53EF;&#x89C1;" class="headerlink" title="backface-visibility&#x8BE5;&#x5C5E;&#x6027;&#x5B9A;&#x4E49;&#x5F53;&#x5143;&#x7D20;&#x4E0D;&#x9762;&#x5411;&#x5C4F;&#x5E55;&#x65F6;&#x662F;&#x5426;&#x53EF;&#x89C1;"></a>backface-visibility&#x8BE5;&#x5C5E;&#x6027;&#x5B9A;&#x4E49;&#x5F53;&#x5143;&#x7D20;&#x4E0D;&#x9762;&#x5411;&#x5C4F;&#x5E55;&#x65F6;&#x662F;&#x5426;&#x53EF;&#x89C1;</h5><pre><code>backface-visibility: visible(&#x663E;&#x793A;) | hidden(&#x9690;&#x85CF;)
 </code></pre>
       
     </div>
@@ -360,6 +349,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/02/px em rem之间的区别/px em rem之间的区别/" rel="prev" title="CSS中px,em,rem三种单位之间的区别">
+                CSS中px,em,rem三种单位之间的区别 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -434,7 +427,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-count">9</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -473,7 +466,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#transition-过渡"><span class="nav-number">1.</span> <span class="nav-text">transition(过渡)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#transform-2D变形"><span class="nav-number">2.</span> <span class="nav-text">transform 2D变形</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#transition-过渡"><span class="nav-number">1.</span> <span class="nav-text">transition(过渡)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#transform-2D变形"><span class="nav-number">2.</span> <span class="nav-text">transform 2D变形</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-旋转rotate-角度参数deg可以设置负数"><span class="nav-number">2.0.1.</span> <span class="nav-text">1.旋转rotate(角度参数deg可以设置负数)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#transform-origin"><span class="nav-number">2.0.2.</span> <span class="nav-text">transform-origin</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-移动translate-其中参数可以设置成负数"><span class="nav-number">2.0.3.</span> <span class="nav-text">2.移动translate (其中参数可以设置成负数)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-缩放scale-可以设置整数-小数"><span class="nav-number">2.0.4.</span> <span class="nav-text">3.缩放scale (可以设置整数,小数)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-扭曲skew-角度-deg"><span class="nav-number">2.0.5.</span> <span class="nav-text">4.扭曲skew(角度 deg)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-matrix-矩阵-没用过-作为了解"><span class="nav-number">2.0.6.</span> <span class="nav-text">5.matrix 矩阵(没用过,作为了解)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#transform-3D"><span class="nav-number">3.</span> <span class="nav-text">transform-3D</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#旋转rotate"><span class="nav-number">3.0.1.</span> <span class="nav-text">旋转rotate</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#transform-style：嵌套元素如何在3D空间中呈现"><span class="nav-number">3.0.2.</span> <span class="nav-text">transform-style：嵌套元素如何在3D空间中呈现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#perspective-视距，视角-设置查看者的位置"><span class="nav-number">3.0.3.</span> <span class="nav-text">perspective:视距，视角 设置查看者的位置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#backface-visibility该属性定义当元素不面向屏幕时是否可见"><span class="nav-number">3.0.4.</span> <span class="nav-text">backface-visibility该属性定义当元素不面向屏幕时是否可见</span></a></li></ol></li></ol></li></ol></div>
             
           </div>
         </section>
