@@ -90,7 +90,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/07/15/构造函数的继承/构造函数的继承/index.html">
 <meta property="og:site_name" content="ALBL的个人博客">
 <meta property="og:description" content="&amp;#x5728;&amp;#x9762;&amp;#x5411;&amp;#x5BF9;&amp;#x8C61;&amp;#x4E2D;&amp;#xFF0C;&amp;#x6784;&amp;#x9020;&amp;#x51FD;&amp;#x6570;&amp;#x662F;&amp;#x4E00;&amp;#x79CD;&amp;#x7279;&amp;#x6B8A;&amp;#x7684;&amp;#x65B9;&amp;#x6CD5;&amp;#xFF0C;&amp;#x6211;&amp;#x4EEC;&amp;#x53EF;&amp;#x4EE5;&amp;#x4F7F;">
-<meta property="og:updated_time" content="2016-10-22T13:27:38.000Z">
+<meta property="og:updated_time" content="2016-10-24T01:16:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="构造函数的继承">
 <meta name="twitter:description" content="&amp;#x5728;&amp;#x9762;&amp;#x5411;&amp;#x5BF9;&amp;#x8C61;&amp;#x4E2D;&amp;#xFF0C;&amp;#x6784;&amp;#x9020;&amp;#x51FD;&amp;#x6570;&amp;#x662F;&amp;#x4E00;&amp;#x79CD;&amp;#x7279;&amp;#x6B8A;&amp;#x7684;&amp;#x65B9;&amp;#x6CD5;&amp;#xFF0C;&amp;#x6211;&amp;#x4EEC;&amp;#x53EF;&amp;#x4EE5;&amp;#x4F7F;">
@@ -328,7 +328,7 @@ function Student(name,age,gender){
     this.gender = gender;
     Person.call(this,name,age);
 }
-//Student.prototype = Person.prototype;    //&#x539F;&#x578B;&#x7EE7;&#x627F;&#x8FD9;&#x662F;&#x4E0D;&#x6B63;&#x786E;&#x7684;&#xFF0C;&#x524D;&#x9762;&#x8BF4;&#x8FC7;&#x4F20;&#x5740;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x5982;&#x679C;&#x4FEE;&#x6539;&#x4E86;Student&#x7684;&#x539F;&#x578B;&#x7684;&#x65B9;&#x6CD5;&#x4F1A;&#x5F71;&#x54CD;Person&#x539F;&#x578B;&#x7684;&#x65B9;&#x6CD5;&#x3002;
+//Student.prototype = Person.prototype;    //&#x539F;&#x578B;&#x7EE7;&#x627F;&#x8FD9;&#x662F;&#x4E0D;&#x6B63;&#x786E;&#x7684;&#xFF0C;&#x524D;&#x9762;&#x8BF4;&#x8FC7;&#x4F20;&#x5740;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x5982;&#x679C;&#x5B50;&#x7C7B;(Student)&#x4FEE;&#x6539;&#x4E86;&#x5B50;&#x7C7B;&#x539F;&#x578B;&#x7684;&#x65B9;&#x6CD5;&#x4F1A;&#x5F71;&#x54CD;&#x7236;&#x7C7B;(Person)&#x539F;&#x578B;&#x7684;&#x65B9;&#x6CD5;&#x3002;
 function Lin(){};            //&#x521B;&#x5EFA;&#x7A7A;&#x7684;&#x6784;&#x9020;&#x51FD;&#x6570;,
 Lin.prototype = Person.prototype;    //&#x901A;&#x8FC7;&#x8D4B;&#x503C;&#x5B9E;&#x73B0;&#x4F20;&#x5740;&#xFF0C;Lin&#x539F;&#x578B;&#x4E0A;&#x7684;&#x5185;&#x5BB9;&#x548C;Person&#x76F8;&#x540C;
 var pro = new Lin();    //&#x5B9E;&#x4F8B;&#x5316;Lin&#xFF0C;&#x4F7F;&#x5176;&#x5177;&#x6709;&#x81EA;&#x5DF1;&#x7684;&#x5730;&#x5740;&#x7A7A;&#x95F4;&#xFF0C;&#x548C;&#x4E4B;&#x524D;&#x7684;Person&#x5730;&#x5740;&#x4E0D;&#x540C;
@@ -368,6 +368,10 @@ Student.prototype.constructor = Student;   // &#x5C06;&#x539F;&#x578B;&#x7684;&#
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/17/JS算法原理/JS中的常见算法/" rel="prev" title="JS中的常见算法">
+                JS中的常见算法 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -437,12 +441,12 @@ Student.prototype.constructor = Student;   // &#x5C06;&#x539F;&#x578B;&#x7684;&#
                src="http://www.ld12.com/upimg358/allimg/c140918/14109CRX22F-H018.jpg"
                alt="ALBL" />
           <p class="site-author-name" itemprop="name">ALBL</p>
-          <p class="site-description motion-element" itemprop="description">分享是一种快乐，在分享中学习</p>
+          <p class="site-description motion-element" itemprop="description"></p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">14</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
