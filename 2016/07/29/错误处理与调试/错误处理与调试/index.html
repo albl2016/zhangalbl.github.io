@@ -1,0 +1,809 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="&amp;#x67E5;&amp;#x770B;&amp;#x62A5;&amp;#x9519;
+&amp;#x6240;&amp;#x6709;&amp;#x6D4F;&amp;#x89C8;&amp;#x5668;&amp;#x90FD;&amp;#x662F;&amp;#x6309;F12&amp;#x8C03;&amp;#x51FA;&amp;#x63A7;&amp;#x5236;&amp;#x53F0;&amp;#xFF1B;
+&amp;#x5728;console&amp;#x91CC;&amp;#x9762;&amp;#x770B;&amp;#x9519;&amp;#x8">
+<meta property="og:type" content="article">
+<meta property="og:title" content="兼容性处理、错误处理与调试">
+<meta property="og:url" content="http://yoursite.com/2016/07/29/错误处理与调试/错误处理与调试/index.html">
+<meta property="og:site_name" content="章礼俊的个人博客">
+<meta property="og:description" content="&amp;#x67E5;&amp;#x770B;&amp;#x62A5;&amp;#x9519;
+&amp;#x6240;&amp;#x6709;&amp;#x6D4F;&amp;#x89C8;&amp;#x5668;&amp;#x90FD;&amp;#x662F;&amp;#x6309;F12&amp;#x8C03;&amp;#x51FA;&amp;#x63A7;&amp;#x5236;&amp;#x53F0;&amp;#xFF1B;
+&amp;#x5728;console&amp;#x91CC;&amp;#x9762;&amp;#x770B;&amp;#x9519;&amp;#x8">
+<meta property="og:updated_time" content="2016-10-30T09:32:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="兼容性处理、错误处理与调试">
+<meta name="twitter:description" content="&amp;#x67E5;&amp;#x770B;&amp;#x62A5;&amp;#x9519;
+&amp;#x6240;&amp;#x6709;&amp;#x6D4F;&amp;#x89C8;&amp;#x5668;&amp;#x90FD;&amp;#x662F;&amp;#x6309;F12&amp;#x8C03;&amp;#x51FA;&amp;#x63A7;&amp;#x5236;&amp;#x53F0;&amp;#xFF1B;
+&amp;#x5728;console&amp;#x91CC;&amp;#x9762;&amp;#x770B;&amp;#x9519;&amp;#x8">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/07/29/错误处理与调试/错误处理与调试/"/>
+
+  <title> 兼容性处理、错误处理与调试 | 章礼俊的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">章礼俊的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">HTML5知识笔记</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                兼容性处理、错误处理与调试
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-29T09:01:13+08:00" content="2016-07-29">
+              2016-07-29
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/29/错误处理与调试/错误处理与调试/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/29/错误处理与调试/错误处理与调试/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>&#x67E5;&#x770B;&#x62A5;&#x9519;</strong></p>
+<p>&#x6240;&#x6709;&#x6D4F;&#x89C8;&#x5668;&#x90FD;&#x662F;&#x6309;F12&#x8C03;&#x51FA;&#x63A7;&#x5236;&#x53F0;&#xFF1B;</p>
+<p>&#x5728;console&#x91CC;&#x9762;&#x770B;&#x9519;&#x8BEF;&#xFF1B;&#x826F;&#x597D;&#x7684;&#x9519;&#x8BEF;&#x673A;&#x5236;&#x53EF;&#x4EE5;&#x8BA9;&#x7528;&#x6237;&#x53CA;&#x65F6;&#x5F97;&#x5230;&#x63D0;&#x9192;&#xFF0C;&#x77E5;&#x9053;&#x5230;&#x5E95;&#x53D1;&#x751F;&#x4E86;&#x4EC0;&#x4E48;&#x4E8B;&#xFF0C;&#x56E0;&#x800C;&#x4E0D;&#x4F1A;&#x607C;&#x7F9E;&#x6210;&#x6012;&#xFF1B;&#x4F5C;&#x4E3A;&#x5F00;&#x53D1;&#x8005;&#xFF0C;&#x6211;&#x4EEC;&#x5FC5;&#x987B;&#x7406;&#x89E3;&#x5728;&#x5904;&#x7406;JavaScript&#x9519;&#x8BEF;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x90FD;&#x6709;&#x54EA;&#x4E9B;&#x624B;&#x6BB5;&#x548C;&#x5DE5;&#x5177;&#x53EF;&#x4EE5;&#x5229;&#x7528;&#xFF1B;</p>
+<p>#&#x4E00;&#x3001;&#x9519;&#x8BEF;&#x7684;&#x5904;&#x7406;<br><strong>1&#x3001;try catch&#x8BED;&#x53E5;</strong><br>&#x53EA;&#x6709;&#x5728;&#x4E0D;&#x517C;&#x5BB9;&#x7684;&#xFF0C;&#x5728;&#x6D4F;&#x89C8;&#x5668;&#x4E2D;&#x53D1;&#x751F;&#x4E86;&#x5F02;&#x5E38;&#x7684;&#x9519;&#x8BEF;&#xFF0C;&#x6211;&#x4EEC;&#x624D;&#x53EF;&#x4EE5;&#x7528;try catch&#x6355;&#x83B7;&#x5230;&#xFF0C;&#x624D;&#x80FD;&#x5224;&#x65AD;&#x517C;&#x5BB9;(&#x57FA;&#x672C;&#x4E0A;&#x4E0D;&#x517C;&#x5BB9;&#x7684;&#x5728;&#x6267;&#x884C;&#x7684;&#x65F6;&#x5019;&#x90FD;&#x4F1A;&#x62A5;&#x9519;)&#xFF1B;&#x9700;&#x8981;&#x8FD0;&#x884C;&#xFF0C;&#x7136;&#x540E;&#x624D;&#x80FD;&#x5224;&#x65AD;&#xFF0C;&#x5C5E;&#x4E8E;&#x649E;&#x5899;&#x5F0F;&#x5904;&#x7406;&#xFF1B;A&#x884C;A&#x5C31;&#x4E0A;&#xFF1B;A&#x4E0D;&#x884C;&#x5C31;&#x8BD5;&#x8BD5;B&#xFF1B;</p>
+<blockquote>
+<pre><code>function testError(){
+    try{
+        console.log(&quot;&#x6267;&#x884C;&#x4E86;try&#x91CC;&#x9762;&#x7684;&#x4EE3;&#x7801;&quot;);
+        return &quot;&#x8FD4;&#x56DE;1&quot;;
+    }catch (error){
+        console.log(&quot;&#x6267;&#x884C;&#x4E86;catch&#x91CC;&#x9762;&#x7684;&#x4EE3;&#x7801;&quot;);
+        return &quot;&#x8FD4;&#x56DE;2&quot;;
+    }
+};
+var a=testError();
+console.log(a);
+//&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x662F;&#xFF1A;
+// &#x6267;&#x884C;&#x4E86;try&#x91CC;&#x9762;&#x7684;&#x4EE3;&#x7801;&#xFF1B;
+// &#x8FD4;&#x56DE;1&#xFF1B;
+</code></pre></blockquote>
+<p><strong>&#x5982;&#x679C;&#x7528;try-catch-finally&#xFF1B;</strong></p>
+<p>&#x867D;&#x7136;try-catch&#x8BED;&#x53E5;&#x4E2D;&#x662F;&#x53EF;&#x9009;&#x7684;&#xFF0C;&#x4F46;&#x662F;finally&#x5B50;&#x53E5;&#x53EA;&#x8981;&#x7528;&#xFF1B;&#x91CC;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x90FD;&#x4F1A;&#x6267;&#x884C;&#xFF1B;&#x65E0;&#x8BBA;try&#x548C;catch&#x91CC;&#x9762;&#x662F;&#x4EC0;&#x4E48;&#x4EE3;&#x7801;&#x90FD;&#x963B;&#x6B62;&#x4E0D;&#x4E86;&#x6267;&#x884C;finally&#x91CC;&#x9762;&#x7684;&#x4EE3;&#x7801;&#xFF1B;&#x5373;&#x65F6;&#x662F;&#x7528;&#x4E86;return&#x8BED;&#x53E5;&#xFF1B;</p>
+<blockquote>
+<pre><code>function testError(){
+    try{
+        console.log(&quot;&#x6267;&#x884C;&#x4E86;try&#x91CC;&#x9762;&#x7684;&#x4EE3;&#x7801;&quot;);
+        return &quot;&#x8FD4;&#x56DE;&#x7684;&#x662F;1&quot;;
+    }catch (error){
+        console.log(&quot;&#x6267;&#x884C;&#x4E86;catch&#x91CC;&#x9762;&#x7684;&#x4EE3;&#x7801;&quot;);
+        return &quot;&#x8FD4;&#x56DE;&#x7684;&#x662F;2&quot;;
+    }finally{
+        console.log(&quot;&#x65E0;&#x8BBA;&#x662F;&#x5426;&#x62A5;&#x9519;finally&#x91CC;&#x7684;&#x4EE3;&#x7801;&#x90FD;&#x6267;&#x884C;&#xFF0C;finally&#x5C31;&#x662F;&#x8FD9;&#x4E48;&#x5C4C;&#xFF01;&quot;);
+        return &quot;&#x8FD4;&#x56DE;&#x7684;&#x662F;3&quot;;
+    }
+};
+var a=testError();
+console.log(a);
+//&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x662F;&#xFF1A;
+// &#x6267;&#x884C;&#x4E86;try&#x91CC;&#x9762;&#x7684;&#x4EE3;&#x7801;&#xFF1B;
+// &#x65E0;&#x8BBA;&#x662F;&#x5426;&#x62A5;&#x9519;finally&#x91CC;&#x7684;&#x4EE3;&#x7801;&#x90FD;&#x6267;&#x884C;&#xFF0C;finally&#x5C31;&#x662F;&#x8FD9;&#x4E48;&#x5C4C;&#xFF01;
+// &#x8FD4;&#x56DE;3&#xFF1B;&#x3010;&#xFF01;&#x6CE8;&#x610F;&#x6B64;&#x65F6;&#x7684;return&#x5FFD;&#x7565;&#x4E86;try&#xFF1B;&#x800C;&#x662F;return&#x4E86;finally&#x91CC;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#xFF1B;&#x3011;
+</code></pre></blockquote>
+<p>&#x6B63;&#x5E38;&#x60C5;&#x51B5;&#x662F;return&#x540E;&#xFF0C;&#x51FD;&#x6570;&#x4E2D;&#x53EA;&#x8981;&#x8BFB;&#x53D6;&#x5230;return&#x5C31;&#x505C;&#x6B62;&#x6267;&#x884C;&#x672C;&#x51FD;&#x6570;&#xFF1B;&#x4F46;&#x662F;&#x5728;&#x8FD9;&#x91CC;&#x662F;&#x7279;&#x6B8A;&#xFF1B;</p>
+<p><strong>&#x539F;&#x7406;&#x5206;&#x6790;&#x5982;&#x4E0B;</strong></p>
+<p>&#x56E0;&#x4E3A;&#x51FD;&#x6570;&#x8FD8;&#x6709;&#x4E00;&#x6761;&#x89C4;&#x5219;&#x662F;&#x51FD;&#x6570;&#x53EA;&#x80FD;&#x6709;&#x4E00;&#x4E2A;&#x8FD4;&#x56DE;&#x503C;&#xFF0C;&#x5F53;&#x6267;&#x884C;try&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x9047;&#x5230;return&#xFF0C;&#x786E;&#x5B9E;&#x9000;&#x51FA;&#x672C;&#x6B21;&#x6267;&#x884C;&#x4E86;&#xFF0C;&#x6B64;&#x65F6;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x4E5F;&#x662F;try&#x5185;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#xFF0C;&#x4F46;&#x662F;&#x56E0;&#x4E3A;finally&#x7684;&#x673A;&#x5236;&#xFF0C;&#x5FC5;&#x987B;&#x8FD8;&#x8981;&#x518D;&#x6267;&#x884C;&#x4E00;&#x6B21;&#xFF0C;finally&#x91CC;&#x9762;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x6B64;&#x65F6;return&#x88AB;&#x6539;&#x5199;&#x6210;&#x4E86;finally&#x91CC;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#xFF1B;&#x3010;&#x56E0;&#x4E3A;&#x51FD;&#x6570;&#x53EA;&#x80FD;&#x6709;&#x4E00;&#x4E2A;&#x8FD4;&#x56DE;&#x503C;&#x3011;&#xFF1B;&#x6240;&#x4EE5;&#x6B64;&#x65F6;&#x8FD4;&#x56DE;&#x7684;&#x662F;3&#xFF01;&#xFF08;catch&#x7684;&#x65F6;&#x5019;&#x601D;&#x8DEF;&#x4E00;&#x6837;&#xFF09;</p>
+<p>&#x518D;&#x6D4B;&#x8BD5;&#x4E0B;&#xFF0C;&#x628A;finally&#x91CC;&#x9762;&#x7684;return&#x53BB;&#x6389;&#xFF1B;&#x4EE3;&#x7801;&#x5982;&#x4E0B;</p>
+<blockquote>
+<pre><code>function testError(){
+    try{
+        console.log(&quot;&#x6267;&#x884C;&#x4E86;try&#x91CC;&#x9762;&#x7684;&#x4EE3;&#x7801;&quot;);
+        return &quot;&#x8FD4;&#x56DE;&#x7684;&#x662F;1&quot;;
+    }catch (error){
+        console.log(&quot;&#x6267;&#x884C;&#x4E86;catch&#x91CC;&#x9762;&#x7684;&#x4EE3;&#x7801;&quot;);
+        return &quot;&#x8FD4;&#x56DE;&#x7684;&#x662F;2&quot;;
+    }finally{
+        console.log(&quot;&#x65E0;&#x8BBA;&#x662F;&#x5426;&#x62A5;&#x9519;finally&#x91CC;&#x7684;&#x4EE3;&#x7801;&#x90FD;&#x6267;&#x884C;&#xFF0C;finally&#x5C31;&#x662F;&#x8FD9;&#x4E48;&#x5C4C;&#xFF01;&quot;);
+    }
+};
+var a=testError();
+console.log(a);
+//&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x662F;&#xFF1A;
+// &#x6267;&#x884C;&#x4E86;try&#x91CC;&#x9762;&#x7684;&#x4EE3;&#x7801;&#xFF1B;
+// &#x65E0;&#x8BBA;&#x662F;&#x5426;&#x62A5;&#x9519;finally&#x91CC;&#x7684;&#x4EE3;&#x7801;&#x90FD;&#x6267;&#x884C;&#xFF0C;finally&#x5C31;&#x662F;&#x8FD9;&#x4E48;&#x5C4C;&#xFF01;
+// &#x8FD4;&#x56DE;1&#xFF1B;&#x3010;&#xFF01;&#x6CE8;&#x610F;&#x6B64;&#x65F6;finally&#x91CC;&#x9762;&#x6CA1;&#x6709;&#x8FD4;&#x56DE;&#x503C;&#xFF0C;&#x6240;&#x4EE5;&#x51FD;&#x6570;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x53C8;&#x662F;1&#x4E86;&#xFF1B;&#x3011;
+</code></pre><p>&#x7ED3;&#x679C;&#x679C;&#x7136;&#x5C31;&#x662F;&#x8FD4;&#x56DE;1&#x91CC;&#x9762;&#x7684;&#x503C;&#xFF1B;&#x5982;&#x679C;&#x7528;finally&#xFF0C;&#x90A3;&#x4E48;catch&#x5C31;&#x662F;&#x53EF;&#x9009;&#x7684;&#x4E86;&#xFF1B;&#xFF08;catch&#x6216;finally&#x53EF;&#x4EE5;&#x5355;&#x72EC;&#x53EA;&#x51FA;&#x73B0;&#x4E00;&#x4E2A;&#xFF1B;&#xFF09;&#xFF1B;&#x4E0D;&#x8FC7;IE7&#x4EE5;&#x53CA;&#x4EE5;&#x524D;&#x7684;&#x7248;&#x672C;&#x6709;bug&#xFF0C;&#x9664;&#x975E;&#x6709;&#x5199;catch&#x5B50;&#x53E5;&#xFF1B;&#x5426;&#x5219;finally&#x4E2D;&#x7684;&#x4EE3;&#x7801;&#x4E0D;&#x4F1A;&#x6267;&#x884C;&#xFF1B;&#x89E3;&#x51B3;&#x529E;&#x6CD5;&#x662F;&#xFF0C;&#x53EA;&#x8981;&#x5199;finally&#xFF0C;&#x5C31;&#x5199;&#x4E00;&#x4E2A;catch&#x5B50;&#x53E5;&#xFF0C;&#x54EA;&#x6015;&#x91CC;&#x9762;&#x4EC0;&#x4E48;&#x90FD;&#x6CA1;&#x6709;&#xFF1B;</p>
+</blockquote>
+<p><strong>&#x5904;&#x7406;&#x517C;&#x5BB9;&#x6027;&#x95EE;&#x9898;&#x65F6;&#xFF0C;&#x4E0D;&#x7528;try-catch&#x3001;&#x7528;&#x5224;&#x65AD;&#x5BF9;&#x8C61;&#x4E2D;&#x662F;&#x5426;&#x6709;&#x8FD9;&#x4E2A;&#x5C5E;&#x6027;&#x7684;&#x539F;&#x7406;</strong></p>
+<p>&#x5728;&#x660E;&#x77E5;&#x9053;&#x81EA;&#x5DF1;&#x4EE3;&#x7801;&#x54EA;&#x4E9B;&#x4F1A;&#x51FA;&#x9519;&#xFF0C;&#x54EA;&#x4E9B;&#x4E0D;&#x4F1A;&#x51FA;&#x9519;&#xFF1B;&#x4E5F;&#x5C31;&#x662F;&#x6700;&#x5E38;&#x89C1;&#x7684;&#x5904;&#x7406;&#x517C;&#x5BB9;&#x6027;&#x95EE;&#x9898;&#x65F6;&#x5019;&#xFF0C;&#x7528;try-catch&#x8BED;&#x53E5;&#x5C31;&#x4E0D;&#x5408;&#x9002;&#x4E86;&#xFF1B;&#x5904;&#x7406;&#x517C;&#x5BB9;&#x6027;&#x95EE;&#x9898;&#x53EF;&#x4EE5;&#x7528;&#x4E0B;&#x9762;&#x7684;&#xFF1B;</p>
+<ul>
+<li><p>if(document.getElementsByClassName){}</p>
+<p>&#x83B7;&#x53D6;document&#x4E0B;getElementsByClassName&#x7684;&#x5C5E;&#x6027;&#x503C;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x517C;&#x5BB9;&#x8FD4;&#x56DE;&#x7684;&#x503C;undefined&#xFF0C;&#x5982;&#x679C;&#x517C;&#x5BB9;&#x8FD4;&#x56DE;&#x7684;&#x662F;&#x4E00;&#x4E2A;function&#xFF0C;&#x7136;&#x540E;&#x6211;&#x4EEC;&#x628A;&#x8FD4;&#x56DE;&#x503C;&#x8F6C;&#x6362;&#x6210;&#x5E03;&#x5C14;&#x7C7B;&#x578B;&#x5224;&#x65AD;&#x771F;&#x5047;&#xFF1B;</p>
+</li>
+<li><p>if(&#x201C;getElementsByClassName&#x201D; in document){}</p>
+<p>&#x76F4;&#x63A5;&#x7528;in&#x6765;&#x5224;&#x65AD;&#x662F;&#x4E0D;&#x662F;document&#x7684;&#x4E00;&#x4E2A;&#x5C5E;&#x6027;,&#x662F;&#x7684;&#x8BDD;&#x8FD4;&#x56DE;true&#xFF0C;&#x4E0D;&#x662F;&#x7684;&#x8BDD;&#x8FD4;&#x56DE;false&#xFF1B;&#x5224;&#x65AD;&#x5C5E;&#x6027;&#xFF0C;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#x5E03;&#x5C14;&#x503C;&#xFF0C;<strong>&#x7528;in&#x6765;&#x5224;&#x65AD;&#x5C5E;&#x6027;&#x7684;&#x6027;&#x80FD;&#x6700;&#x597D;</strong>&#xFF01;</p>
+</li>
+<li><p>if(typeof document.getElementsByClassName===&#x201D;function&#x201D;){}</p>
+</li>
+</ul>
+<p>&#x8BA4;&#x4E3A;&#x53EA;&#x6709;&#x8FD9;&#x6837;&#x624D;&#x662F;&#x517C;&#x5BB9;&#x7684;</p>
+<p><strong>&#x9519;&#x8BEF;&#x7684;&#x7C7B;&#x578B;&#x603B;&#x7ED3;&#xFF1A;</strong></p>
+<p>&#x5229;&#x7528;&#x4E0D;&#x540C;&#x7684;&#x7C7B;&#x578B;&#xFF0C;&#x53EF;&#x4EE5;&#x719F;&#x6089;&#x66F4;&#x591A;&#x7684;&#x5F02;&#x5E38;&#x4FE1;&#x606F;&#xFF0C;&#x6709;&#x52A9;&#x4E8E;&#x5FEB;&#x901F;&#x5BF9;&#x9519;&#x8BEF;&#x505A;&#x51FA;&#x6070;&#x5F53;&#x7684;&#x5904;&#x7406;&#xFF1B;</p>
+<blockquote>
+<ul>
+<li>Error;//&#x57FA;&#x7C7B;&#x578B;&#xFF0C;&#x5176;&#x5B83;&#x9519;&#x8BEF;&#x7C7B;&#x578B;&#x90FD;&#x662F;&#x7EE7;&#x627F;&#x81EA;&#x8BE5;&#x7C7B;&#x578B;&#x7684;&#xFF1B;&#x56E0;&#x6B64;&#xFF0C;&#x6240;&#x6709;&#x7684;&#x9519;&#x8BEF;&#x7C7B;&#x578B;&#x5171;&#x4EAB;&#x4E86;&#x4E00;&#x7EC4;&#x76F8;&#x540C;&#x7684;&#x5C5E;&#x6027;&#xFF08;&#x9519;&#x8BEF;&#x5BF9;&#x8C61;&#x4E2D;&#x7684;&#x65B9;&#x6CD5;&#x5168;&#x662F;&#x9ED8;&#x8BA4;&#x7684;&#x5BF9;&#x8C61;&#x65B9;&#x6CD5;&#xFF09;&#xFF0C;Error&#x7C7B;&#x578B;&#x7684;&#x62A5;&#x9519;&#x5F88;&#x5C11;&#x89C1;&#xFF1B;&#x8FD9;&#x4E2A;&#x57FA;&#x7C7B;&#x578B;&#x7684;&#x4E3B;&#x8981;&#x76EE;&#x7684;&#x662F;&#x4F9B;&#x5F00;&#x53D1;&#x8005;&#x629B;&#x51FA;&#x81EA;&#x5B9A;&#x4E49;&#x9519;&#x8BEF;&#x7684;</li>
+<li>Eval&#x9519;&#x8BEF; &#xFF0C;EvalError;//&#x4F1A;&#x5728;&#x4F7F;&#x7528;eval()&#x51FD;&#x6570;&#x800C;&#x53D1;&#x751F;&#x5F02;&#x5E38;&#x65F6;&#x88AB;&#x629B;&#x51FA;&#xFF1B;ECMA-262&#x4E2D;&#x5BF9;&#x8FD9;&#x4E2A;&#x9519;&#x8BEF;&#x63CF;&#x8FF0;&#x662F;&#x201D;&#x5982;&#x679C;&#x4EE5;&#x975E;&#x76F4;&#x63A5;&#x8C03;&#x7528;&#x7684;&#x65B9;&#x5F0F;&#x4F7F;&#x7528;eval&#x5C5E;&#x6027;&#x7684;&#x503C;&#xFF1B;&#x6216;&#x8005;&#x4E3A;eval&#x5C5E;&#x6027;&#x8D4B;&#x503C;&#x201D;&#xFF0C;&#x7B80;&#x5355;&#x7684;&#x8BF4;&#x5C31;&#x662F;&#x6CA1;&#x6709;&#x628A;eval&#x5F53;&#x51FD;&#x6570;&#x8C03;&#x7528;&#xFF0C;&#x5C31;&#x4F1A;&#x629B;&#x51FA;&#x9519;&#x8BEF;&#xFF1B;&#x4F46;&#x662F;&#x5B9E;&#x9645;&#x4E2D;&#xFF0C;&#x6D4F;&#x89C8;&#x5668;&#x4E0D;&#x4E00;&#x5B9A;&#x629B;&#x51FA;&#x7684;&#x662F;EvalError&#xFF0C;&#x8C37;&#x6B4C;&#x629B;&#x51FA;&#x7684;&#x53EF;&#x80FD;&#x662F;TypeError&#x6216;&#x8005;ReferenceError&#xFF1B;<ul>
+<li>new eval();//Uncaught TypeError: function eval() { [native code] } is not a constructor</li>
+<li>eval=zhuanbang;//Uncaught ReferenceError: zhuanbang is not defined</li>
+</ul>
+</li>
+<li>&#x8303;&#x56F4;&#x9519;&#x8BEF; RangeError;//&#x6570;&#x503C;&#x8D85;&#x8FC7;&#x76F8;&#x5E94;&#x8303;&#x56F4;&#x65F6;&#x89E6;&#x53D1;&#xFF1B;<ul>
+<li>var a=new Array(-10);//Uncaught RangeError: Invalid array length</li>
+</ul>
+</li>
+<li>&#x53D8;&#x91CF;&#x5F15;&#x7528;&#x9519;&#x8BEF;&#xFF09; ReferenceError;&#x627E;&#x4E0D;&#x5230;&#x5BF9;&#x8C61;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4F1A;&#x62A5;&#x8FD9;&#x4E2A;&#x9519;&#x8BEF;&#xFF0C;&#x901A;&#x5E38;&#xFF0C;&#x5728;&#x8BBF;&#x95EE;&#x4E0D;&#x5B58;&#x5728;&#x7684;&#x53D8;&#x91CF;&#x65F6;&#xFF0C;&#x5C31;&#x4F1A;&#x53D1;&#x751F;&#x8FD9;&#x79CD;&#x9519;&#x8BEF;&#xFF1B;<ul>
+<li>var a=luanxie;//Uncaught ReferenceError: luanxie is not defined</li>
+</ul>
+</li>
+<li>&#x8BED;&#x6CD5;&#x9519;&#x8BEF; SyntaxError;&#x8868;&#x793A;&#x51FD;&#x6570;&#x51FA;&#x73B0;&#x8BED;&#x6CD5;&#x9519;&#x8BEF;&#xFF0C;&#x5F53;&#x6211;&#x4EEC;&#x628A;&#x8BED;&#x6CD5;&#x9519;&#x8BEF;&#x7684;JavaScript&#x5B57;&#x7B26;&#x4E32;&#x4F20;&#x5165;eval&#x51FD;&#x6570;&#x65F6;&#xFF0C;&#x5C31;&#x4F1A;&#x5BFC;&#x81F4;&#x6B64;&#x7C7B;&#x578B;&#x9519;&#x8BEF;&#xFF1B; <ul>
+<li>eval(&#x201C;a++b&#x201D;);//Uncaught SyntaxError: Unexpected identifier</li>
+</ul>
+</li>
+<li>&#x53D8;&#x91CF;&#x7C7B;&#x578B;&#x4E0D;&#x7B26; TypeError;&#x5F53;&#x53D8;&#x91CF;&#x4FDD;&#x5B58;&#x610F;&#x5916;&#x7C7B;&#x578B;&#xFF0C;&#x6216;&#x8005;&#x8BBF;&#x95EE;&#x4E0D;&#x5B58;&#x5728;&#x7684;&#x65B9;&#x6CD5;&#x65F6;&#xFF0C;&#x90FD;&#x4F1A;&#x5BFC;&#x81F4;&#x8FD9;&#x4E2A;&#x9519;&#x8BEF;&#xFF1B;&#x629B;&#x8FD9;&#x4E2A;&#x7C7B;&#x578B;&#x662F;&#x7531;&#x4E8E;&#x5728;&#x6267;&#x884C;&#x7279;&#x5B9A;&#x4E8E;&#x7C7B;&#x578B;&#x7684;&#x64CD;&#x4F5C;&#x65F6;&#xFF0C;&#x53D8;&#x91CF;&#x7C7B;&#x578B;&#x5E76;&#x4E0D;&#x7B26;&#x5408;&#x8981;&#x6C42;&#xFF1B;&#xFF08;&#x4E00;&#x822C;&#x5B58;&#x5728;&#x4E8E;&#x4F20;&#x9012;&#x7ED9;&#x51FD;&#x6570;&#x7684;&#x53C2;&#x6570;&#x5B9E;&#x73B0;&#x672A;&#x7ECF;&#x8FC7;&#x68C0;&#x67E5;&#xFF0C;&#x7ED3;&#x679C;&#x4F20;&#x5165;&#x7C7B;&#x578B;&#x4E0E;&#x9884;&#x671F;&#x7C7B;&#x578B;&#x4E0D;&#x76F8;&#x7B26;&#xFF09;<ul>
+<li>var o=new 10;//Uncaught TypeError: 10 is not a function</li>
+<li>alert(&#x201C;string&#x201D; in true )//Uncaught TypeError: Cannot use &#x2018;in&#x2019; operator to search for &#x2018;string&#x2019; in true</li>
+<li>Function.prototype.toString.call(&#x201C;string&#x201D;);//Uncaught TypeError:Function.prototype.toString is not generic</li>
+</ul>
+</li>
+<li>URIError;&#x5728;&#x4F7F;&#x7528;encodeURI()&#x6216;decodeURI(),&#x800C;URI&#x4E0D;&#x6B63;&#x786E;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5C31;&#x4F1A;&#x5BFC;&#x81F4;&#x8FD9;&#x4E2A;&#x9519;&#x8BEF;&#xFF0C;&#x8FD9;&#x4E2A;&#x9519;&#x8BEF;&#x5F88;&#x5C11;&#x89C1;&#xFF0C;&#x56E0;&#x4E3A;&#x8FD9;&#x4E24;&#x4E2A;&#x51FD;&#x6570;&#x7684;&#x5BB9;&#x9519;&#x6027;&#x975E;&#x5E38;&#x9AD8;&#xFF1B;</li>
+</ul>
+</blockquote>
+<p>&#x9519;&#x8BEF;&#x7C7B;&#x578B;&#x7684;&#x5904;&#x7406;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;try-catch&#x8BED;&#x53E5;&#x7684;catch&#x8BED;&#x53E5;&#x4E2D;&#x4F7F;&#x7528;instanceof&#x64CD;&#x4F5C;&#x7B26;&#xFF1B;</p>
+<blockquote>
+<pre><code>try{
+    someFunction();
+}catch (error) {
+    if (error instanceof TypeError){
+        //&#x5904;&#x7406;&#x7C7B;&#x578B;&#x9519;&#x8BEF;&#xFF1B;
+    }else if (error instanceof ReferenceError){
+        //&#x5904;&#x7406;&#x53D8;&#x91CF;&#x5F15;&#x7528;&#x9519;&#x8BEF;&#xFF1B;
+    }else{
+        //&#x5904;&#x7406;&#x5176;&#x5B83;&#x9519;&#x8BEF;&#xFF1B;
+    }
+}
+</code></pre></blockquote>
+<p><strong>try-catch&#x7684;&#x5408;&#x7406;&#x7528;&#x5904;</strong>&#xFF1A;</p>
+<p>&#x4F7F;&#x7528;&#x4E0E;&#x6211;&#x4EEC;&#x65E0;&#x6CD5;&#x63A7;&#x5236;&#x7684;&#x9519;&#x8BEF;&#xFF0C;&#x5047;&#x8BBE;&#x5728;&#x4F7F;&#x7528;&#x4E00;&#x4E2A;&#x5927;&#x578B;JavaScript&#x5E93;&#x4E2D;&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x8FD9;&#x4E2A;&#x8BE5;&#x51FD;&#x53EF;&#x80FD;&#x4F1A;&#x6709;&#x610F;&#x65E0;&#x610F;&#x7684;&#x629B;&#x51FA;&#x4E00;&#x4E9B;&#x9519;&#x8BEF;&#xFF1B;&#x7531;&#x4E8E;&#x4E0D;&#x80FD;&#x4FEE;&#x6539;&#x8FD9;&#x4E2A;&#x5E93;&#x7684;&#x6E90;&#x4EE3;&#x7801;&#xFF0C;&#x6240;&#x4EE5;&#x5927;&#x53EF;&#x5BF9;&#x8BE5;&#x4EE3;&#x7801;&#x7684;&#x8C03;&#x7528;&#x653E;&#x5728;try-catch&#x8BED;&#x53E5;&#x5F53;&#x4E2D;&#xFF0C;&#x4E07;&#x4E00;&#x6709;&#x4EC0;&#x4E48;&#x9519;&#x8BEF;&#x53D1;&#x751F;&#xFF0C;&#x53EF;&#x4EE5;&#x6070;&#x5F53;&#x7684;&#x5904;&#x7406;&#xFF1B;</p>
+<p>&#x4E00;&#x822C;&#x6765;&#x8BF4;&#xFF0C;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x67B6;&#x6784;&#x7684;&#x8F83;&#x4F4E;&#x5C42;&#x6B21;&#x4E2D;&#x7ECF;&#x5E38;&#x4F1A;&#x629B;&#x51FA;&#x9519;&#x8BEF;&#xFF0C;&#x4F46;&#x8FD9;&#x4E2A;&#x5C42;&#x6B21;&#x5E76;&#x4E0D;&#x4F1A;&#x5F71;&#x54CD;&#x5F53;&#x524D;&#x6267;&#x884C;&#x7684;&#x4EE3;&#x7801;&#xFF1B;&#x56E0;&#x800C;&#x9519;&#x8BEF;&#x901A;&#x5E38;&#x5F97;&#x4E0D;&#x5230;&#x771F;&#x6B63;&#x7684;&#x5904;&#x7406;&#xFF0C;&#x5982;&#x679C;&#x6253;&#x7B97;&#x7F16;&#x5199;&#x4E00;&#x4E2A;&#x8981;&#x5728;&#x5F88;&#x591A;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E2D;&#x4F7F;&#x7528;&#x7684;JavaScript&#x5E93;&#xFF0C;&#x751A;&#x81F3;&#x53EA;&#x7F16;&#x5199;&#x4E00;&#x4E2A;&#x53EF;&#x80FD;&#x4F1A;&#x5728;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x5185;&#x90E8;&#x591A;&#x4E2A;&#x5730;&#x65B9;&#x4F7F;&#x7528;&#x7684;&#x8F85;&#x52A9;&#x51FD;&#x6570;&#xFF0C;&#x5EFA;&#x8BAE;&#x5728;&#x629B;&#x51FA;&#x9519;&#x8BEF;&#x662F;&#x63D0;&#x4F9B;&#x8BE6;&#x5C3D;&#x7684;&#x4FE1;&#x606F;&#xFF1B;&#x7136;&#x540E;&#xFF0C;&#x5373;&#x53EF;&#x5728;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E2D;&#x6355;&#x83B7;&#x5E76;&#x9002;&#x5F53;&#x5730;&#x5904;&#x7406;&#x8FD9;&#x4E9B;&#x9519;&#x8BEF;&#xFF1B;</p>
+<p>&#x6355;&#x83B7;&#x9519;&#x8BEF;&#x4E0E;&#x629B;&#x51FA;&#x9519;&#x8BEF;&#xFF1A;&#x53EA;&#x5E94;&#x8BE5;&#x6355;&#x83B7;&#x54EA;&#x4E9B;&#x786E;&#x5207;&#x77E5;&#x9053;&#x8BE5;&#x5982;&#x4F55;&#x5904;&#x7406;&#x7684;&#x9519;&#x8BEF;&#xFF01;&#x6355;&#x83B7;&#x9519;&#x8BEF;&#x7684;&#x76EE;&#x7684;&#x5728;&#x4E8E;&#x907F;&#x514D;&#x6D4F;&#x89C8;&#x5668;&#x4EE5;&#x9ED8;&#x8BA4;&#x65B9;&#x5F0F;&#x5904;&#x7406;&#x5B83;&#x4EEC;&#xFF0C;&#x800C;&#x629B;&#x51FA;&#x9519;&#x8BEF;&#x7684;&#x76EE;&#x7684;&#x5728;&#x4E8E;&#x63D0;&#x4F9B;&#x9519;&#x8BEF;&#x53D1;&#x751F;&#x5177;&#x4F53;&#x539F;&#x56E0;&#x7684;&#x6D88;&#x606F;&#xFF01;</p>
+<p><strong>2&#x3001;&#x629B;&#x51FA;&#x9519;&#x8BEF;</strong></p>
+<p>&#x629B;&#x51FA;&#x9519;&#x8BEF;&#x7684;&#x76EE;&#x7684;&#x5728;&#x4E8E;&#x63D0;&#x4F9B;&#x9519;&#x8BEF;&#x53D1;&#x751F;&#x5177;&#x4F53;&#x539F;&#x56E0;&#x7684;&#x6D88;&#x606F;&#xFF1B;</p>
+<p>&#x4E0E;try-catch&#x76F8;&#x914D;&#x7684;&#x8FD8;&#x6709;&#x4E00;&#x4E2A;throw&#x64CD;&#x4F5C;&#x7B26;&#xFF1B;&#x7528;&#x4E8E;&#x968F;&#x65F6;&#x629B;&#x51FA;&#x81EA;&#x5B9A;&#x4E49;&#x9519;&#x8BEF;&#xFF1B;&#x629B;&#x51FA;&#x9519;&#x8BEF;&#x7684;&#x65F6;&#x5019;&#x5FC5;&#x987B;&#x8981;&#x7ED9;throw&#x64CD;&#x4F5C;&#x7B26;&#x4E00;&#x4E2A;&#x503C;&#xFF0C;&#x8FD9;&#x4E2A;&#x503C;&#x662F;&#x4EC0;&#x4E48;&#x7C7B;&#x578B;&#xFF0C;&#x6CA1;&#x6709;&#x8981;&#x6C42;&#xFF1B;&#x4E0B;&#x9762;&#x4EE3;&#x7801;&#x90FD;&#x662F;&#x53EF;&#x4EE5;&#x7684;&#xFF1B;</p>
+<blockquote>
+<pre><code>throw  12345;//Uncaught 12345
+throw  &quot;this is a string&quot;;
+throw  true;
+throw {name :&quot;javascript&quot;};//Uncaught #&lt;Object&gt;
+</code></pre></blockquote>
+<p>&#x4F7F;&#x7528;&#x67D0;&#x79CD;&#x5185;&#x7F6E;&#x9519;&#x8BEF;&#x7C7B;&#x578B;&#xFF0C;&#x53EF;&#x4EE5;&#x66F4;&#x771F;&#x5B9E;&#x7684;&#x6A21;&#x62DF;&#x6D4F;&#x89C8;&#x5668;&#x9519;&#x8BEF;&#xFF0C;&#x6BCF;&#x79CD;&#x9519;&#x8BEF;&#x7C7B;&#x578B;&#x7684;&#x6784;&#x9020;&#x51FD;&#x6570;&#x63A5;&#x6536;&#x53C2;&#x6570;&#xFF0C;&#x5C31;&#x662F;&#x5B9E;&#x9645;&#x7684;&#x9519;&#x8BEF;&#x6D88;&#x606F;&#xFF1B;&#x6D4F;&#x89C8;&#x5668;&#x4F1A;&#x4E00;&#x5E38;&#x89C4;&#x65B9;&#x5F0F;&#x62A5;&#x544A;&#x8FD9;&#x4E2A;&#x9519;&#x8BEF;&#xFF1B;&#x81EA;&#x5B9A;&#x4E49;&#x9519;&#x8BEF;&#x65F6;&#x5019;&#xFF1B;</p>
+<p>&#x6700;&#x5E38;&#x7528;&#x7684;&#x662F;&#xFF1A;Error&#x901A;&#x7528;&#x7C7B;&#x578B;&#x3001;&#x8303;&#x56F4;&#x9519;&#x8BEF;RangeError&#xFF0C;&#x53D8;&#x91CF;&#x5F15;&#x7528;&#x9519;&#x8BEF;ReferenceError&#x3001;&#x53D8;&#x91CF;&#x7C7B;&#x578B;&#x9519;&#x8BEF;TypeError&#xFF1B;</p>
+<blockquote>
+<pre><code> throw  new Error(&quot;&#x629B;&#x51FA;&#x901A;&#x7528;&#x9519;&#x8BEF;&quot;);//Uncaught Error: &#x629B;&#x51FA;&#x901A;&#x7528;&#x9519;&#x8BEF;
+throw  new Error(&#x629B;&#x51FA;&#x901A;&#x7528;&#x9519;&#x8BEF;);//Uncaught ReferenceError,&#x629B;&#x51FA;&#x901A;&#x7528;&#x9519;&#x8BEF; is not defined;
+throw new SyntaxError(&quot;SyntaxError&#x8BED;&#x6CD5;&#x9519;&#x8BEF;&quot;);
+throw new RangeError(&quot;RangeError&#x8303;&#x56F4;&#x9519;&#x8BEF;&quot;);
+throw new ReferenceError(&quot;ReferenceError&#x53D8;&#x91CF;&#x5F15;&#x7528;&#x9519;&#x8BEF;&quot;);
+throw new TypeError(&quot;TypeError&#x53D8;&#x91CF;&#x7C7B;&#x578B;&#x9519;&#x8BEF;&quot;);
+</code></pre></blockquote>
+<p><strong>&#x629B;&#x51FA;&#x9519;&#x8BEF;&#x7684;&#x65F6;&#x673A;</strong></p>
+<p>&#x4E0B;&#x9762;&#x7684;&#x53C2;&#x6570;&#x5728;&#x53C2;&#x6570;&#x4E0D;&#x662F;&#x6570;&#x7EC4;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x4F1A;&#x5931;&#x8D25;&#xFF1F;</p>
+<blockquote>
+<pre><code>function test(ary){
+    ary.sort();//&#x5982;&#x679C;&#x6267;&#x884C;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x65F6;&#x5019;&#xFF0C;&#x7ED9;&#x5B83;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x53C2;&#x6570;&#xFF0C;&#x90A3;&#x4E48;&#x5BF9;sort&#x7684;&#x8C03;&#x7528;&#x5C31;&#x4F1A;&#x5931;&#x8D25;&#xFF1B;
+    for(var i= 0,len=ary.length;i&lt;len;i++){
+        var ary1=[];
+        if(ary[i]&gt;100){
+            return ary1;
+        }
+        ary1.push(ary[i]);
+        return ary1;
+    }
+}
+</code></pre></blockquote>
+<p>&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5E26;&#x6709;&#x9002;&#x5F53;&#x4FE1;&#x606F;&#x7684;&#x81EA;&#x5B9A;&#x4E49;&#x9519;&#x8BEF;&#x80FD;&#x591F;&#x663E;&#x8457;&#x63D0;&#x5347;&#x4EE3;&#x7801;&#x7684;&#x53EF;&#x7EF4;&#x62A4;&#x578B;&#xFF1B;</p>
+<blockquote>
+<pre><code>function testName(ary){
+    if(!(ary instanceof Array){
+        throw new Error(&quot;testName():arguments must array&quot;);//&#x624B;&#x52A8;&#x629B;&#x51FA;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&#x4ECB;&#x7ECD;&#xFF0C;&#x8C03;&#x7528;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5982;&#x679C;&#x9519;&#x4E86;&#xFF0C;&#x4E00;&#x4E0B;&#x5C31;&#x77E5;&#x9053;&#x95EE;&#x9898;&#x4E86;
+    }
+    ary.sort();
+    for(var i= 0,len=ary.length;i&lt;len;i++){
+        var ary1=[];
+        if(ary[i]&gt;100){
+            return ary1;
+        }
+        ary1.push(ary[i]);
+        return ary1;
+    }
+}
+</code></pre></blockquote>
+<p>&#x505A;&#x590D;&#x6742;&#x7684;JS&#x57FA;&#x7840;&#x5E93;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4E00;&#x5B9A;&#x8981;&#x8003;&#x8651;&#x5F02;&#x5E38;&#x5904;&#x7406;&#xFF1B;&#x6B63;&#x786E;&#x7684;&#x9519;&#x8BEF;&#x5904;&#x7406;&#x673A;&#x5236;&#x5E94;&#x8BE5;&#x53EF;&#x4EE5;&#x786E;&#x4FDD;&#x4EE3;&#x7801;&#x4E2D;&#x53EA;&#x53D1;&#x751F;&#x4F60;&#x81EA;&#x5DF1;&#x629B;&#x51FA;&#x7684;&#x9519;&#x8BEF;&#xFF01;</p>
+<p><strong>&#x9519;&#x8BEF;&#x4E8B;&#x4EF6;</strong></p>
+<p>&#x4EFB;&#x4F55;&#x6CA1;&#x6709;&#x901A;&#x8FC7;try-catch&#x5904;&#x7406;&#x7684;&#x9519;&#x8BEF;&#x90FD;&#x4F1A;&#x89E6;&#x53D1;window&#x5BF9;&#x8C61;&#x7684;error&#x5B9E;&#x73B0;&#xFF1B;&#x8FD9;&#x4E2A;&#x4E8B;&#x4EF6;&#x662F;WEB&#x6D4F;&#x89C8;&#x5668;&#x6700;&#x5DE6;&#x652F;&#x6301;&#x7684;&#x4E8B;&#x4EF6;&#x4E4B;&#x4E00;&#xFF1B;IE,FF,chrome&#x4E3A;&#x4E86;&#x4FDD;&#x6301;&#x5411;&#x540E;&#x517C;&#x5BB9;&#xFF0C;&#x5E76;&#x6CA1;&#x6709;&#x5BF9;&#x8FD9;&#x4E2A;&#x4E8B;&#x4EF6;&#x505A;&#x4EFB;&#x4F55;&#x4FEE;&#x6539;&#xFF1B;&#x4F46;&#x662F;&#x6B27;&#x670B;&#xFF0C;safari&#x4E0D;&#x652F;&#x6301;error&#x4E8B;&#x4EF6;&#xFF1B;</p>
+<p>&#x4EFB;&#x4F55;&#x6D4F;&#x89C8;&#x5668;&#x4E2D;&#xFF0C;onerror&#x4E8B;&#x4EF6;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x90FD;&#x4E0D;&#x4F1A;&#x521B;&#x5EFA;event&#x5BF9;&#x8C61;&#xFF1B;&#x4F46;&#x5B83;&#x53EF;&#x4EE5;&#x63A5;&#x53D7;&#x4E09;&#x4E2A;&#x53C2;&#x6570;&#xFF1A;&#x9519;&#x8BEF;&#x6D88;&#x606F;&#x3001;&#x9519;&#x8BEF;&#x6240;&#x5728;&#x7684;URL&#x548C;&#x884C;&#x53F7;&#xFF1B;</p>
+<ul>
+<li>&#x9519;&#x8BEF;&#x6D88;&#x606F;&#x7ED9;&#x51FA;&#x4E86;&#x9519;&#x8BEF;&#x7684;&#x5177;&#x4F53;&#x4FE1;&#x606F;&#x662F;&#x6700;&#x91CD;&#x8981;&#x7684;&#xFF1B;</li>
+<li>URL&#x53EA;&#x7ED9;&#x51FA;&#x4E86;&#x6587;&#x6863;&#x4F4D;&#x7F6E;&#xFF1B;</li>
+<li>&#x800C;&#x884C;&#x53F7;&#x6240;&#x6307;&#x7684;&#x4EE3;&#x7801;&#x884C;&#x65E2;&#x53EF;&#x80FD;&#x51FA;&#x81EA;&#x5D4C;&#x5165;&#x7684;JavaScript&#x4EE3;&#x7801;&#xFF1B;&#x4E5F;&#x53EF;&#x80FD;&#x6765;&#x81EA;&#x5916;&#x90E8;&#x7684;&#x6587;&#x4EF6;&#xFF1B;</li>
+</ul>
+<p>&#x8981;&#x6307;&#x5B9A;onerror&#x4E8B;&#x4EF6;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#xFF1B;&#x5FC5;&#x987B;&#x4F7F;&#x7528;&#x5982;&#x4E0B;&#x6240;&#x793A;&#x7684;DOM0&#x6280;&#x672F;&#xFF0C;&#x5B83;&#x6CA1;&#x6709;&#x9075;&#x5FAA;&#x201D;DOM2&#x7EA7;&#x4E8B;&#x4EF6;&#x201D;&#x7684;&#x6807;&#x51C6;&#x683C;&#x5F0F;&#xFF1B;</p>
+<blockquote>
+<pre><code>window.onerror=function(message,url,line){
+    alert(message);
+};
+//&#x53EA;&#x8981;&#x662F;&#x6D4F;&#x89C8;&#x5668;&#x751F;&#x6210;&#x7684;&#xFF0C;&#x90FD;&#x4F1A;&#x89E6;&#x53D1;error&#x4E8B;&#x4EF6;&#xFF0C;&#x5E76;&#x6267;&#x884C;&#x8FD9;&#x4E2A;&#x4E8B;&#x4EF6;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#xFF0C;&#x7136;&#x540E;&#xFF0C;&#x6D4F;&#x89C8;&#x5668;&#x9ED8;&#x8BA4;&#x7684;&#x673A;&#x5236;&#x53D1;&#x6325;&#x4F5C;&#x7528;&#xFF0C;&#x50CF;&#x5F80;&#x5E38;&#x4E00;&#x6837;&#x663E;&#x793A;&#x51FA;&#x9519;&#x8BEF;&#x6D88;&#x606F;&#xFF1B;
+//&#x50CF;&#x4E0B;&#x9762;&#x8FD9;&#x6837;&#x5728;&#x4E8B;&#x4EF6;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x4E2D;&#x8FD4;&#x56DE;false&#xFF0C;&#x53EF;&#x4EE5;&#x963B;&#x6B62;&#x6D4F;&#x89C8;&#x5668;&#x62A5;&#x544A;&#x9519;&#x8BEF;&#x7684;&#x9ED8;&#x8BA4;&#x884C;&#x4E3A;&#xFF1B;
+window.onerror=function(message,url,line){
+    alert(message);
+    return false;//&#x901A;&#x8FC7;&#x8FD4;&#x56DE;false&#xFF0C;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x5B9E;&#x9645;&#x4E0A;&#x5C31;&#x5145;&#x5F53;&#x4E86;&#x6574;&#x4E2A;&#x6587;&#x6863;&#x4E2D;&#x7684;try-catch&#x8BED;&#x53E5;&#xFF0C;&#x53EF;&#x4EE5;&#x6355;&#x83B7;&#x6240;&#x6709;&#x65E0;&#x4EE3;&#x7801;&#x5904;&#x7406;&#x7684;&#x8FD0;&#x884C;&#x65F6;&#x9519;&#x8BEF;&#xFF1B;&#x8FD9;&#x4E2A;&#x4E8B;&#x4EF6;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#xFF0C;&#x662F;&#x62A5;&#x544A;&#x6D4F;&#x89C8;&#x5668;&#x62A5;&#x544A;&#x9519;&#x8BEF;&#x7684;&#x6700;&#x540E;&#x4E00;&#x9053;&#x9632;&#x7EBF;&#xFF1B;&#x7406;&#x60F3;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x53EA;&#x8981;&#x53EF;&#x80FD;&#x5C31;&#x4E0D;&#x5E94;&#x8BE5;&#x4F7F;&#x7528;&#x5B83;&#xFF0C;&#x53EA;&#x8981;&#x80FD;&#x591F;&#x9002;&#x5F53;&#x5730;&#x4F7F;&#x7528;try-catch&#x8BED;&#x53E5;&#xFF0C;&#x5C31;&#x4E0D;&#x4F1A;&#x6709;&#x9519;&#x8BEF;&#x4EA4;&#x7ED9;&#x6D4F;&#x89C8;&#x5668;&#xFF0C;&#x4E5F;&#x5C31;&#x4E0D;&#x4F1A;&#x89E6;&#x53D1;error&#x4E8B;&#x4EF6;&#xFF1B;
+</code></pre></blockquote>
+<p>&#x56FE;&#x50CF;&#x4E5F;&#x652F;&#x6301;error&#x4E8B;&#x4EF6;&#xFF1B;&#x53EA;&#x8981;&#x56FE;&#x50CF;src&#x7279;&#x6027;&#x4E2D;&#x7684;URL&#x4E0D;&#x80FD;&#x8FD4;&#x56DE;&#x53EF;&#x4EE5;&#x88AB;&#x8BC6;&#x522B;&#x7684;&#x56FE;&#x50CF;&#x683C;&#x5F0F;&#xFF0C;&#x5C31;&#x4F1A;&#x89E6;&#x53D1;error&#x4E8B;&#x4EF6;&#xFF1B;&#x6B64;&#x65F6;&#x7684;error&#x4E8B;&#x4EF6;&#x9075;&#x5FAA;DOM&#x683C;&#x5F0F;&#xFF1B;&#x4F1A;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x4EE5;&#x56FE;&#x7247;&#x4E3A;&#x76EE;&#x6807;&#x7684;evern&#x5BF9;&#x8C61;&#xFF1B;&#x4E0B;&#x9762;&#x662F;&#x4E00;&#x4E2A;&#x4F8B;&#x5B50;&#xFF1B;</p>
+<blockquote>
+<pre><code>var image=new Image();
+EventUtil.addHandler(image,&quot;load&quot;,function(event){
+    alert(&quot;&#x56FE;&#x7247;&#x4E0B;&#x8F7D;&quot;)
+});
+EventUtil.addHandler(image,&quot;error&quot;,function(event){
+    alert(&quot;&#x56FE;&#x7247;&#x6CA1;&#x6709;&#x4E0B;&#x8F7D;&quot;)
+});
+image.src=&quot;smilex.gif&quot;;//&#x6307;&#x5B9A;&#x4E0D;&#x5B58;&#x5728;&#x7684;&#x6587;&#x4EF6;&#xFF1B;
+//&#x52A0;&#x8F7D;&#x56FE;&#x7247;&#x5931;&#x8D25;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4F1A;&#x663E;&#x793A;&#x4E00;&#x4E2A;&#x8B66;&#x544A;&#x6846;&#xFF1B;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x53D1;&#x751F;error&#x4E8B;&#x4EF6;&#x65F6;&#xFF0C;&#x56FE;&#x50CF;&#x4E0B;&#x8F7D;&#x8FC7;&#x7A0B;&#x5DF2;&#x7ED3;&#x675F;&#xFF1B;
+</code></pre></blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/17/JS算法原理/JS中的常见算法/" rel="next" title="JS中的常见算法">
+                <i class="fa fa-chevron-left"></i> JS中的常见算法
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/18/构造函数的继承/创建对象的方式/" rel="prev" title="面向对象的概念">
+                面向对象的概念 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.ld12.com/upimg358/allimg/c140918/14109CRX22F-H018.jpg"
+               alt="ALBL" />
+          <p class="site-author-name" itemprop="name">ALBL</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ALBL</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'your-disqus-shortname';
+      var disqus_identifier = '2016/07/29/错误处理与调试/错误处理与调试/';
+      var disqus_title = "兼容性处理、错误处理与调试";
+      var disqus_url = 'http://yoursite.com/2016/07/29/错误处理与调试/错误处理与调试/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
