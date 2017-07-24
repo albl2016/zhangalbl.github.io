@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="ALBL的个人博客" />
 
 
 
@@ -190,16 +190,6 @@
         </li>
       
         
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
-        
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
@@ -236,6 +226,1114 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/27/预解释-作用域-this关键字-闭包/垃圾回收机制/" itemprop="url">
+                  垃圾回收机制
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-27T16:34:46+08:00" content="2016-09-27">
+              2016-09-27
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/27/预解释-作用域-this关键字-闭包/垃圾回收机制/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/09/27/预解释-作用域-this关键字-闭包/垃圾回收机制/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>##&#x5783;&#x573E;&#x56DE;&#x6536;&#x673A;&#x5236;</p>
+<p>JavaScript &#x5177;&#x6709;&#x81EA;&#x52A8;&#x5783;&#x573E;&#x6536;&#x96C6;&#x673A;&#x5236;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x6267;&#x884C;&#x73AF;&#x5883;&#x4F1A;&#x8D1F;&#x8D23;&#x7BA1;&#x7406;&#x4EE3;&#x7801;&#x6267;&#x884C;&#x8FC7;&#x7A0B;&#x4E2D;&#x4F7F;&#x7528;&#x7684;&#x5185;&#x5B58;&#xFF1B;</p>
+<p>&#x5728;&#x7F16;&#x5199; JavaScript &#x7A0B;&#x5E8F;&#x65F6;&#xFF0C;&#x5F00;&#x53D1;&#x4EBA;&#x5458;&#x4E0D;&#x7528;&#x518D;&#x5173;&#x5FC3;&#x5185;&#x5B58;&#x4F7F;&#x7528;&#x95EE;&#x9898;&#xFF0C;&#x6240;&#x9700;&#x5185;&#x5B58;&#x7684;&#x5206;&#x914D;&#x4EE5;&#x53CA;&#x65E0;&#x7528;&#x5185;&#x5B58;&#x7684;&#x56DE;&#x6536;&#x5B8C;&#x5168;&#x5B9E;&#x73B0;&#x4E86;&#x81EA;&#x52A8;&#x7BA1;&#x7406;&#x3002;&#x8FD9;&#x79CD;&#x5783;&#x573E;&#x6536;&#x96C6;&#x673A;&#x5236;&#x7684;&#x539F;&#x7406;&#x5176;&#x5B9E;&#x5F88;&#x7B80;&#x5355;&#xFF1A;&#x627E;&#x51FA;&#x90A3;&#x4E9B;&#x4E0D;&#x518D;&#x7EE7;&#x7EED;&#x4F7F;&#x7528;&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x7136;&#x540E;&#x91CA;&#x653E;&#x5176;&#x5360;&#x7528;&#x7684;&#x5185;&#x5B58;&#x3002;&#x4E3A;&#x6B64;&#xFF0C;&#x5783;&#x573E;&#x6536;&#x96C6;&#x5668;&#x4F1A;&#x6309;&#x7167;&#x56FA;&#x5B9A;&#x7684;&#x65F6;&#x95F4;&#x95F4;&#x9694;&#xFF08;&#x6216;&#x4EE3;&#x7801;&#x6267;&#x884C;&#x4E2D;&#x9884;&#x5B9A;&#x7684;&#x6536;&#x96C6;&#x65F6;&#x95F4;&#xFF09;&#xFF0C;&#x5468;&#x671F;&#x6027;&#x5730;&#x6267;&#x884C;&#x8FD9;&#x4E00;&#x64CD;&#x4F5C;&#x3002;</p>
+<ul>
+<li>&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x53EA;&#x5728;&#x51FD;&#x6570;&#x6267;&#x884C;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#x5B58;&#x5728;&#x3002;&#x800C;&#x5728;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x4F1A;&#x4E3A;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x5728;&#x6808;&#xFF08;&#x6216;&#x5806;&#xFF09;&#x5185;&#x5B58;&#x4E0A;&#x5206;&#x914D;&#x76F8;&#x5E94;&#x7684;&#x7A7A;&#x95F4;&#xFF0C;&#x4EE5;&#x4FBF;&#x5B58;&#x50A8;&#x5B83;&#x4EEC;&#x7684;&#x503C;&#x3002;&#x7136;&#x540E;&#x5728;&#x51FD;&#x6570;&#x4E2D;&#x4F7F;<br>&#x7528;&#x8FD9;&#x4E9B;&#x53D8;&#x91CF;&#xFF0C;&#x76F4;&#x81F3;&#x51FD;&#x6570;&#x6267;&#x884C;&#x7ED3;&#x675F;&#x3002;</li>
+<li>&#x6B64;&#x65F6;&#xFF0C;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x5C31;&#x6CA1;&#x6709;&#x5B58;&#x5728;&#x7684;&#x5FC5;&#x8981;&#x4E86;&#xFF0C;&#x56E0;&#x6B64;&#x53EF;&#x4EE5;&#x91CA;&#x653E;&#x5B83;&#x4EEC;&#x7684;&#x5185;&#x5B58;&#x4EE5;&#x4F9B;&#x5C06;&#x6765;&#x4F7F;&#x7528;&#x3002;&#x5728;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5F88;&#x5BB9;&#x6613;&#x5224;&#x65AD;&#x53D8;&#x91CF;&#x662F;&#x5426;&#x8FD8;&#x6709;&#x5B58;&#x5728;&#x7684;&#x5FC5;&#x8981;&#xFF1B;</li>
+<li>&#x4F46;&#x5E76;&#x975E;&#x6240;&#x6709;&#x60C5;&#x51B5;&#x4E0B;&#x90FD;&#x8FD9;&#x4E48;&#x5BB9;&#x6613;&#x5C31;&#x80FD;&#x5F97;&#x51FA;&#x7ED3;&#x8BBA;&#x3002;&#x5783;&#x573E;&#x6536;&#x96C6;&#x5668;&#x5FC5;&#x987B;&#x8DDF;&#x8E2A;&#x54EA;&#x4E2A;&#x53D8;&#x91CF;&#x6709;&#x7528;&#x54EA;&#x4E2A;&#x53D8;&#x91CF;&#x6CA1;&#x7528;&#xFF0C;&#x5BF9;&#x4E8E;&#x4E0D;&#x518D;&#x6709;&#x7528;&#x7684;&#x53D8;&#x91CF;&#x6253;&#x4E0A;&#x6807;&#x8BB0;&#xFF0C;&#x4EE5;&#x5907;&#x5C06;&#x6765;&#x6536;&#x56DE;&#x5176;&#x5360;&#x7528;&#x7684;&#x5185;&#x5B58;&#x3002;&#x7528;&#x4E8E;&#x6807;&#x8BC6;&#x65E0;&#x7528;&#x53D8;&#x91CF;&#x7684;&#x7B56;&#x7565;&#x53EF;&#x80FD;&#x4F1A;&#x56E0;&#x5B9E;&#x73B0;&#x800C;&#x5F02;&#xFF0C;&#x4F46;&#x5177;&#x4F53;&#x5230;&#x6D4F;&#x89C8;&#x5668;&#x4E2D;&#x7684;&#x5B9E;&#x73B0;&#xFF0C;&#x5219;&#x901A;&#x5E38;&#x6709;&#x4E24;&#x4E2A;&#x7B56;&#x7565;;<strong>&#x6807;&#x8BB0;&#x6E05;&#x9664;</strong>&#x548C;<strong>&#x5F15;&#x7528;&#x8BA1;&#x6570;</strong>&#x3002;</li>
+</ul>
+<hr>
+<ul>
+<li><strong>&#x6807;&#x8BB0;&#x6E05;&#x9664;</strong>&#xFF08;&#x6D4F;&#x89C8;&#x5668;&#x5B9E;&#x73B0;&#xFF09;</li>
+<li><strong>&#x5F15;&#x7528;&#x8BA1;&#x6570;</strong>&#xFF08;&#x6D4F;&#x89C8;&#x5668;&#x5B9E;&#x73B0;&#xFF09;</li>
+<li><strong>&#x6027;&#x80FD;&#x95EE;&#x9898;</strong></li>
+<li><strong>&#x5F00;&#x53D1;&#x8FC7;&#x7A0B;&#x4E2D;&#x600E;&#x6837;&#x7BA1;&#x7406;&#x5185;&#x5B58;</strong>&#xFF08;&#x4EE3;&#x7801;&#x5B9E;&#x73B0;&#xFF09;</li>
+<li><strong>&#x603B;&#x7ED3;</strong></li>
+</ul>
+<h1 id="&#x6807;&#x8BB0;&#x6E05;&#x9664;&#xFF08;&#x6D4F;&#x89C8;&#x5668;&#x5B9E;&#x73B0;&#xFF09;"><a href="#&#x6807;&#x8BB0;&#x6E05;&#x9664;&#xFF08;&#x6D4F;&#x89C8;&#x5668;&#x5B9E;&#x73B0;&#xFF09;" class="headerlink" title="&#x6807;&#x8BB0;&#x6E05;&#x9664;&#xFF08;&#x6D4F;&#x89C8;&#x5668;&#x5B9E;&#x73B0;&#xFF09;"></a>&#x6807;&#x8BB0;&#x6E05;&#x9664;&#xFF08;&#x6D4F;&#x89C8;&#x5668;&#x5B9E;&#x73B0;&#xFF09;</h1><p>JavaScript &#x4E2D;&#x6700;&#x5E38;&#x7528;&#x7684;&#x5783;&#x573E;&#x6536;&#x96C6;&#x65B9;&#x5F0F;&#x662F;&#x6807;&#x8BB0;&#x6E05;&#x9664;&#x3002;</p>
+<ul>
+<li>&#x5F53;&#x53D8;&#x91CF;&#x8FDB;&#x5165;&#x73AF;&#x5883;&#xFF08;&#x4F8B;&#x5982;&#xFF0C;&#x5728;&#x51FD;&#x6570;&#x4E2D;&#x58F0;&#x660E;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#xFF09;&#x65F6;&#xFF0C;&#x5C31;&#x5C06;&#x8FD9;&#x4E2A;&#x53D8;&#x91CF;&#x6807;&#x8BB0;&#x4E3A;&#x201C;&#x8FDB;&#x5165;&#x73AF;&#x5883;&#x201D;&#x3002;&#x4ECE;&#x903B;&#x8F91;&#x4E0A;&#x8BB2;&#xFF0C;&#x6C38;&#x8FDC;&#x4E0D;&#x80FD;&#x91CA;&#x653E;&#x8FDB;&#x5165;&#x73AF;&#x5883;&#x7684;&#x53D8;&#x91CF;&#x6240;&#x5360;&#x7528;&#x7684;&#x5185;&#x5B58;&#xFF0C;&#x56E0;&#x4E3A;&#x53EA;&#x8981;&#x6267;&#x884C;&#x6D41;&#x8FDB;&#x5165;&#x76F8;&#x5E94;&#x7684;&#x73AF;&#x5883;&#xFF0C;&#x5C31;&#x53EF;&#x80FD;&#x4F1A;&#x7528;&#x5230;&#x5B83;&#x4EEC;&#x3002;</li>
+<li>&#x800C;&#x5F53;&#x53D8;&#x91CF;&#x79BB;&#x5F00;&#x73AF;&#x5883;&#x65F6;&#xFF0C;&#x5219;&#x5C06;&#x5176;&#x6807;&#x8BB0;&#x4E3A;&#x201C;&#x79BB;&#x5F00;&#x73AF;&#x5883;&#x201D;&#x3002;</li>
+</ul>
+<p>&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x4EFB;&#x4F55;&#x65B9;&#x5F0F;&#x6765;&#x6807;&#x8BB0;&#x53D8;&#x91CF;&#x3002;&#x6BD4;&#x5982;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x7FFB;&#x8F6C;&#x67D0;&#x4E2A;&#x7279;&#x6B8A;&#x7684;&#x4F4D;&#x6765;&#x8BB0;&#x5F55;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x4F55;&#x65F6;&#x8FDB;&#x5165;&#x73AF;&#x5883;&#xFF0C;&#x6216;&#x8005;&#x4F7F;&#x7528;&#x4E00;&#x4E2A;&#x201C;&#x8FDB;&#x5165;&#x73AF;&#x5883;&#x7684;&#x201D;&#x53D8;&#x91CF;&#x5217;&#x8868;&#x53CA;&#x4E00;&#x4E2A;&#x201C;&#x79BB;&#x5F00;&#x73AF;&#x5883;&#x7684;&#x201D;&#x53D8;&#x91CF;&#x5217;&#x8868;&#x6765;&#x8DDF;&#x8E2A;&#x54EA;&#x4E2A;&#x53D8;&#x91CF;&#x53D1;&#x751F;&#x4E86;&#x53D8;&#x5316;&#x3002;&#x8BF4;&#x5230;&#x5E95;&#xFF0C;&#x5982;&#x4F55;&#x6807;&#x8BB0;&#x53D8;&#x91CF;&#x5176;&#x5B9E;&#x5E76;&#x4E0D;&#x91CD;&#x8981;&#xFF0C;&#x5173;&#x952E;&#x5728;&#x4E8E;&#x91C7;&#x53D6;&#x4EC0;&#x4E48;&#x7B56;&#x7565;&#x3002;</p>
+<ul>
+<li>1&#x3001;&#x5783;&#x573E;&#x6536;&#x96C6;&#x5668;&#x5728;&#x8FD0;&#x884C;&#x7684;&#x65F6;&#x5019;&#x4F1A;&#x7ED9;&#x5B58;&#x50A8;&#x5728;&#x5185;&#x5B58;&#x4E2D;&#x7684;&#x6240;&#x6709;&#x53D8;&#x91CF;&#x90FD;&#x52A0;&#x4E0A;&#x6807;&#x8BB0;&#xFF08;&#x5F53;&#x7136;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x4EFB;&#x4F55;&#x6807;&#x8BB0;&#x65B9;&#x5F0F;&#xFF09;&#x3002;</li>
+<li>2&#x3001;&#x5B83;&#x4F1A;&#x53BB;&#x6389;&#x73AF;&#x5883;&#x4E2D;&#x7684;&#x53D8;&#x91CF;&#x4EE5;&#x53CA;&#x88AB;&#x73AF;&#x5883;&#x4E2D;&#x7684;&#x53D8;&#x91CF;&#x5F15;&#x7528;&#x7684;&#x53D8;&#x91CF;&#x7684;&#x6807;&#x8BB0;&#x3002;</li>
+<li>3&#x3001;&#x5728;&#x6B64;&#x4E4B;&#x540E;&#x518D;&#x88AB;&#x52A0;&#x4E0A;&#x6807;&#x8BB0;&#x7684;&#x53D8;&#x91CF;&#x5C06;&#x88AB;&#x89C6;&#x4E3A;&#x51C6;&#x5907;&#x5220;&#x9664;&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x539F;&#x56E0;&#x662F;&#x73AF;&#x5883;&#x4E2D;&#x7684;&#x53D8;&#x91CF;&#x5DF2;&#x7ECF;&#x65E0;&#x6CD5;&#x8BBF;&#x95EE;&#x5230;&#x8FD9;&#x4E9B;&#x53D8;&#x91CF;&#x4E86;&#x3002;</li>
+<li>4&#x3001;&#x6700;&#x540E;&#xFF0C;&#x5783;&#x573E;&#x6536;&#x96C6;&#x5668;&#x5B8C;&#x6210;&#x5185;&#x5B58;&#x6E05;&#x9664;&#x5DE5;&#x4F5C;&#xFF0C;&#x9500;&#x6BC1;&#x90A3;&#x4E9B;&#x5E26;&#x6807;&#x8BB0;&#x7684;&#x503C;&#x5E76;&#x56DE;&#x6536;&#x5B83;&#x4EEC;&#x6240;&#x5360;&#x7528;&#x7684;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x3002;</li>
+</ul>
+<h1 id="&#x5F15;&#x7528;&#x8BA1;&#x6570;&#xFF08;&#x6D4F;&#x89C8;&#x5668;&#x5B9E;&#x73B0;&#xFF09;"><a href="#&#x5F15;&#x7528;&#x8BA1;&#x6570;&#xFF08;&#x6D4F;&#x89C8;&#x5668;&#x5B9E;&#x73B0;&#xFF09;" class="headerlink" title="&#x5F15;&#x7528;&#x8BA1;&#x6570;&#xFF08;&#x6D4F;&#x89C8;&#x5668;&#x5B9E;&#x73B0;&#xFF09;"></a>&#x5F15;&#x7528;&#x8BA1;&#x6570;&#xFF08;&#x6D4F;&#x89C8;&#x5668;&#x5B9E;&#x73B0;&#xFF09;</h1><p>&#x53E6;&#x4E00;&#x79CD;&#x4E0D;&#x592A;&#x5E38;&#x89C1;&#x7684;&#x5783;&#x573E;&#x6536;&#x96C6;&#x7B56;&#x7565;&#x53EB;&#x505A;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x3002;</p>
+<p>&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x7684;&#x542B;&#x4E49;&#x662F;&#x8DDF;&#x8E2A;&#x8BB0;&#x5F55;&#x6BCF;&#x4E2A;&#x503C;&#x88AB;&#x5F15;&#x7528;&#x7684;&#x6B21;&#x6570;&#x3002;</p>
+<ul>
+<li>&#x5F53;&#x58F0;&#x660E;&#x4E86;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x5E76;&#x5C06;&#x4E00;&#x4E2A;&#x5F15;&#x7528;&#x7C7B;&#x578B;&#x503C;&#x8D4B;&#x7ED9;&#x8BE5;&#x53D8;&#x91CF;&#x65F6;&#xFF0C;&#x5219;&#x8FD9;&#x4E2A;&#x5F15;&#x7528;&#x6570;&#x636E;&#x503C;&#x7684;&#x5F15;&#x7528;&#x6B21;&#x6570;&#x5C31;&#x662F; 1&#x3002;</li>
+<li>&#x5982;&#x679C;&#x540C;&#x4E00;&#x4E2A;&#x503C;&#x53C8;&#x88AB;&#x8D4B;&#x7ED9;&#x53E6;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#xFF0C;&#x5219;&#x8BE5;&#x503C;&#x7684;&#x5F15;&#x7528;&#x6B21;&#x6570;&#x52A0; 1&#x3002;</li>
+<li>&#x76F8;&#x53CD;&#xFF0C;&#x5982;&#x679C;&#x5305;&#x542B;&#x5BF9;&#x8FD9;&#x4E2A;&#x503C;&#x5F15;&#x7528;&#x7684;&#x53D8;&#x91CF;&#x53C8;&#x53D6;&#x5F97;&#x4E86;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x503C;&#xFF0C;&#x5219;&#x8FD9;&#x4E2A;&#x503C;&#x7684;&#x5F15;&#x7528;&#x6B21;&#x6570;&#x51CF; 1&#x3002;</li>
+<li>&#x5F53;&#x8FD9;&#x4E2A;&#x503C;&#x7684;&#x5F15;&#x7528;&#x6B21;&#x6570;&#x53D8;&#x6210; 0 &#x65F6;&#xFF0C;&#x5219;&#x8BF4;&#x660E;&#x6CA1;&#x6709;&#x529E;&#x6CD5;&#x518D;&#x8BBF;&#x95EE;&#x8FD9;&#x4E2A;&#x503C;&#x4E86;&#xFF0C;&#x56E0;&#x800C;&#x5C31;&#x53EF;&#x4EE5;&#x5C06;&#x5176;&#x5360;&#x7528;&#x7684;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x56DE;&#x6536;&#x56DE;&#x6765;&#x3002;</li>
+<li>&#x8FD9;&#x6837;&#xFF0C;&#x5F53;&#x5783;&#x573E;&#x6536;&#x96C6;&#x5668;&#x4E0B;&#x6B21;&#x518D;&#x8FD0;&#x884C;&#x65F6;&#xFF0C;&#x5B83;&#x5C31;&#x4F1A;&#x91CA;&#x653E;&#x90A3;&#x4E9B;&#x5F15;&#x7528;&#x6B21;&#x6570;&#x4E3A;&#x96F6;&#x7684;&#x503C;&#x6240;&#x5360;&#x7528;&#x7684;&#x5185;&#x5B58;&#x3002;</li>
+</ul>
+<p>&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x6709;&#x4E00;&#x4E2A;&#x4E25;&#x91CD;&#x7684;&#x95EE;&#x9898;&#xFF1B;&#x5FAA;&#x73AF;&#x5F15;&#x7528;&#xFF1B;</p>
+<pre><code>function problem(){
+    var objectA = new Object();
+    var objectB = new Object();
+    objectA.someOtherObject = objectB;
+    objectB.anotherObject = objectA;
+}
+</code></pre><ul>
+<li>objectA &#x548C; objectB &#x901A;&#x8FC7;&#x5404;&#x81EA;&#x7684;&#x5C5E;&#x6027;&#x76F8;&#x4E92;&#x5F15;&#x7528;&#xFF1B;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x8FD9;&#x4E24;&#x4E2A;&#x5BF9;&#x8C61;&#x7684;&#x5F15;&#x7528;&#x6B21;&#x6570;&#x90FD;&#x662F; 2&#x3002;&#x5728;&#x91C7;&#x7528;&#x6807;&#x8BB0;&#x6E05;&#x9664;&#x7B56;&#x7565;&#x7684;&#x5B9E;&#x73B0;&#x4E2D;&#xFF0C;&#x7531;&#x4E8E;&#x51FD;&#x6570;&#x6267;&#x884C;&#x4E4B;&#x540E;&#xFF0C;&#x8FD9;&#x4E24;&#x4E2A;&#x5BF9;&#x8C61;&#x90FD;&#x79BB;&#x5F00;&#x4E86;&#x4F5C;&#x7528;&#x57DF;&#xFF0C;&#x56E0;&#x6B64;&#x8FD9;&#x79CD;&#x76F8;&#x4E92;&#x5F15;&#x7528;&#x4E0D;&#x662F;&#x4E2A;&#x95EE;&#x9898;&#x3002;</li>
+<li>&#x4F46;&#x5728;&#x91C7;&#x7528;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x7B56;&#x7565;&#x7684;&#x5B9E;&#x73B0;&#x4E2D;&#xFF0C;&#x5F53;&#x51FD;&#x6570;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#x540E;&#xFF0C; objectA &#x548C; objectB &#x8FD8;&#x5C06;&#x7EE7;&#x7EED;&#x5B58;&#x5728;&#xFF0C;&#x56E0;&#x4E3A;&#x5B83;&#x4EEC;&#x7684;&#x5F15;&#x7528;&#x6B21;&#x6570;&#x6C38;&#x8FDC;&#x4E0D;&#x4F1A;&#x662F; 0&#x3002;</li>
+<li>&#x5047;&#x5982;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x88AB;&#x91CD;&#x590D;&#x591A;&#x6B21;&#x8C03;&#x7528;&#xFF0C;&#x5C31;&#x4F1A;&#x5BFC;&#x81F4;&#x5927;&#x91CF;&#x5185;&#x5B58;&#x5F97;&#x4E0D;&#x5230;&#x56DE;&#x6536;&#x3002;</li>
+</ul>
+<h1 id="&#x6027;&#x80FD;&#x95EE;&#x9898;&#xFF1B;"><a href="#&#x6027;&#x80FD;&#x95EE;&#x9898;&#xFF1B;" class="headerlink" title="&#x6027;&#x80FD;&#x95EE;&#x9898;&#xFF1B;"></a>&#x6027;&#x80FD;&#x95EE;&#x9898;&#xFF1B;</h1><p>&#x5783;&#x573E;&#x6536;&#x96C6;&#x5668;&#x662F;&#x5468;&#x671F;&#x6027;&#x8FD0;&#x884C;&#x7684;&#xFF0C;&#x800C;&#x4E14;&#x5982;&#x679C;&#x4E3A;&#x53D8;&#x91CF;&#x5206;&#x914D;&#x7684;&#x5185;&#x5B58;&#x6570;&#x91CF;&#x5F88;&#x53EF;&#x89C2;&#xFF0C;&#x90A3;&#x4E48;&#x56DE;&#x6536;&#x5DE5;&#x4F5C;&#x91CF;&#x4E5F;&#x662F;&#x76F8;&#x5F53;&#x5927;&#x7684;&#x3002;&#x5728;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x786E;&#x5B9A;&#x5783;&#x573E;&#x6536;&#x96C6;&#x7684;&#x65F6;&#x95F4;&#x95F4;&#x9694;&#x662F;&#x4E00;&#x4E2A;&#x975E;&#x5E38;&#x91CD;&#x8981;&#x7684;&#x95EE;&#x9898;&#x3002;&#x8BF4;&#x5230;&#x5783;&#x573E;&#x6536;&#x96C6;&#x5668;&#x591A;&#x957F;&#x65F6;&#x95F4;&#x8FD0;&#x884C;&#x4E00;&#x6B21;;</p>
+<p>&#x4E0D;&#x7981;&#x8BA9;&#x4EBA;&#x8054;&#x60F3;&#x5230; IE &#x56E0;&#x6B64;&#x800C;&#x58F0;&#x540D;&#x72FC;&#x85C9;&#x7684;&#x6027;&#x80FD;&#x95EE;&#x9898;&#x3002;IE &#x7684;&#x5783;&#x573E;&#x6536;&#x96C6;&#x5668;&#x662F;&#x6839;&#x636E;&#x5185;&#x5B58;&#x5206;&#x914D;&#x91CF;&#x8FD0;&#x884C;&#x7684;&#xFF0C;&#x5177;&#x4F53;&#x4E00;&#x70B9;&#x8BF4;&#x5C31;&#x662F; 256 &#x4E2A;&#x53D8;&#x91CF;&#x3001;4096 &#x4E2A;&#x5BF9;&#x8C61;&#xFF08;&#x6216;&#x6570;&#x7EC4;&#xFF09;&#x5B57;&#x9762;&#x91CF;&#x548C;&#x6570;&#x7EC4;&#x5143;&#x7D20;&#xFF08;slot&#xFF09;&#x6216;&#x8005; 64KB &#x7684;&#x5B57;&#x7B26;&#x4E32;&#x3002;&#x8FBE;&#x5230;&#x4E0A;&#x8FF0;&#x4EFB;&#x4F55;&#x4E00;&#x4E2A;&#x4E34;&#x754C;&#x503C;&#xFF0C;&#x5783;&#x573E;&#x6536;&#x96C6;&#x5668;&#x5C31;&#x4F1A;&#x8FD0;&#x884C;&#x3002;&#x8FD9;&#x79CD;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;&#x7684;&#x95EE;&#x9898;&#x5728;&#x4E8E;&#xFF0C;&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x811A;&#x672C;&#x4E2D;&#x5305;&#x542B;&#x90A3;&#x4E48;&#x591A;&#x53D8;&#x91CF;&#xFF0C;&#x90A3;&#x4E48;&#x8BE5;&#x811A;&#x672C;&#x5F88;&#x53EF;&#x80FD;&#x4F1A;&#x5728;&#x5176;&#x751F;&#x547D;&#x5468;&#x671F;&#x4E2D;&#x4E00;&#x76F4;&#x4FDD;&#x6709;&#x90A3;&#x4E48;&#x591A;&#x7684;&#x53D8;&#x91CF;&#x3002;&#x800C;&#x8FD9;&#x6837;&#x4E00;&#x6765;&#xFF0C;&#x5783;&#x573E;&#x6536;&#x96C6;&#x5668;&#x5C31;&#x4E0D;&#x5F97;&#x4E0D;&#x9891;&#x7E41;&#x5730;&#x8FD0;&#x884C;&#x3002;&#x7ED3;&#x679C;&#xFF0C;&#x7531;&#x6B64;&#x5F15;&#x53D1;&#x7684;&#x4E25;&#x91CD;&#x6027;&#x80FD;&#x95EE;&#x9898;&#x4FC3;&#x4F7F; IE7 &#x91CD;&#x5199;&#x4E86;&#x5176;&#x5783;&#x573E;&#x6536;&#x96C6;&#x4F8B;&#x7A0B;&#x3002;</p>
+<p>&#x968F;&#x7740; IE7 &#x7684;&#x53D1;&#x5E03;&#xFF0C;&#x5176; JavaScript &#x5F15;&#x64CE;&#x7684;&#x5783;&#x573E;&#x6536;&#x96C6;&#x4F8B;&#x7A0B;&#x6539;&#x53D8;&#x4E86;&#x5DE5;&#x4F5C;&#x65B9;&#x5F0F;&#xFF1A;<strong>&#x89E6;&#x53D1;&#x5783;&#x573E;&#x6536;&#x96C6;&#x7684;&#x53D8;&#x91CF;&#x5206;&#x914D;&#x3001;&#x5B57;&#x9762;&#x91CF;&#x548C;&#xFF08;&#x6216;&#xFF09;&#x6570;&#x7EC4;&#x5143;&#x7D20;&#x7684;&#x4E34;&#x754C;&#x503C;&#x88AB;&#x8C03;&#x6574;&#x4E3A;&#x52A8;&#x6001;&#x4FEE;&#x6B63;</strong>&#x3002;IE7 &#x4E2D;&#x7684;&#x5404;&#x9879;&#x4E34;&#x754C;&#x503C;&#x5728;&#x521D;&#x59CB;&#x65F6;&#x4E0E; IE6 &#x76F8;&#x7B49;&#x3002;</p>
+<ul>
+<li>&#x5982;&#x679C;&#x5783;&#x573E;&#x6536;&#x96C6;&#x4F8B;&#x7A0B;&#x56DE;&#x6536;&#x7684;&#x5185;&#x5B58;&#x5206;&#x914D;&#x91CF;&#x4F4E;&#x4E8E; 15%&#xFF0C;&#x5219;&#x53D8;&#x91CF;&#x3001;&#x5B57;&#x9762;&#x91CF;&#x548C;&#xFF08;&#x6216;&#xFF09;&#x6570;&#x7EC4;&#x5143;&#x7D20;&#x7684;&#x4E34;&#x754C;&#x503C;&#x5C31;&#x4F1A;&#x52A0;&#x500D;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x4F8B;&#x7A0B;&#x56DE;&#x6536;&#x4E86; 85%&#x7684;&#x5185;&#x5B58;&#x5206;&#x914D;&#x91CF;&#xFF0C;&#x5219;&#x5C06;&#x5404;&#x79CD;&#x4E34;&#x754C;&#x503C;&#x91CD;&#x7F6E;&#x56DE;&#x9ED8;&#x8BA4;&#x503C;&#x3002;</li>
+</ul>
+<blockquote>
+<p>&#x8FD9;&#x4E00;&#x770B;&#x4F3C;&#x7B80;&#x5355;&#x7684;&#x8C03;&#x6574;&#xFF0C;&#x6781;&#x5927;&#x5730;&#x63D0;&#x5347;&#x4E86; IE&#x5728;&#x8FD0;&#x884C;&#x5305;&#x542B;&#x5927;&#x91CF; JavaScript &#x7684;&#x9875;&#x9762;&#x65F6;&#x7684;&#x6027;&#x80FD;&#x3002;</p>
+</blockquote>
+<p>&#x4E8B;&#x5B9E;&#x4E0A;&#xFF0C;&#x5728;&#x6709;&#x7684;&#x6D4F;&#x89C8;&#x5668;&#x4E2D;&#x53EF;&#x4EE5;&#x89E6;&#x53D1;&#x5783;&#x573E;&#x6536;&#x96C6;&#x8FC7;&#x7A0B;&#xFF0C;&#x4F46;&#x6211;&#x4EEC;&#x4E0D;&#x5EFA;&#x8BAE;&#x8BFB;&#x8005;&#x8FD9;&#x6837;&#x505A;&#x3002;&#x5728;IE &#x4E2D;&#xFF0C;&#x8C03;&#x7528; window.CollectGarbage() &#x65B9;&#x6CD5;&#x4F1A;&#x7ACB;&#x5373;&#x6267;&#x884C;&#x5783;&#x573E;&#x6536;&#x96C6;&#x3002;&#x5728; Opera 7 &#x53CA;&#x66F4;&#x9AD8;&#x7248;&#x672C;&#x4E2D;&#xFF0C;&#x8C03;&#x7528; window.opera.collect() &#x4E5F;&#x4F1A;&#x542F;&#x52A8;&#x5783;&#x573E;&#x6536;&#x96C6;&#x4F8B;&#x7A0B;&#x3002;</p>
+<h1 id="&#x5F00;&#x53D1;&#x8FC7;&#x7A0B;&#x4E2D;&#x600E;&#x6837;&#x7BA1;&#x7406;&#x5185;&#x5B58;&#xFF08;&#x4EE3;&#x7801;&#x5B9E;&#x73B0;-&#x6BD4;&#x8F83;&#x91CD;&#x8981;&#x7684;&#x601D;&#x60F3;&#xFF09;"><a href="#&#x5F00;&#x53D1;&#x8FC7;&#x7A0B;&#x4E2D;&#x600E;&#x6837;&#x7BA1;&#x7406;&#x5185;&#x5B58;&#xFF08;&#x4EE3;&#x7801;&#x5B9E;&#x73B0;-&#x6BD4;&#x8F83;&#x91CD;&#x8981;&#x7684;&#x601D;&#x60F3;&#xFF09;" class="headerlink" title="&#x5F00;&#x53D1;&#x8FC7;&#x7A0B;&#x4E2D;&#x600E;&#x6837;&#x7BA1;&#x7406;&#x5185;&#x5B58;&#xFF08;&#x4EE3;&#x7801;&#x5B9E;&#x73B0;,&#x6BD4;&#x8F83;&#x91CD;&#x8981;&#x7684;&#x601D;&#x60F3;&#xFF09;"></a>&#x5F00;&#x53D1;&#x8FC7;&#x7A0B;&#x4E2D;&#x600E;&#x6837;&#x7BA1;&#x7406;&#x5185;&#x5B58;&#xFF08;&#x4EE3;&#x7801;&#x5B9E;&#x73B0;,&#x6BD4;&#x8F83;&#x91CD;&#x8981;&#x7684;&#x601D;&#x60F3;&#xFF09;</h1><p>&#x4F7F;&#x7528;&#x5177;&#x5907;&#x5783;&#x573E;&#x6536;&#x96C6;&#x673A;&#x5236;&#x7684;&#x8BED;&#x8A00;&#x7F16;&#x5199;&#x7A0B;&#x5E8F;&#xFF0C;&#x5F00;&#x53D1;&#x4EBA;&#x5458;&#x4E00;&#x822C;&#x4E0D;&#x5FC5;&#x64CD;&#x5FC3;&#x5185;&#x5B58;&#x7BA1;&#x7406;&#x7684;&#x95EE;&#x9898;&#x3002;&#x4F46;&#x662F;&#xFF0C;JavaScript&#x5728;&#x8FDB;&#x884C;&#x5185;&#x5B58;&#x7BA1;&#x7406;&#x53CA;&#x5783;&#x573E;&#x6536;&#x96C6;&#x65F6;&#x9762;&#x4E34;&#x7684;&#x95EE;&#x9898;&#x8FD8;&#x662F;&#x6709;&#x70B9;&#x4E0E;&#x4F17;&#x4E0D;&#x540C;&#x3002;&#x5176;&#x4E2D;&#x6700;&#x4E3B;&#x8981;&#x7684;&#x4E00;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&#x5C31;&#x662F;&#x5206;&#x914D;&#x7ED9; Web&#x6D4F;&#x89C8;&#x5668;&#x7684;&#x53EF;&#x7528;&#x5185;&#x5B58;&#x6570;&#x91CF;&#x901A;&#x5E38;&#x8981;&#x6BD4;&#x5206;&#x914D;&#x7ED9;&#x684C;&#x9762;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7684;&#x5C11;&#x3002;&#x8FD9;&#x6837;&#x505A;&#x7684;&#x76EE;&#x7684;&#x4E3B;&#x8981;&#x662F;&#x51FA;&#x4E8E;&#x5B89;&#x5168;&#x65B9;&#x9762;&#x7684;&#x8003;&#x8651;&#xFF0C;&#x76EE;&#x7684;&#x662F;&#x9632;&#x6B62;&#x8FD0;&#x884C; JavaScript &#x7684;&#x7F51;&#x9875;&#x8017;&#x5C3D;&#x5168;&#x90E8;&#x7CFB;&#x7EDF;&#x5185;&#x5B58;&#x800C;&#x5BFC;&#x81F4;&#x7CFB;&#x7EDF;&#x5D29;&#x6E83;&#x3002;&#x5185;&#x5B58;&#x9650;&#x5236;&#x95EE;&#x9898;&#x4E0D;&#x4EC5;&#x4F1A;&#x5F71;&#x54CD;&#x7ED9;&#x53D8;&#x91CF;&#x5206;&#x914D;&#x5185;&#x5B58;&#xFF0C;&#x540C;&#x65F6;&#x8FD8;&#x4F1A;&#x5F71;&#x54CD;&#x8C03;&#x7528;&#x6808;&#x4EE5;&#x53CA;&#x5728;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x4E2D;&#x80FD;&#x591F;&#x540C;&#x65F6;&#x6267;&#x884C;&#x7684;&#x8BED;&#x53E5;&#x6570;&#x91CF;&#x3002;</p>
+<p><strong> &#x56E0;&#x6B64;&#xFF0C;&#x786E;&#x4FDD;&#x5360;&#x7528;&#x6700;&#x5C11;&#x7684;&#x5185;&#x5B58;&#x53EF;&#x4EE5;&#x8BA9;&#x9875;&#x9762;&#x83B7;&#x5F97;&#x66F4;&#x597D;&#x7684;&#x6027;&#x80FD;&#x3002;&#x800C;&#x4F18;&#x5316;&#x5185;&#x5B58;&#x5360;&#x7528;&#x7684;&#x6700;&#x4F73;&#x65B9;&#x5F0F;&#xFF0C;&#x5C31;&#x662F;&#x4E3A;&#x6267;&#x884C;&#x4E2D;&#x7684;&#x4EE3;&#x7801;&#x53EA;&#x4FDD;&#x5B58;&#x5FC5;&#x8981;&#x7684;&#x6570;&#x636E;&#x3002;&#x4E00;&#x65E6;&#x6570;&#x636E;&#x4E0D;&#x518D;&#x6709;&#x7528;&#xFF0C;&#x6700;&#x597D;&#x901A;&#x8FC7;&#x5C06;&#x5176;&#x503C;&#x8BBE;&#x7F6E;&#x4E3A; null &#x6765;&#x91CA;&#x653E;&#x5176;&#x5F15;&#x7528;&#x2014;&#x2014;&#x8FD9;&#x4E2A;&#x505A;&#x6CD5;&#x53EB;&#x505A;&#x89E3;&#x9664;&#x5F15;&#x7528;&#xFF08;dereferencing&#xFF09;</strong>&#x3002;</p>
+<p><strong> &#x8FD9;&#x4E00;&#x505A;&#x6CD5;&#x9002;&#x7528;&#x4E8E;&#x5927;&#x591A;&#x6570;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x548C;&#x5168;&#x5C40;&#x5BF9;&#x8C61;&#x7684;&#x5C5E;&#x6027;&#x3002;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x4F1A;&#x5728;&#x5B83;&#x4EEC;&#x79BB;&#x5F00;&#x6267;&#x884C;&#x73AF;&#x5883;&#x65F6;&#x81EA;&#x52A8;&#x88AB;&#x89E3;&#x9664;&#x5F15;&#x7528;&#xFF1B;</strong></p>
+<pre><code>function createPerson(name){
+    var localPerson = new Object();
+    localPerson.name = name;
+    return localPerson;
+}
+var globalPerson = createPerson(&quot;Nicholas&quot;);
+// &#x624B;&#x5DE5;&#x89E3;&#x9664; globalPerson &#x7684;&#x5F15;&#x7528;
+globalPerson = null;
+</code></pre><p>&#x5728;&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;&#x53D8;&#x91CF; globalPerson &#x53D6;&#x5F97;&#x4E86; createPerson() &#x51FD;&#x6570;&#x8FD4;&#x56DE;&#x7684;&#x503C;&#x3002;&#x5728; createPerson()&#x51FD;&#x6570;&#x5185;&#x90E8;&#xFF0C;&#x6211;&#x4EEC;&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x5E76;&#x5C06;&#x5176;&#x8D4B;&#x7ED9;&#x5C40;&#x90E8;&#x53D8;&#x91CF; localPerson &#xFF0C;&#x7136;&#x540E;&#x53C8;&#x4E3A;&#x8BE5;&#x5BF9;&#x8C61;&#x6DFB;&#x52A0;&#x4E86;&#x4E00;&#x4E2A;&#x540D;&#x4E3A;name &#x7684;&#x5C5E;&#x6027;&#x3002;&#x6700;&#x540E;&#xFF0C;&#x5F53;&#x8C03;&#x7528;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x65F6;&#xFF0C; localPerson &#x4EE5;&#x51FD;&#x6570;&#x503C;&#x7684;&#x5F62;&#x5F0F;&#x8FD4;&#x56DE;&#x5E76;&#x8D4B;&#x7ED9;&#x5168;&#x5C40;&#x53D8;&#x91CF;globalPerson &#x3002;</p>
+<p>&#x7531;&#x4E8E; localPerson &#x5728; createPerson() &#x51FD;&#x6570;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#x540E;&#x5C31;&#x79BB;&#x5F00;&#x4E86;&#x5176;&#x6267;&#x884C;&#x73AF;&#x5883;&#xFF0C;&#x56E0;&#x6B64;&#x65E0;&#x9700;&#x6211;&#x4EEC;&#x663E;&#x5F0F;&#x5730;&#x53BB;&#x4E3A;&#x5B83;&#x89E3;&#x9664;&#x5F15;&#x7528;&#x3002;</p>
+<p>&#x4F46;&#x662F;&#x5BF9;&#x4E8E;&#x5168;&#x5C40;&#x53D8;&#x91CF; globalPerson &#x800C;&#x8A00;&#xFF0C;&#x5219;&#x9700;&#x8981;&#x6211;&#x4EEC;&#x5728;&#x4E0D;&#x4F7F;&#x7528;&#x5B83;&#x7684;&#x65F6;&#x5019;&#x624B;&#x5DE5;&#x4E3A;&#x5B83;&#x89E3;&#x9664;&#x5F15;&#x7528;&#xFF0C;&#x8FD9;&#x4E5F;&#x6B63;&#x662F;&#x4E0A;&#x9762;&#x4F8B;&#x5B50;&#x4E2D;&#x6700;&#x540E;&#x4E00;&#x884C;&#x4EE3;&#x7801;&#x7684;&#x76EE;&#x7684;&#x3002;</p>
+<blockquote>
+<p>&#x4E0D;&#x8FC7;&#xFF0C;&#x89E3;&#x9664;&#x4E00;&#x4E2A;&#x503C;&#x7684;&#x5F15;&#x7528;&#x5E76;&#x4E0D;&#x610F;&#x5473;&#x7740;&#x81EA;&#x52A8;&#x56DE;&#x6536;&#x8BE5;&#x503C;&#x6240;&#x5360;&#x7528;&#x7684;&#x5185;&#x5B58;&#x3002;&#x89E3;&#x9664;&#x5F15;&#x7528;&#x7684;&#x771F;&#x6B63;&#x4F5C;&#x7528;&#x662F;&#x8BA9;&#x503C;&#x8131;&#x79BB;&#x6267;&#x884C;&#x73AF;&#x5883;&#xFF0C;&#x4EE5;&#x4FBF;&#x5783;&#x573E;&#x6536;&#x96C6;&#x5668;&#x4E0B;&#x6B21;&#x8FD0;&#x884C;&#x65F6;&#x5C06;&#x5176;&#x56DE;&#x6536;&#x3002;</p>
+</blockquote>
+<h1 id="&#x603B;&#x7ED3;"><a href="#&#x603B;&#x7ED3;" class="headerlink" title="&#x603B;&#x7ED3;"></a>&#x603B;&#x7ED3;</h1><p>JavaScript &#x53D8;&#x91CF;&#x53EF;&#x4EE5;&#x7528;&#x6765;&#x4FDD;&#x5B58;&#x4E24;&#x79CD;&#x7C7B;&#x578B;&#x7684;&#x503C;&#xFF1A;&#x57FA;&#x672C;&#x7C7B;&#x578B;&#x503C;&#x548C;&#x5F15;&#x7528;&#x7C7B;&#x578B;&#x503C;&#x3002;&#x57FA;&#x672C;&#x7C7B;&#x578B;&#x7684;&#x503C;&#x6E90;&#x81EA;&#x4EE5;&#x4E0B; 5&#x79CD;&#x57FA;&#x672C;&#x6570;&#x636E;&#x7C7B;&#x578B;&#xFF1A; Undefined &#x3001; Null &#x3001; Boolean &#x3001; Number &#x548C; String &#x3002;</p>
+<p>&#x57FA;&#x672C;&#x7C7B;&#x578B;&#x503C;&#x548C;&#x5F15;&#x7528;&#x7C7B;&#x578B;&#x503C;&#x5177;&#x6709;&#x4EE5;&#x4E0B;&#x7279;&#x70B9;&#xFF1A;</p>
+<ul>
+<li>&#x57FA;&#x672C;&#x7C7B;&#x578B;&#x503C;&#x5728;&#x5185;&#x5B58;&#x4E2D;&#x5360;&#x636E;&#x56FA;&#x5B9A;&#x5927;&#x5C0F;&#x7684;&#x7A7A;&#x95F4;&#xFF0C;&#x56E0;&#x6B64;&#x88AB;&#x4FDD;&#x5B58;&#x5728;&#x6808;&#x5185;&#x5B58;&#x4E2D;&#xFF1B;</li>
+<li>&#x4ECE;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x5411;&#x53E6;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x590D;&#x5236;&#x57FA;&#x672C;&#x7C7B;&#x578B;&#x7684;&#x503C;&#xFF0C;&#x4F1A;&#x521B;&#x5EFA;&#x8FD9;&#x4E2A;&#x503C;&#x7684;&#x4E00;&#x4E2A;&#x526F;&#x672C;&#xFF1B;</li>
+<li>&#x5F15;&#x7528;&#x7C7B;&#x578B;&#x7684;&#x503C;&#x662F;&#x5BF9;&#x8C61;&#xFF0C;&#x4FDD;&#x5B58;&#x5728;&#x5806;&#x5185;&#x5B58;&#x4E2D;&#xFF1B;</li>
+<li>&#x5305;&#x542B;&#x5F15;&#x7528;&#x7C7B;&#x578B;&#x503C;&#x7684;&#x53D8;&#x91CF;&#x5B9E;&#x9645;&#x4E0A;&#x5305;&#x542B;&#x7684;&#x5E76;&#x4E0D;&#x662F;&#x5BF9;&#x8C61;&#x672C;&#x8EAB;&#xFF0C;&#x800C;&#x662F;&#x4E00;&#x4E2A;&#x6307;&#x5411;&#x8BE5;&#x5BF9;&#x8C61;&#x7684;&#x6307;&#x9488;&#xFF1B;</li>
+<li>&#x4ECE;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x5411;&#x53E6;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x590D;&#x5236;&#x5F15;&#x7528;&#x7C7B;&#x578B;&#x7684;&#x503C;&#xFF0C;&#x590D;&#x5236;&#x7684;&#x5176;&#x5B9E;&#x662F;&#x6307;&#x9488;&#xFF0C;&#x56E0;&#x6B64;&#x4E24;&#x4E2A;&#x53D8;&#x91CF;&#x6700;&#x7EC8;&#x90FD;&#x6307;&#x5411;&#x540C;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#xFF1B;</li>
+<li><p>&#x786E;&#x5B9A;&#x4E00;&#x4E2A;&#x503C;&#x662F;&#x54EA;&#x79CD;&#x57FA;&#x672C;&#x7C7B;&#x578B;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; typeof &#x64CD;&#x4F5C;&#x7B26;&#xFF0C;&#x800C;&#x786E;&#x5B9A;&#x4E00;&#x4E2A;&#x503C;&#x662F;&#x54EA;&#x79CD;&#x5F15;&#x7528;&#x7C7B;&#x578B;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;instanceof &#x64CD;&#x4F5C;&#x7B26;&#xFF1B;&#x5982;&#x679C;&#x8981;&#x7EDD;&#x5BF9;&#x51C6;&#x786E;&#x7684;&#x5224;&#x65AD;&#x67D0;&#x4E2A;&#x53D8;&#x91CF;&#x7684;&#x6570;&#x636E;&#x7C7B;&#x578B;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;</p>
+<p>  var testStr = &#x2018;cccccccc&#x2019;;<br>  var testAry = [2,3,4,5];<br>  var testObj = {</p>
+<pre><code>name:&quot;zhu&quot;,
+age:26,
+gender:&quot;man&quot;
+</code></pre><p>  };</p>
+<p>  console.log({}.toString.call(testStr));//[object String]<br>  console.log({}.toString.call(testAry));//[object Array]<br>  console.log({}.toString.call(testObj));//[object Object]</p>
+</li>
+</ul>
+<p>&#x6240;&#x6709;&#x53D8;&#x91CF;&#xFF08;&#x5305;&#x62EC;&#x57FA;&#x672C;&#x7C7B;&#x578B;&#x548C;&#x5F15;&#x7528;&#x7C7B;&#x578B;&#xFF09;&#x90FD;&#x5B58;&#x5728;&#x4E8E;&#x4E00;&#x4E2A;&#x6267;&#x884C;&#x73AF;&#x5883;&#xFF08;&#x4E5F;&#x79F0;&#x4E3A;&#x4F5C;&#x7528;&#x57DF;&#xFF09;&#x5F53;&#x4E2D;&#xFF0C;<strong>&#x8FD9;&#x4E2A;&#x6267;&#x884C;&#x73AF;&#x5883;&#x51B3;&#x5B9A;&#x4E86;&#x53D8;&#x91CF;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#xFF0C;&#x4EE5;&#x53CA;&#x54EA;&#x4E00;&#x90E8;&#x5206;&#x4EE3;&#x7801;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;&#x5176;&#x4E2D;&#x7684;&#x53D8;&#x91CF;</strong>&#x3002;&#x4EE5;&#x4E0B;&#x662F;&#x5173;&#x4E8E;&#x6267;&#x884C;&#x73AF;&#x5883;&#x7684;&#x51E0;&#x70B9;&#x603B;&#x7ED3;&#xFF1A;</p>
+<ul>
+<li>&#x6267;&#x884C;&#x73AF;&#x5883;&#x6709;&#x5168;&#x5C40;&#x6267;&#x884C;&#x73AF;&#x5883;&#xFF08;&#x4E5F;&#x79F0;&#x4E3A;&#x5168;&#x5C40;&#x73AF;&#x5883;&#xFF09;&#x548C;&#x51FD;&#x6570;&#x6267;&#x884C;&#x73AF;&#x5883;&#x4E4B;&#x5206;&#xFF1B;</li>
+<li>&#x6BCF;&#x6B21;&#x8FDB;&#x5165;&#x4E00;&#x4E2A;&#x65B0;&#x6267;&#x884C;&#x73AF;&#x5883;&#xFF0C;&#x90FD;&#x4F1A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x7528;&#x4E8E;&#x641C;&#x7D22;&#x53D8;&#x91CF;&#x548C;&#x51FD;&#x6570;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x94FE;&#xFF1B;</li>
+<li>&#x51FD;&#x6570;&#x7684;&#x5C40;&#x90E8;&#x73AF;&#x5883;&#x4E0D;&#x4EC5;&#x6709;&#x6743;&#x8BBF;&#x95EE;&#x51FD;&#x6570;&#x4F5C;&#x7528;&#x57DF;&#x4E2D;&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x800C;&#x4E14;&#x6709;&#x6743;&#x8BBF;&#x95EE;&#x5176;&#x5305;&#x542B;&#xFF08;&#x7236;&#xFF09;&#x73AF;&#x5883;&#xFF0C;&#x4E43;&#x81F3;&#x5168;&#x5C40;&#x73AF;&#x5883;&#xFF1B;</li>
+<li>&#x5168;&#x5C40;&#x73AF;&#x5883;&#x53EA;&#x80FD;&#x8BBF;&#x95EE;&#x5728;&#x5168;&#x5C40;&#x73AF;&#x5883;&#x4E2D;&#x5B9A;&#x4E49;&#x7684;&#x53D8;&#x91CF;&#x548C;&#x51FD;&#x6570;&#xFF0C;&#x800C;&#x4E0D;&#x80FD;&#x76F4;&#x63A5;&#x8BBF;&#x95EE;&#x5C40;&#x90E8;&#x73AF;&#x5883;&#x4E2D;&#x7684;&#x4EFB;&#x4F55;&#x6570;&#x636E;&#xFF1B;</li>
+<li>&#x53D8;&#x91CF;&#x7684;&#x6267;&#x884C;&#x73AF;&#x5883;&#x6709;&#x52A9;&#x4E8E;&#x786E;&#x5B9A;&#x5E94;&#x8BE5;&#x4F55;&#x65F6;&#x91CA;&#x653E;&#x5185;&#x5B58;&#x3002;</li>
+</ul>
+<p>JavaScript &#x662F;&#x4E00;&#x95E8;&#x5177;&#x6709;&#x81EA;&#x52A8;&#x5783;&#x573E;&#x6536;&#x96C6;&#x673A;&#x5236;&#x7684;&#x7F16;&#x7A0B;&#x8BED;&#x8A00;&#xFF0C;&#x5F00;&#x53D1;&#x4EBA;&#x5458;&#x4E0D;&#x5FC5;&#x5173;&#x5FC3;&#x5185;&#x5B58;&#x5206;&#x914D;&#x548C;&#x56DE;&#x6536;&#x95EE;&#x9898;&#x3002;&#x53EF;&#x4EE5;&#x5BF9; JavaScript &#x7684;&#x5783;&#x573E;&#x6536;&#x96C6;&#x4F8B;&#x7A0B;&#x4F5C;&#x5982;&#x4E0B;&#x603B;&#x7ED3;&#x3002;</p>
+<ul>
+<li>&#x79BB;&#x5F00;&#x4F5C;&#x7528;&#x57DF;&#x7684;&#x503C;&#x5C06;&#x88AB;&#x81EA;&#x52A8;&#x6807;&#x8BB0;&#x4E3A;&#x53EF;&#x4EE5;&#x56DE;&#x6536;&#xFF0C;&#x56E0;&#x6B64;&#x5C06;&#x5728;&#x5783;&#x573E;&#x6536;&#x96C6;&#x671F;&#x95F4;&#x88AB;&#x5220;&#x9664;&#x3002;</li>
+<li>&#x201C;&#x6807;&#x8BB0;&#x6E05;&#x9664;&#x201D;&#x662F;&#x76EE;&#x524D;&#x4E3B;&#x6D41;&#x7684;&#x5783;&#x573E;&#x6536;&#x96C6;&#x7B97;&#x6CD5;&#xFF0C;&#x8FD9;&#x79CD;&#x7B97;&#x6CD5;&#x7684;&#x601D;&#x60F3;&#x662F;&#x7ED9;&#x5F53;&#x524D;&#x4E0D;&#x4F7F;&#x7528;&#x7684;&#x503C;&#x52A0;&#x4E0A;&#x6807;&#x8BB0;&#xFF0C;&#x7136;&#x540E;&#x518D;&#x56DE;&#x6536;&#x5176;&#x5185;&#x5B58;&#x3002;</li>
+<li>&#x53E6;&#x4E00;&#x79CD;&#x5783;&#x573E;&#x6536;&#x96C6;&#x7B97;&#x6CD5;&#x662F;&#x201C;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x201D;&#xFF0C;&#x8FD9;&#x79CD;&#x7B97;&#x6CD5;&#x7684;&#x601D;&#x60F3;&#x662F;&#x8DDF;&#x8E2A;&#x8BB0;&#x5F55;&#x6240;&#x6709;&#x503C;&#x88AB;&#x5F15;&#x7528;&#x7684;&#x6B21;&#x6570;&#x3002;JavaScript&#x5F15;&#x64CE;&#x76EE;&#x524D;&#x90FD;&#x4E0D;&#x518D;&#x4F7F;&#x7528;&#x8FD9;&#x79CD;&#x7B97;&#x6CD5;&#xFF1B;&#x4F46;&#x5728; IE &#x4E2D;&#x8BBF;&#x95EE;&#x975E;&#x539F;&#x751F; JavaScript &#x5BF9;&#x8C61;&#xFF08;&#x5982; DOM &#x5143;&#x7D20;&#xFF09;&#x65F6;&#xFF0C;&#x8FD9;&#x79CD;&#x7B97;&#x6CD5;&#x4ECD;&#x7136;&#x53EF;&#x80FD;&#x4F1A;&#x5BFC;&#x81F4;&#x95EE;&#x9898;&#x3002;</li>
+<li>&#x5F53;&#x4EE3;&#x7801;&#x4E2D;&#x5B58;&#x5728;&#x5FAA;&#x73AF;&#x5F15;&#x7528;&#x73B0;&#x8C61;&#x65F6;&#xFF0C;&#x201C;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x201D;&#x7B97;&#x6CD5;&#x5C31;&#x4F1A;&#x5BFC;&#x81F4;&#x95EE;&#x9898;&#x3002;</li>
+<li>&#x89E3;&#x9664;&#x53D8;&#x91CF;&#x7684;&#x5F15;&#x7528;&#x4E0D;&#x4EC5;&#x6709;&#x52A9;&#x4E8E;&#x6D88;&#x9664;&#x5FAA;&#x73AF;&#x5F15;&#x7528;&#x73B0;&#x8C61;&#xFF0C;&#x800C;&#x4E14;&#x5BF9;&#x5783;&#x573E;&#x6536;&#x96C6;&#x4E5F;&#x6709;&#x597D;&#x5904;&#x3002;&#x4E3A;&#x4E86;&#x786E;&#x4FDD;&#x6709;&#x6548;&#x5730;&#x56DE;&#x6536;&#x5185;&#x5B58;&#xFF0C;&#x5E94;&#x8BE5;&#x53CA;&#x65F6;&#x89E3;&#x9664;&#x4E0D;&#x518D;&#x4F7F;&#x7528;&#x7684;&#x5168;&#x5C40;&#x5BF9;&#x8C61;&#x3001;&#x5168;&#x5C40;&#x5BF9;&#x8C61;&#x5C5E;&#x6027;&#x4EE5;&#x53CA;&#x5FAA;&#x73AF;&#x5F15;&#x7528;&#x53D8;&#x91CF;&#x7684;&#x5F15;&#x7528;&#x3002;</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/15/JS高级技巧/高级定时器/" itemprop="url">
+                  定时器
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-15T09:01:13+08:00" content="2016-09-15">
+              2016-09-15
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/15/JS高级技巧/高级定时器/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/09/15/JS高级技巧/高级定时器/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>&#x5173;&#x4E8E;&#x5B9A;&#x65F6;&#x5668;&#x8981;&#x8BB0;&#x4F4F;&#x7684;&#x6700;&#x91CD;&#x8981;&#x7684;&#x4E8B;&#x60C5;&#x662F;</strong>:&#x6307;&#x5B9A;&#x7684;&#x65F6;&#x95F4;&#x95F4;&#x9694;&#x8868;&#x793A;&#x4F55;&#x65F6;&#x5C06;&#x5B9A;&#x65F6;&#x5668;&#x7684;&#x4EE3;&#x7801;&#x6DFB;&#x52A0;&#x5230;&#x961F;&#x5217;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x4F55;&#x65F6;&#x5B9E;&#x9645;&#x6267;&#x884C;&#x4EE3;&#x7801;&#x3002;</p>
+<blockquote>
+<p>&#x5B9A;&#x65F6;&#x5668;&#x5BF9;&#x961F;&#x5217;&#x7684;&#x5DE5;&#x4F5C;&#x65B9;&#x5F0F;&#x662F;&#xFF0C;&#x5F53;&#x7279;&#x5B9A;&#x65F6;&#x95F4;&#x8FC7;&#x53BB;&#x540E;&#x5C06;&#x4EE3;&#x7801;&#x63D2;&#x5165;&#x3002;&#x6CE8;&#x610F;&#xFF0C;&#x7ED9;&#x961F;&#x5217;&#x6DFB;&#x52A0;&#x4EE3;&#x7801;&#x5E76;&#x4E0D;&#x610F;&#x5473;&#x7740;&#x5BF9;&#x5B83;&#x7ACB;&#x523B;&#x6267;&#x884C;&#xFF0C;&#x800C;&#x53EA;&#x80FD;&#x8868;&#x793A;&#x5B83;&#x4F1A;&#x5C3D;&#x5FEB;&#x6267;&#x884C;&#x3002;&#x8BBE;&#x5B9A;&#x4E00;&#x4E2A; 150ms &#x540E;&#x6267;&#x884C;&#x7684;&#x5B9A;&#x65F6;&#x5668;&#x4E0D;&#x4EE3;&#x8868;&#x5230;&#x4E86; 150ms&#x4EE3;&#x7801;&#x5C31;&#x7ACB;&#x523B;&#x6267;&#x884C;&#xFF0C;&#x5B83;&#x8868;&#x793A;&#x4EE3;&#x7801;&#x4F1A;&#x5728; 150ms &#x540E;&#x88AB;&#x52A0;&#x5165;&#x5230;&#x961F;&#x5217;&#x4E2D;&#x3002;&#x5982;&#x679C;&#x5728;&#x8FD9;&#x4E2A;&#x65F6;&#x95F4;&#x70B9;&#x4E0A;&#xFF0C;&#x961F;&#x5217;&#x4E2D;&#x6CA1;&#x6709;&#x5176;&#x4ED6;&#x4E1C;&#x897F;&#xFF0C;&#x90A3;&#x4E48;&#x8FD9;&#x6BB5;&#x4EE3;&#x7801;&#x5C31;&#x4F1A;&#x88AB;&#x6267;&#x884C;&#xFF0C;&#x8868;&#x9762;&#x4E0A;&#x770B;&#x4E0A;&#x53BB;&#x597D;&#x50CF;&#x4EE3;&#x7801;&#x5C31;&#x5728;&#x7CBE;&#x786E;&#x6307;&#x5B9A;&#x7684;&#x65F6;&#x95F4;&#x70B9;&#x4E0A;&#x6267;&#x884C;&#x4E86;&#x3002;&#x5176;&#x4ED6;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x4EE3;&#x7801;&#x53EF;&#x80FD;&#x660E;&#x663E;&#x5730;&#x7B49;&#x5F85;&#x66F4;&#x957F;&#x65F6;&#x95F4;&#x624D;&#x6267;&#x884C;&#x3002;</p>
+</blockquote>
+<p>&#x5B9A;&#x65F6;&#x5668;&#x4EC5;&#x4EC5;&#x53EA;&#x662F;&#x8BA1;&#x5212;&#x4EE3;&#x7801;&#x5728;&#x672A;&#x6765;&#x7684;&#x67D0;&#x4E2A;&#x65F6;&#x95F4;&#x6267;&#x884C;&#x3002;&#x6267;&#x884C;&#x7684;&#x65F6;&#x95F4;&#x662F;&#x4E0D;&#x80FD;&#x4FDD;&#x8BC1;&#x7684;&#xFF0C;&#x56E0;&#x4E3A;&#x5728;&#x9875;&#x9762;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x4E2D;&#xFF0C;&#x4E0D;&#x540C;&#x65F6;&#x95F4;&#x53EF;&#x80FD;&#x6709;&#x5176;&#x4ED6;&#x4EE3;&#x7801;&#x5728;&#x63A7;&#x5236; JavaScript &#x8FDB;&#x7A0B;&#x3002;&#x5728;&#x9875;&#x9762;&#x4E0B;&#x8F7D;&#x5B8C;&#x540E;&#x7684;&#x4EE3;&#x7801;&#x8FD0;&#x884C;&#x3001;&#x4E8B;&#x4EF6;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x3001;Ajax &#x56DE;&#x8C03;&#x51FD;&#x6570;&#x90FD;&#x5FC5;&#x987B;&#x4F7F;&#x7528;&#x540C;&#x6837;&#x7684;&#x7EBF;&#x7A0B;&#x6765;&#x6267;&#x884C;&#x3002;&#x5B9E;&#x9645;&#x4E0A;&#xFF0C;&#x6D4F;&#x89C8;&#x5668;&#x8D1F;&#x8D23;&#x8FDB;&#x884C;&#x6392;&#x5E8F;&#xFF0C;&#x6307;&#x6D3E;&#x67D0;&#x6BB5;&#x4EE3;&#x7801;&#x5728;&#x67D0;&#x4E2A;&#x65F6;&#x95F4;&#x70B9;&#x8FD0;&#x884C;&#x7684;&#x4F18;&#x5148;&#x7EA7;&#x3002;</p>
+<p>&#x53EF;&#x4EE5;&#x628A; JavaScript &#x60F3;&#x8C61;&#x6210;&#x5728;&#x65F6;&#x95F4;&#x7EBF;&#x4E0A;&#x8FD0;&#x884C;&#x7684;&#x3002;&#x5F53;&#x9875;&#x9762;&#x8F7D;&#x5165;&#x65F6;&#xFF0C;&#x9996;&#x5148;&#x6267;&#x884C;&#x662F;&#x4EFB;&#x4F55;&#x5305;&#x542B;&#x5728; &lt; script&gt; &#x5143;&#x7D20;&#x4E2D;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x901A;&#x5E38;&#x662F;&#x9875;&#x9762;&#x751F;&#x547D;&#x5468;&#x671F;&#x540E;&#x9762;&#x8981;&#x7528;&#x5230;&#x7684;&#x4E00;&#x4E9B;&#x7B80;&#x5355;&#x7684;&#x51FD;&#x6570;&#x548C;&#x53D8;&#x91CF;&#x7684;&#x58F0;&#x660E;&#xFF0C;&#x4E0D;&#x8FC7;&#x6709;&#x65F6;&#x5019;&#x4E5F;&#x5305;&#x542B;&#x4E00;&#x4E9B;&#x521D;&#x59CB;&#x6570;&#x636E;&#x7684;&#x5904;&#x7406;&#x3002;&#x5728;&#x8FD9;&#x4E4B;&#x540E;&#xFF0C;JavaScript &#x8FDB;&#x7A0B;&#x5C06;&#x7B49;&#x5F85;&#x66F4;&#x591A;&#x4EE3;&#x7801;&#x6267;&#x884C;&#x3002;&#x5F53;&#x8FDB;&#x7A0B;&#x7A7A;&#x95F2;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4E0B;&#x4E00;&#x4E2A;&#x4EE3;&#x7801;&#x4F1A;&#x88AB;&#x89E6;&#x53D1;&#x5E76;&#x7ACB;&#x523B;&#x6267;&#x884C;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x5F53;&#x70B9;&#x51FB;&#x67D0;&#x4E2A;&#x6309;&#x94AE;&#x65F6;&#xFF0C; onclick &#x4E8B;&#x4EF6;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x4F1A;&#x7ACB;&#x523B;&#x6267;&#x884C;&#xFF0C;&#x53EA;&#x8981; JavaScript &#x8FDB;&#x7A0B;&#x5904;&#x4E8E;&#x7A7A;&#x95F2;&#x72B6;&#x6001;&#x3002;&#x8FD9;&#x6837;&#x4E00;&#x4E2A;&#x9875;&#x9762;&#x7684;&#x65F6;&#x95F4;&#x7EBF;&#x7C7B;&#x4F3C;&#x4E8E;&#x4E0B;&#x56FE;&#xFF08;&#x5F15;&#x81EA;&#x9AD8;&#x7A0B;&#x4E09;&#xFF09;</p>
+<p><img src="http://i.imgur.com/rSFcbes.png" alt=""></p>
+<p>&#x4E0B;&#x9762;&#x662F;&#x6709;&#x5FAA;&#x73AF;&#x7684;&#x4EE3;&#x7801;</p>
+<pre><code>&lt;div id=&quot;test&quot;&gt;2222222222&lt;/div&gt;
+&lt;script&gt;
+    var oTest=document.getElementById(&quot;test&quot;);
+    oTest.onclick=function(){
+        var nowTime=new Date();
+        setTimeout(function(){
+            console.log(&quot;&#x5B9A;&#x65F6;&#x5668;&#x7684;&#x4EE3;&#x7801;&quot;);
+            console.log(new Date()-nowTime);//534
+        },100);
+        for(var i=0;i&lt;1000000000;i++){}
+        var clickTime=new Date();
+        console.log(clickTime-nowTime);//532
+    }
+&lt;/script&gt;
+</code></pre><p>&#x70B9;&#x51FB;&#x540E;&#xFF0C;&#x4F1A;&#x53D1;&#x73B0;&#xFF0C;&#x5E76;&#x4E0D;&#x662F;&#x8FC7;100&#x6BEB;&#x79D2;&#x6267;&#x884C;&#x7684;&#xFF1B;&#x5982;&#x679C;&#x53BB;&#x6389;for&#x5FAA;&#x73AF;&#xFF0C;&#x90A3;&#x662F;&#x5DEE;&#x4E0D;&#x591A;&#x7684;&#xFF1B;</p>
+<h1 id="&#x91CD;&#x590D;&#x5B9A;&#x65F6;&#x5668;-setInterval"><a href="#&#x91CD;&#x590D;&#x5B9A;&#x65F6;&#x5668;-setInterval" class="headerlink" title="&#x91CD;&#x590D;&#x5B9A;&#x65F6;&#x5668; setInterval"></a>&#x91CD;&#x590D;&#x5B9A;&#x65F6;&#x5668; setInterval</h1><p>&#x4F7F;&#x7528; setInterval() &#x521B;&#x5EFA;&#x7684;&#x5B9A;&#x65F6;&#x5668;&#x786E;&#x4FDD;&#x4E86;&#x5B9A;&#x65F6;&#x5668;&#x4EE3;&#x7801;&#x89C4;&#x5219;&#x5730;&#x63D2;&#x5165;&#x961F;&#x5217;&#x4E2D;&#x3002;&#x8FD9;&#x4E2A;&#x65B9;&#x5F0F;&#x7684;&#x95EE;&#x9898;&#x5728;&#x4E8E;&#xFF0C;&#x5B9A;&#x65F6;&#x5668;&#x4EE3;&#x7801;&#x53EF;&#x80FD;&#x5728;&#x4EE3;&#x7801;&#x518D;&#x6B21;&#x88AB;&#x6DFB;&#x52A0;&#x5230;&#x961F;&#x5217;&#x4E4B;&#x524D;&#x8FD8;&#x6CA1;&#x6709;&#x5B8C;&#x6210;&#x6267;&#x884C;&#xFF0C;&#x7ED3;&#x679C;&#x5BFC;&#x81F4;&#x5B9A;&#x65F6;&#x5668;&#x4EE3;&#x7801;&#x8FDE;&#x7EED;&#x8FD0;&#x884C;&#x597D;&#x51E0;&#x6B21;&#xFF0C;&#x800C;&#x4E4B;&#x95F4;&#x6CA1;&#x6709;&#x4EFB;&#x4F55;&#x505C;&#x987F;&#x3002;</p>
+<p>&#x5E78;&#x597D;&#xFF0C;JavaScript &#x5F15;&#x64CE;&#x591F;&#x806A;&#x660E;&#xFF0C;&#x80FD;&#x907F;&#x514D;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x3002;</p>
+<p>&#x5F53;&#x4F7F;&#x7528;setInterval() &#x65F6;&#xFF0C;</p>
+<ul>
+<li>1&#x3001;&#x4EC5;&#x5F53;&#x6CA1;&#x6709;&#x8BE5;&#x5B9A;&#x65F6;&#x5668;&#x7684;&#x4EFB;&#x4F55;&#x5176;&#x4ED6;&#x4EE3;&#x7801;&#x5B9E;&#x4F8B;&#x65F6;&#xFF0C;&#x624D;&#x5C06;&#x5B9A;&#x65F6;&#x5668;&#x4EE3;&#x7801;&#x6DFB;&#x52A0;&#x5230;&#x961F;&#x5217;&#x4E2D;&#x3002;</li>
+</ul>
+<p>&#x8FD9;&#x786E;&#x4FDD;&#x4E86;&#x5B9A;&#x65F6;&#x5668;&#x4EE3;&#x7801;&#x52A0;&#x5165;&#x5230;&#x961F;&#x5217;&#x4E2D;&#x7684;&#x6700;&#x5C0F;&#x65F6;&#x95F4;&#x95F4;&#x9694;&#x4E3A;&#x6307;&#x5B9A;&#x95F4;&#x9694;&#x3002;</p>
+<p>&#x4F46;&#x662F;&#x7531;&#x6B64;&#x5F15;&#x53D1;&#x4E86;setInterval &#x5B9A;&#x65F6;&#x5668;&#x89C4;&#x5219;&#x6709;&#x4E24;&#x4E2A;&#x95EE;&#x9898;&#xFF1A;</p>
+<ul>
+<li>1&#x3001;&#x67D0;&#x4E9B;&#x95F4;&#x9694;&#x4F1A;&#x88AB;&#x8DF3;&#x8FC7;&#xFF1B;</li>
+<li>2&#x3001;&#x591A;&#x4E2A;&#x5B9A;&#x65F6;&#x5668;&#x7684;&#x4EE3;&#x7801;&#x6267;&#x884C;&#x4E4B;&#x95F4;&#x7684;&#x95F4;&#x9694;&#x53EF;&#x80FD;&#x4F1A;&#x6BD4;&#x9884;&#x671F;&#x7684;&#x5C0F;&#xFF1B;</li>
+</ul>
+<p>&#x56E0;&#x4E3A;&#x89C4;&#x5219;&#x662F;&#xFF1A;<strong>&#x4EC5;&#x5F53;&#x6CA1;&#x6709;&#x8BE5;&#x5B9A;&#x65F6;&#x5668;&#x7684;&#x4EFB;&#x4F55;&#x5176;&#x4ED6;&#x4EE3;&#x7801;&#x5B9E;&#x4F8B;&#x65F6;&#xFF0C;&#x624D;&#x5C06;&#x5B9A;&#x65F6;&#x5668;&#x4EE3;&#x7801;&#x6DFB;&#x52A0;&#x5230;&#x961F;&#x5217;&#x4E2D;&#x3002;</strong></p>
+<p>&#x5982;&#x679C;&#x8BBE;&#x7F6E;&#x4E00;&#x4E2A;&#x91CD;&#x590D;&#x5B9A;&#x65F6;&#x5668; &#xFF08;setInterval&#xFF09;&#xFF1B; &#x5904;&#x7406;&#x7684;&#x65F6;&#x95F4;&#x4E3A;300&#x6BEB;&#x79D2;&#xFF1B;&#x4F46;&#x662F;&#x95F4;&#x9694;&#x65F6;&#x95F4;&#x662F;200&#x6BEB;&#x79D2;&#xFF1B;&#x95F4;&#x9694;&#x65F6;&#x95F4;&#x5C0F;&#x4E8E;&#x5355;&#x6B21;&#x5B9A;&#x65F6;&#x5668;&#x5185;&#x4EE3;&#x7801;&#x7684;&#x5904;&#x7406;&#x65F6;&#x95F4;&#xFF1B;&#x5C31;&#x4F1A;&#x540C;&#x65F6;&#x51FA;&#x73B0;&#x8DF3;&#x8FC7;&#x95F4;&#x9694;&#x4E14;&#x8FDE;&#x7EED;&#x8FD0;&#x884C;&#x5B9A;&#x65F6;&#x5668;&#x4EE3;&#x7801;&#x7684;&#x60C5;&#x51B5;&#x3002;&#xFF08;<strong>&#x961F;&#x5217;&#x4E2D;&#x5DF2;&#x7ECF;&#x6709;&#x4E00;&#x6B21;&#x76F8;&#x540C;&#x7684;&#x5B9A;&#x65F6;&#x5668;&#x65F6;&#xFF0C;&#x7B2C;&#x4E8C;&#x6B21;&#x6DFB;&#x52A0;&#x4F1A;&#x88AB;&#x5FFD;&#x7565;</strong>&#xFF09;</p>
+<p>&#x9AD8;&#x7A0B;&#x4E09;&#x7684;&#x4F8B;&#x5B50;&#xFF1A;</p>
+<p>&#x5047;&#x8BBE;&#xFF0C;&#x67D0;&#x4E2A; onclick &#x4E8B;&#x4EF6;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x4F7F;&#x7528; setInterval() &#x8BBE;&#x7F6E;&#x4E86;&#x4E00;&#x4E2A; 200ms &#x95F4;&#x9694;&#x7684;&#x91CD;&#x590D;&#x5B9A;&#x65F6;&#x5668;&#x3002;&#x5982;&#x679C;&#x4E8B;&#x4EF6;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x82B1;&#x4E86; 300ms&#x591A;&#x4E00;&#x70B9;&#x7684;&#x65F6;&#x95F4;&#x5B8C;&#x6210;&#xFF0C;&#x540C;&#x65F6;&#x5B9A;&#x65F6;&#x5668;&#x4EE3;&#x7801;&#x4E5F;&#x82B1;&#x4E86;&#x5DEE;&#x4E0D;&#x591A;&#x7684;&#x65F6;&#x95F4;&#xFF0C;&#x5C31;&#x4F1A;&#x540C;&#x65F6;&#x51FA;&#x73B0;&#x8DF3;&#x8FC7;&#x95F4;&#x9694;&#x4E14;&#x8FDE;&#x7EED;&#x8FD0;&#x884C;&#x5B9A;&#x65F6;&#x5668;&#x4EE3;&#x7801;&#x7684;&#x60C5;&#x51B5;&#x3002;</p>
+<p><img src="http://i.imgur.com/y4zaD6M.png" alt=""></p>
+<p>&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x4E2D;&#x7684;&#x7B2C; 1 &#x4E2A;&#x5B9A;&#x65F6;&#x5668;&#x662F;&#x5728; 205ms &#x5904;&#x6DFB;&#x52A0;&#x5230;&#x961F;&#x5217;&#x4E2D;&#x7684;&#xFF0C;&#x4F46;&#x662F;&#x76F4;&#x5230;&#x8FC7;&#x4E86; 300ms &#x5904;&#x624D;&#x80FD;&#x591F;&#x6267;&#x884C;&#x3002;&#x5F53;&#x6267;&#x884C;&#x8FD9;&#x4E2A;&#x5B9A;&#x65F6;&#x5668;&#x4EE3;&#x7801;&#x65F6;&#xFF0C;&#x5728; 405ms&#x5904;&#x53C8;&#x7ED9;&#x961F;&#x5217;&#x6DFB;&#x52A0;&#x4E86;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x526F;&#x672C;&#x3002;&#x5728;&#x4E0B;&#x4E00;&#x4E2A;&#x95F4;&#x9694;&#xFF0C;&#x5373; 605ms &#x5904;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x5B9A;&#x65F6;&#x5668;&#x4EE3;&#x7801;&#x4ECD;&#x5728;&#x8FD0;&#x884C;&#xFF0C;&#x540C;&#x65F6;&#x5728;&#x961F;&#x5217;&#x4E2D;&#x5DF2;&#x7ECF;&#x6709;&#x4E86;&#x4E00;&#x4E2A;&#x5B9A;&#x65F6;&#x5668;&#x4EE3;&#x7801;&#x7684;&#x5B9E;&#x4F8B;&#x3002;&#x6240;&#x4EE5;&#x5728;&#x8FD9;&#x4E2A;&#x65F6;&#x95F4;&#x70B9;&#x4E0A;&#x7684;&#x5B9A;&#x65F6;&#x5668;&#x4EE3;&#x7801;&#x4E0D;&#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230;&#x961F;&#x5217;&#x4E2D;&#x3002;</p>
+<p><strong>&#x7ED3;&#x679C;&#x5728; 5ms&#x5904;&#x6DFB;&#x52A0;&#x7684;&#x5B9A;&#x65F6;&#x5668;&#x4EE3;&#x7801;&#x7ED3;&#x675F;&#x4E4B;&#x540E;&#xFF0C;405ms &#x5904;&#x6DFB;&#x52A0;&#x7684;&#x5B9A;&#x65F6;&#x5668;&#x4EE3;&#x7801;&#x5C31;&#x7ACB;&#x523B;&#x6267;&#x884C;&#x3002;</strong></p>
+<h5 id="&#x89E3;&#x51B3;&#x7684;&#x529E;&#x6CD5;"><a href="#&#x89E3;&#x51B3;&#x7684;&#x529E;&#x6CD5;" class="headerlink" title="&#x89E3;&#x51B3;&#x7684;&#x529E;&#x6CD5;"></a>&#x89E3;&#x51B3;&#x7684;&#x529E;&#x6CD5;</h5><p>&#x4F7F;&#x7528;&#x94FE;&#x5F0F; setTimeout() &#x8C03;&#x7528;</p>
+<pre><code>setTimeout(function(){
+    //&#x5904;&#x7406;&#x4E2D;
+    setTimeout(arguments.callee, 400);
+}, 500);
+</code></pre><ul>
+<li>&#x5728;&#x524D;&#x4E00;&#x4E2A;&#x5B9A;&#x65F6;&#x5668;&#x4EE3;&#x7801;&#x6267;&#x884C;&#x5B8C;&#x4E4B;&#x524D;&#xFF0C;&#x4E0D;&#x4F1A;&#x5411;&#x961F;&#x5217;&#x63D2;&#x5165;&#x65B0;&#x7684;&#x5B9A;&#x65F6;&#x5668;&#x4EE3;&#x7801;&#xFF0C;&#x786E;&#x4FDD;&#x4E0D;&#x4F1A;&#x6709;&#x4EFB;&#x4F55;&#x7F3A;&#x5931;&#x7684;&#x95F4;&#x9694;&#x3002;</li>
+<li><p>&#x800C;&#x4E14;&#xFF0C;&#x5B83;&#x53EF;&#x4EE5;&#x4FDD;&#x8BC1;&#x5728;&#x4E0B;&#x4E00;&#x6B21;&#x5B9A;&#x65F6;&#x5668;&#x4EE3;&#x7801;&#x6267;&#x884C;&#x4E4B;&#x524D;&#xFF0C;&#x81F3;&#x5C11;&#x8981;&#x7B49;&#x5F85;&#x6307;&#x5B9A;&#x7684;&#x95F4;&#x9694;&#xFF0C;&#x907F;&#x514D;&#x4E86;&#x8FDE;&#x7EED;&#x7684;&#x8FD0;&#x884C;&#x3002;&#x8FD9;&#x4E2A;&#x6A21;&#x5F0F;&#x4E3B;&#x8981;&#x7528;&#x4E8E;&#x91CD;&#x590D;&#x5B9A;&#x65F6;&#x5668;&#xFF0C;</p>
+<p>  &lt;!doctype html&gt;</p>
+  <html><br>  <head><br>      <meta charset="UTF-8"><br>      <title>Document</title><br>      <link rel="stylesheet" href="test.css"><br>      <style><br>          #test{<br>          width: 200px;height: 200px;background-color: #002d32;<br>              position: absolute;<br>              top: 300px;<br>              left: 20px;<br>          }<br>      </style><br>  </head><br>  <body><br>  <div id="test">2222222222</div><br>  <script><br>      var div = document.getElementById(“test”);<br>      var left;<br>      var timer=setTimeout(function(){<br>          //处理中<br>          left = parseFloat(window.getComputedStyle(div,null).left)+5;<br>          console.log(left);<br>          div.style.left = left + “px”;<br>          if (left &lt; 200) {<br>              setTimeout(arguments.callee, 500);<br>              console.log(“star agin “);<br>          }else{<br>              console.log(“clear Timeout”);<br>              clearTimeout(timer);<br>          }<br>      }, 10);<br>  </script><br>  </body><br>  </html>
+
+</li>
+</ul>
+<p>JavaScript &#x52A8;&#x753B;&#x4E2D;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x6A21;&#x5F0F;&#x5F88;&#x5E38;&#x89C1;&#x3002;</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/08/预解释-作用域-this关键字-闭包/作用域和闭包/" itemprop="url">
+                  作用域和闭包
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-08T16:34:46+08:00" content="2016-09-08">
+              2016-09-08
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/08/预解释-作用域-this关键字-闭包/作用域和闭包/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/09/08/预解释-作用域-this关键字-闭包/作用域和闭包/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="&#x4F5C;&#x7528;&#x57DF;&#x548C;&#x95ED;&#x5305;"><a href="#&#x4F5C;&#x7528;&#x57DF;&#x548C;&#x95ED;&#x5305;" class="headerlink" title="&#x4F5C;&#x7528;&#x57DF;&#x548C;&#x95ED;&#x5305;"></a>&#x4F5C;&#x7528;&#x57DF;&#x548C;&#x95ED;&#x5305;</h1><p>ECMAScript5&#xFF1B;js&#x7684;&#x4EE3;&#x7801;&#x6CA1;&#x6709;&#x4EE3;&#x7801;&#x5757;&#xFF1B;&#x4F7F;&#x7528;&#x51FD;&#x6570;&#x8FD0;&#x884C;&#x7684;&#x673A;&#x5236;&#x8FDB;&#x884C;&#x521B;&#x5EFA;&#x95ED;&#x5305;&#xFF1B;&#x95ED;&#x5305;&#x5C31;&#x662F;&#x4F5C;&#x7528;&#x57DF;&#x7684;&#x610F;&#x601D;&#xFF1B;ES5&#x4E2D;&#xFF0C;JS&#x4E2D;&#x53EA;&#x6709;&#x51FD;&#x6570;&#x624D;&#x53EF;&#x4EE5;&#x521B;&#x5EFA;&#x80FD;&#x64CD;&#x4F5C;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#xFF1B;</p>
+<p>JavaScript&#x4E2D;&#x7684;&#x5185;&#x5B58;&#x4E5F;&#x5206;&#x4E3A;&#x6808;&#x5185;&#x5B58;&#x548C;&#x5806;&#x5185;&#x5B58;&#x3002;&#x4E00;&#x822C;&#x6765;&#x8BF4;&#xFF0C;&#x6808;&#x5185;&#x5B58;&#x4E2D;&#x5B58;&#x653E;&#x7684;&#x662F;&#x5B58;&#x50A8;&#x5BF9;&#x8C61;&#x7684;&#x5730;&#x5740;&#xFF0C;&#x800C;&#x5806;&#x5185;&#x5B58;&#x4E2D;&#x5B58;&#x653E;&#x7684;&#x662F;&#x5B58;&#x50A8;&#x5BF9;&#x8C61;&#x7684;&#x5177;&#x4F53;&#x5185;&#x5BB9;&#x3002;&#x5BF9;&#x4E8E;&#x539F;&#x59CB;&#x7C7B;&#x578B;&#x7684;&#x503C;&#x800C;&#x8A00;&#xFF0C;&#x5176;&#x5730;&#x5740;&#x548C;&#x5177;&#x4F53;&#x5185;&#x5BB9;&#x90FD;&#x5B58;&#x5728;&#x4E0E;&#x6808;&#x5185;&#x5B58;&#x4E2D;&#xFF1B;&#x800C;&#x57FA;&#x4E8E;&#x5F15;&#x7528;&#x7C7B;&#x578B;&#x7684;&#x503C;&#xFF0C;&#x5176;&#x5730;&#x5740;&#x5B58;&#x5728;&#x6808;&#x5185;&#x5B58;&#xFF0C;&#x5176;&#x5177;&#x4F53;&#x5185;&#x5BB9;&#x5B58;&#x5728;&#x5806;&#x5185;&#x5B58;&#x4E2D;&#x3002;&#x5806;&#x5185;&#x5B58;&#x4E0E;&#x6808;&#x5185;&#x5B58;&#x662F;&#x6709;&#x533A;&#x522B;&#x7684;&#xFF0C;&#x6808;&#x5185;&#x5B58;&#x8FD0;&#x884C;&#x6548;&#x7387;&#x6BD4;&#x5806;&#x5185;&#x5B58;&#x9AD8;&#xFF0C;&#x7A7A;&#x95F4;&#x76F8;&#x5BF9;&#x63A8;&#x5185;&#x5B58;&#x6765;&#x8BF4;&#x8F83;&#x5C0F;&#xFF0C;&#x53CD;&#x4E4B;&#x5219;&#x662F;&#x5806;&#x5185;&#x5B58;&#x7684;&#x7279;&#x70B9;&#x3002;&#x6240;&#x4EE5;&#x5C06;&#x6784;&#x9020;&#x7B80;&#x5355;&#x7684;&#x539F;&#x59CB;&#x7C7B;&#x578B;&#x503C;&#x653E;&#x5728;&#x6808;&#x5185;&#x5B58;&#x4E2D;&#xFF0C;&#x5C06;&#x6784;&#x9020;&#x590D;&#x6742;&#x7684;&#x5F15;&#x7528;&#x7C7B;&#x578B;&#x503C;&#x653E;&#x5728;&#x5806;&#x4E2D;&#x800C;&#x4E0D;&#x5F71;&#x54CD;&#x6808;&#x7684;&#x6548;&#x7387;&#x3002;</p>
+<ul>
+<li>&#x51FD;&#x6570;&#x6267;&#x884C;&#x65F6;&#x5F62;&#x6210;&#x79C1;&#x6709;&#x4F5C;&#x7528;&#x57DF;</li>
+<li>&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x548C;&#x79C1;&#x6709;&#x53D8;&#x91CF;</li>
+<li>&#x5982;&#x4F55;&#x533A;&#x5206;&#x51FD;&#x6570;&#x4E2D;&#x51FA;&#x73B0;&#x7684;&#x53D8;&#x91CF;&#x662F;&#x79C1;&#x6709;&#x7684;&#x8FD8;&#x662F;&#x975E;&#x79C1;&#x6709;&#x7684;</li>
+<li>&#x5982;&#x4F55;&#x67E5;&#x627E;&#x5F53;&#x524D;&#x4F5C;&#x7528;&#x57DF;&#x7684;&#x4E0A;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;?</li>
+<li>JavaScript&#x4E2D;&#x7684;&#x9876;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;&#x662F;&#x8C01;&#xFF1F;</li>
+<li>&#x53D8;&#x91CF;&#x548C;&#x5C5E;&#x6027;&#x6709;&#x4EC0;&#x4E48;&#x5173;&#x7CFB;</li>
+<li>&#x51FD;&#x6570;&#x8FD0;&#x884C;&#x4EA7;&#x751F;&#x7684;&#x4F5C;&#x7528;&#x57DF;</li>
+<li>&#x95ED;&#x5305;</li>
+<li>&#x4F5C;&#x7528;&#x57DF;&#x4E0D;&#x9500;&#x6BC1;&#x7684;&#x60C5;&#x51B5;|&#x5185;&#x5B58;&#x91CA;&#x653E;</li>
+</ul>
+<h5 id="&#x51FD;&#x6570;&#x6267;&#x884C;&#x65F6;&#x5F62;&#x6210;&#x79C1;&#x6709;&#x4F5C;&#x7528;&#x57DF;"><a href="#&#x51FD;&#x6570;&#x6267;&#x884C;&#x65F6;&#x5F62;&#x6210;&#x79C1;&#x6709;&#x4F5C;&#x7528;&#x57DF;" class="headerlink" title="&#x51FD;&#x6570;&#x6267;&#x884C;&#x65F6;&#x5F62;&#x6210;&#x79C1;&#x6709;&#x4F5C;&#x7528;&#x57DF;"></a>&#x51FD;&#x6570;&#x6267;&#x884C;&#x65F6;&#x5F62;&#x6210;&#x79C1;&#x6709;&#x4F5C;&#x7528;&#x57DF;</h5><p>&#x51FD;&#x6570;&#x6267;&#x884C;&#x7684;&#x65F6;&#x5019;&#xFF08;&#x76F4;&#x63A5;&#x76EE;&#x7684;:&#x8BA9;&#x51FD;&#x6570;&#x4F53;&#x4E2D;&#x7684;&#x4EE3;&#x7801;&#x6267;&#x884C;&#xFF09;&#x4F1A;&#x5F62;&#x6210;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x79C1;&#x6709;&#x7684;&#x4F5C;&#x7528;&#x57DF;(&#x6808;&#x5185;&#x5B58;),&#x4F9B;&#x51FD;&#x6570;&#x4F53;&#x4E2D;&#x7684;&#x4EE3;&#x7801;&#x6267;&#x884C;;</p>
+<ul>
+<li>1)&#x7ED9;&#x5F62;&#x53C2;&#x8D4B;&#x503C;</li>
+<li>2)&#x79C1;&#x6709;&#x4F5C;&#x7528;&#x57DF;&#x4E0B;&#x7684;&#x9884;&#x89E3;&#x91CA;</li>
+<li>3)&#x79C1;&#x6709;&#x4F5C;&#x7528;&#x57DF;&#x4E0B;&#x7684;&#x4EE3;&#x7801;&#x6267;&#x884C;</li>
+</ul>
+<p>&#x5F62;&#x6210;&#x7684;&#x65B0;&#x7684;&#x79C1;&#x6709;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x8FD8;&#x4FDD;&#x62A4;&#x4E86;&#x91CC;&#x9762;&#x7684;&#x79C1;&#x6709;&#x53D8;&#x91CF;&#x4E0D;&#x53D7;&#x5916;&#x754C;&#x7684;&#x5F71;&#x54CD;,&#x6211;&#x4EEC;&#x628A;&#x51FD;&#x6570;&#x7684;&#x8FD9;&#x79CD;&#x4FDD;&#x62A4;&#x673A;&#x5236;&#x53EB;&#x201D;&#x95ED;&#x5305;&#x201D;:&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x6709;&#x4F5C;&#x7528;&#x57DF;&#xFF1B;&#x56E0;&#x4E3A;&#x53D8;&#x91CF;&#x8981;&#x89C4;&#x5B9A;&#x6D3B;&#x52A8;&#x8303;&#x56F4;&#x7684;&#xFF0C;&#x4E3A;&#x4FBF;&#x4E8E;&#x7BA1;&#x7406;&#x4E0D;&#x540C;&#x8303;&#x56F4;&#x7684;&#x53D8;&#x91CF;&#xFF1B;&#x6240;&#x4EE5;&#x8981;&#x7ED9;&#x53D8;&#x91CF;&#x8BBE;&#x7F6E;&#x6D3B;&#x52A8;&#x8303;&#x56F4;&#xFF1B;</p>
+<p>&#x9884;&#x89E3;&#x91CA;&#x4E5F;&#x662F;&#x5728;&#x5404;&#x81EA;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x91CC;&#x8FDB;&#x884C;&#x9884;&#x89E3;&#x91CA;&#x7684;&#xFF1B;</p>
+<pre><code>function fn(){
+    var a=1;
+}
+fn();
+fn();
+console.log(a);//Uncaught ReferenceError: a is not defined;
+</code></pre><blockquote>
+<p>&#x56E0;&#x4E3A;a&#x6CA1;&#x6709;&#x58F0;&#x660E;&#x548C;&#x5B9A;&#x4E49;&#x8FC7;&#xFF0C;&#x6240;&#x4EE5;&#x62A5;&#x9519;&#x4E86;&#xFF1B;</p>
+</blockquote>
+<p>&#x4E0A;&#x9762;&#x7684;fn&#x8FD0;&#x884C;&#x4E86;&#x4E24;&#x6B21;&#xFF0C;&#x6240;&#x4EE5;&#x4EA7;&#x751F;&#x4E86;&#x4E24;&#x4E2A;&#x5806;&#x5185;&#x5B58;&#xFF1B;&#x4E24;&#x4E2A;&#x4F5C;&#x7528;&#x57DF;&#xFF08;&#x4F5C;&#x7528;&#x57DF;&#x4E5F;&#x5C31;&#x662F;&#x95ED;&#x5305;&#xFF09;&#x5404;&#x81EA;&#x5206;&#x522B;&#x6709;&#x4E00;&#x4E2A;a&#x7684;&#x53D8;&#x91CF;&#xFF1B;a&#x7684;&#x503C;&#x90FD;&#x662F;&#x6570;&#x5B57;1&#xFF0C;&#x4F46;&#x662F;&#x4E24;&#x4E2A;&#x53D8;&#x91CF;&#x662F;&#x4E0D;&#x76F8;&#x7B49;&#x7684;&#xFF1B;&#x4E24;&#x4E2A;a&#x4E4B;&#x95F4;&#x662F;&#x6CA1;&#x6709;&#x4EFB;&#x4F55;&#x5173;&#x7CFB;&#x7684;&#xFF1B;</p>
+<p>&#x5C31;&#x597D;&#x6BD4;&#x6211;&#x4EEC;&#x90FD;&#x5C5E;&#x4E8E;&#x4EBA;&#x7C7B;&#xFF1B;&#x6211;&#x4EEC;&#x90FD;&#x7EE7;&#x627F;&#x4E86;&#x4EBA;&#x7C7B;&#x8FD9;&#x4E2A;&#x5BF9;&#x8C61;&#x6240;&#x5177;&#x6709;&#x7684;&#x7279;&#x5F81;&#xFF1B;&#x6211;&#x6709;&#x4E00;&#x53CC;&#x624B;&#xFF0C;&#x4F60;&#x4E5F;&#x6709;&#x4E00;&#x53CC;&#x624B;&#xFF0C;&#x4F46;&#x662F;&#x6211;&#x4EEC;&#x4E24;&#x4E2A;&#x4EBA;&#x7684;&#x624B;&#x662F;&#x6CA1;&#x6709;&#x5173;&#x7CFB;&#x7684;&#xFF1B;&#x6211;&#x7684;&#x624B;&#x4E0D;&#x7B49;&#x4E8E;&#x4F60;&#x7684;&#x624B;&#xFF1B;</p>
+<h5 id="&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x548C;&#x79C1;&#x6709;&#x53D8;&#x91CF;"><a href="#&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x548C;&#x79C1;&#x6709;&#x53D8;&#x91CF;" class="headerlink" title="&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x548C;&#x79C1;&#x6709;&#x53D8;&#x91CF;"></a>&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x548C;&#x79C1;&#x6709;&#x53D8;&#x91CF;</h5><ul>
+<li>&#x5728;&#x5168;&#x5C40;&#x4F5C;&#x7528;&#x57DF;&#x4E0B;&#x58F0;&#x660E;&#x7684;&#x53D8;&#x91CF;&#x662F;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#xFF1B;</li>
+<li>&#x5728;&#x79C1;&#x6709;&#x4F5C;&#x7528;&#x57DF;&#x4E2D;&#x58F0;&#x660E;&#x7684;&#x53D8;&#x91CF;&#x662F;&#x79C1;&#x6709;&#x53D8;&#x91CF;;&#x51FD;&#x6570;&#x7684;&#x5F62;&#x53C2;&#x4E5F;&#x662F;&#x79C1;&#x6709;&#x7684;&#x53D8;&#x91CF;;</li>
+</ul>
+<h5 id="&#x5982;&#x4F55;&#x533A;&#x5206;&#x51FD;&#x6570;&#x4E2D;&#x51FA;&#x73B0;&#x7684;&#x53D8;&#x91CF;&#x662F;&#x79C1;&#x6709;&#x7684;&#x8FD8;&#x662F;&#x975E;&#x79C1;&#x6709;&#x7684;"><a href="#&#x5982;&#x4F55;&#x533A;&#x5206;&#x51FD;&#x6570;&#x4E2D;&#x51FA;&#x73B0;&#x7684;&#x53D8;&#x91CF;&#x662F;&#x79C1;&#x6709;&#x7684;&#x8FD8;&#x662F;&#x975E;&#x79C1;&#x6709;&#x7684;" class="headerlink" title="&#x5982;&#x4F55;&#x533A;&#x5206;&#x51FD;&#x6570;&#x4E2D;&#x51FA;&#x73B0;&#x7684;&#x53D8;&#x91CF;&#x662F;&#x79C1;&#x6709;&#x7684;&#x8FD8;&#x662F;&#x975E;&#x79C1;&#x6709;&#x7684;?"></a>&#x5982;&#x4F55;&#x533A;&#x5206;&#x51FD;&#x6570;&#x4E2D;&#x51FA;&#x73B0;&#x7684;&#x53D8;&#x91CF;&#x662F;&#x79C1;&#x6709;&#x7684;&#x8FD8;&#x662F;&#x975E;&#x79C1;&#x6709;&#x7684;?</h5><p>&#x9996;&#x5148;&#x770B;&#x662F;&#x5426;&#x4E3A;&#x5F62;&#x53C2;&#xFF0C;&#x7136;&#x540E;&#x770B;&#x662F;&#x5426;&#x5728;&#x79C1;&#x6709;&#x4F5C;&#x7528;&#x57DF;&#x4E2D;&#x58F0;&#x660E;&#x8FC7;(&#x6709;&#x6CA1;&#x6709;var&#x8FC7;)&#xFF0C;&#x4E24;&#x8005;&#x6709;&#x5176;&#x4E00;&#x5C31;&#x662F;&#x79C1;&#x6709;&#x7684;&#x53D8;&#x91CF;,&#x90A3;&#x4E48;&#x5728;&#x5F53;&#x524D;&#x51FD;&#x6570;&#x4E2D;&#x4E0D;&#x7BA1;&#x4EC0;&#x4E48;&#x4F4D;&#x7F6E;&#x51FA;&#x73B0;&#x90FD;&#x662F;&#x79C1;&#x6709;&#x7684;,&#x548C;&#x5168;&#x5C40;&#x7684;&#x6CA1;&#x6709;&#x534A;&#x6BDB;&#x94B1;&#x7684;&#x5173;&#x7CFB;;&#x5982;&#x679C;&#x4E24;&#x8005;&#x90FD;&#x6CA1;&#x6709;&#xFF0C;&#x8BF4;&#x660E;&#x4E0D;&#x662F;&#x79C1;&#x6709;&#x7684;&#xFF1B;&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x4E2D;&#x51FA;&#x73B0;&#x7684;&#x53D8;&#x91CF;&#x4E0D;&#x662F;&#x79C1;&#x6709;&#x7684;,&#x90A3;&#x4E48;&#x4F1A;&#x5F80;&#x5176;&#x4E0A;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;&#x67E5;&#x627E;,&#x4E0A;&#x7EA7;&#x6CA1;&#x6709;&#x5219;&#x7EE7;&#x7EED;&#x67E5;&#x627E;,&#x4E00;&#x76F4;&#x627E;&#x5230;window&#x4E3A;&#x6B62;,&#x5982;&#x679C;window&#x4E5F;&#x6CA1;&#x6709;&#x5462;?</p>
+<blockquote>
+<p>&#x5982;&#x679C;&#x662F;&#x83B7;&#x53D6;:&#x4F1A;&#x62A5;&#x9519;</p>
+</blockquote>
+<pre><code>function fn() {
+    console.log(num);//Uncaught ReferenceError: num is not defined
+}
+fn();
+</code></pre><blockquote>
+<p>&#x5982;&#x679C;&#x662F;&#x8BBE;&#x7F6E;:&#x4E0D;&#x662F;&#x79C1;&#x6709;&#x7684;,&#x627E;&#x5168;&#x5C40;,&#x5168;&#x5C40;&#x6CA1;&#x6709;&#x7684;&#x8BDD;&#x76F8;&#x5F53;&#x4E8E;&#x7ED9;&#x5168;&#x5C40;&#x52A0;&#x4E00;&#x4E2A;</p>
+</blockquote>
+<pre><code>function fn() {
+    num = 13;//&#x76F8;&#x5F53;&#x4E8E;&#x7ED9;window&#x589E;&#x52A0;&#x4E86;&#x4E00;&#x4E2A;&#x53EB;&#x505A;num&#x7684;&#x5C5E;&#x6027;&#x540D;,&#x5C5E;&#x6027;&#x503C;&#x662F;13 window.num=13;
+}
+fn();
+console.log(num);//13
+</code></pre><h5 id="&#x5982;&#x4F55;&#x67E5;&#x627E;&#x5F53;&#x524D;&#x4F5C;&#x7528;&#x57DF;&#x7684;&#x4E0A;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;"><a href="#&#x5982;&#x4F55;&#x67E5;&#x627E;&#x5F53;&#x524D;&#x4F5C;&#x7528;&#x57DF;&#x7684;&#x4E0A;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;" class="headerlink" title="&#x5982;&#x4F55;&#x67E5;&#x627E;&#x5F53;&#x524D;&#x4F5C;&#x7528;&#x57DF;&#x7684;&#x4E0A;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;?"></a>&#x5982;&#x4F55;&#x67E5;&#x627E;&#x5F53;&#x524D;&#x4F5C;&#x7528;&#x57DF;&#x7684;&#x4E0A;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;?</h5><p><strong>&#x5F53;&#x524D;&#x4F5C;&#x7528;&#x57DF;&#x7684;&#x4E0A;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;&#x662F;&#x8C01;&#x548C;&#x51FD;&#x6570;&#x5728;&#x54EA;&#x6267;&#x884C;&#x7684;&#x6CA1;&#x6709;&#x4EFB;&#x4F55;&#x7684;&#x5173;&#x7CFB;,&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x770B;&#x5F53;&#x524D;&#x51FD;&#x6570;&#x662F;&#x5728;&#x54EA;&#x4E2A;&#x4F5C;&#x7528;&#x57DF;&#x4E0B;&#x5B9A;&#x4E49;&#x7684;,&#x90A3;&#x4E48;&#x5B83;&#x7684;&#x4E0A;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;&#x5C31;&#x662F;&#x8C01;;</strong></p>
+<p>&#x4E0B;&#x9762;&#x662F;&#x67E5;&#x627E;&#x4E0A;&#x4E00;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;&#xFF0C;&#x4E00;&#x76F4;&#x627E;&#x5230;window&#x7684;&#x6848;&#x4F8B;&#xFF1B;</p>
+<pre><code>var total = 100;
+function fn() {
+    var total = 10;
+    return function () {
+        console.log(total);
+    }//&#x5982;&#x679C;&#x8FD4;&#x56DE;&#x7684;&#x662F;&#x4E00;&#x4E2A;&#x5F15;&#x7528;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x7684;&#x503C;(&#x5BF9;&#x8C61;&#x3001;&#x6570;&#x7EC4;&#x3001;&#x51FD;&#x6570;...)&#xFF0C;&#x9996;&#x5148;&#x662F;&#x628A;&#x8FD9;&#x4E2A;&#x503C;&#x5F00;&#x8F9F;&#x4E00;&#x4E2A;&#x5185;&#x5B58;&#x7A7A;&#x95F4;,&#x6709;&#x4E00;&#x4E2A;&#x5730;&#x5740;,&#x7136;&#x540E;&#x628A;&#x5185;&#x5B58;&#x5730;&#x5740;&#x8FD4;&#x56DE; -&gt;&#x4F8B;&#x5982;&#x5728;&#x8FD9;&#x91CC;&#x5176;&#x5B9E;&#x8FD4;&#x56DE;&#x7684;&#x5C31;&#x662F; return xxxfff111;
+}
+var f = fn();//f=xxxfff111;
+f();
+</code></pre><p>//&#x8F93;&#x51FA;&#x7684;&#x7ED3;&#x679C;&#x662F; 10 &#x8FD8;&#x662F; 100 ? &#x4E3A;&#x4EC0;&#x4E48; ?</p>
+<p>&#x5982;&#x679C;&#x662F;&#x5728;&#x81EA;&#x6267;&#x884C;&#x51FD;&#x6570;&#x91CC;&#x5462;&#xFF1F;</p>
+<pre><code>var total = 100;
+function fn() {
+    var total = 10;
+    return function () {
+        console.log(total);
+    }
+}
+var f = fn();//f=xxxfff111;
+~function () {
+&#x3000;&#x3000;var total = 1200;
+&#x3000;&#x3000;f();//-&gt;&#xFF1B;&#x91CC;&#x9762;&#x53D8;&#x91CF;&#x7684;&#x4E0A;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;&#x662F;&#x8C01;
+}();
+</code></pre><p>&#x4E0B;&#x9762;&#x4EE3;&#x7801;&#x8F93;&#x51FA;&#x7684;&#x662F;&#x4EC0;&#x4E48;&#xFF1F;</p>
+<pre><code>var a=0;
+var b=&quot;0&quot;;
+function fn(){
+    console.log(a);
+&#x3000;&#x3000;console.log(b);
+&#x3000;&#x3000;console.log(typeof a);
+    console.log(typeof b);
+&#x3000;&#x3000;a=&quot;1&quot;;
+&#x3000;&#x3000;var b=1;
+&#x3000;&#x3000;console.log(a);
+&#x3000;&#x3000;console.log(b);
+&#x3000;&#x3000;console.log(typeof a);
+&#x3000;&#x3000;console.log(typeof b);
+}
+fn();//&#x8FD0;&#x884C;&#x540E;&#x4F1A;&#x8F93;&#x51FA;&#x4EC0;&#x4E48;&#xFF1F;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x8FD9;&#x884C;&#x4EE3;&#x7801;&#xFF1B;&#x51FD;&#x6570;fn&#x7684;&#x5B9A;&#x4E49;&#x662F;&#x6CA1;&#x6709;&#x610F;&#x4E49;&#x7684;&#xFF1B;&#x51FD;&#x6570;&#x53EA;&#x58F0;&#x660E;&#x5B9A;&#x4E49;&#xFF0C;&#x800C;&#x4E0D;&#x8FD0;&#x884C;&#x662F;&#x6CA1;&#x6709;&#x4EFB;&#x4F55;&#x610F;&#x4E49;&#x7684;&#xFF1B;
+//0&#xFF0C;undefined,&quot;number&quot;,&quot;undefined&quot;&#xFF0C;&quot;1&quot;&#xFF0C;1&#xFF0C;&quot;string&quot;,&quot;number&quot;
+</code></pre><p>&#x9884;&#x89E3;&#x91CA;&#x662F;&#x4F5C;&#x7528;&#x57DF;&#x4E2D;&#x7684;&#x9884;&#x89E3;&#x91CA;&#xFF1B;js&#x91CC;&#x662F;&#x53EF;&#x4EE5;&#x51FD;&#x6570;&#x91CC;&#x9762;&#x5957;&#x51FD;&#x6570;&#x7684;&#xFF1B;&#x90FD;&#x8FD0;&#x884C;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x662F;&#x5728;&#x51FD;&#x6570;&#x521B;&#x5EFA;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x91CC;&#x518D;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x4F5C;&#x7528;&#x57DF;&#xFF1B;</p>
+<blockquote>
+<p>&#x4E0B;&#x9762;&#x662F;&#x4F5C;&#x7528;&#x57DF;&#x7684;&#x8303;&#x56F4;&#xFF1B;</p>
+</blockquote>
+<pre><code>var a=&quot;window&quot;;
+console.log(a);//window
+function father(){
+&#x3000;&#x3000;console.log(a);//undefined
+&#x3000;&#x3000;var a=&quot;father&quot;;
+&#x3000;&#x3000;console.log(a);//father
+&#x3000;&#x3000;function children(){
+    &#x3000;&#x3000;console.log(b);//undefined
+    &#x3000;&#x3000;console.log(a);//father
+    &#x3000;&#x3000;var b=&quot;flag&quot;;
+    &#x3000;&#x3000;a=&quot;children&quot;;
+    &#x3000;&#x3000;console.log(a);//children
+  &#x3000;}
+  &#x3000;children();
+  &#x3000;console.log(a);//children
+}
+father();
+console.log(a);//window
+</code></pre><p>&#x3000;JavaScript&#x4E2D;&#x7684;&#x4EE3;&#x7801;&#x6267;&#x884C;&#x987A;&#x5E8F;&#x662F;&#x4ECE;&#x4E0A;&#x5230;&#x4E0B;&#x9010;&#x6761;&#x8FD0;&#x884C;&#x7684;&#xFF1B;&#x9047;&#x5230;function&#x5B9A;&#x4E49;&#x51FD;&#x6570;&#x7684;&#x4EE3;&#x7801;&#x5757;&#xFF1B;&#x76F4;&#x63A5;&#x8DF3;&#x8FC7;&#xFF1B;&#x9047;&#x5230;&#x51FD;&#x6570;&#x6267;&#x884C;&#x7684;&#x4EE3;&#x7801;&#xFF1B;&#x5C31;&#x627E;&#x5230;&#x5F15;&#x7528;&#x7684;&#x51FD;&#x6570;&#x5730;&#x5740;&#xFF1B;&#x5F00;&#x59CB;&#x8DF3;&#x5230;&#x6267;&#x884C;&#x51FD;&#x6570;&#x4EA7;&#x751F;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x4E2D;&#x6267;&#x884C;&#x4EE3;&#x7801;&#xFF1B;&#x7B49;&#x51FD;&#x6570;&#x6267;&#x884C;&#x5B8C;&#x4EE5;&#x540E;&#xFF0C;&#x518D;&#x56DE;&#x5230;&#x5F53;&#x524D;&#x4F5C;&#x7528;&#x57DF;&#x6267;&#x884C;&#x4E0B;&#x9762;&#x7684;&#x4EE3;&#x7801;&#xFF1B;</p>
+<p><img src="http://i.imgur.com/DAMkRA7.jpg" alt=""></p>
+<p>&#x3000;&#x4E0A;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x8FD0;&#x884C;&#x540E;&#xFF0C;&#x8F93;&#x51FA;&#x7684;&#x662F;</p>
+<blockquote>
+<p>&#x201C;window&#x201D;,undefined,&#x201D;father&#x201D;,undefined,&#x201D;father&#x201D;,&#x201D;children&#x201D;,&#x201D;children&#x201D;,&#x201D;window&#x201D;</p>
+</blockquote>
+<p><strong>&#x4F5C;&#x7528;&#x57DF;&#x94FE;&#x67E5;&#x627E;</strong>&#xFF1A;&#x5F53;&#x4F5C;&#x7528;&#x57DF;&#x5957;&#x4F5C;&#x7528;&#x57DF;&#x7684;&#x65F6;&#x5019;&#xFF0C;children&#x5185;&#x627E;&#x4E0D;&#x5230;&#x67D0;&#x4E2A;&#x53D8;&#x91CF;&#xFF1B;&#x4F1A;&#x5230;children&#x7684;&#x7236;&#x4F5C;&#x7528;&#x57DF;father&#x4E2D;&#x627E;&#xFF1B;&#x5F53;father&#x4E2D;&#x627E;&#x4E0D;&#x5230;&#x7684;&#x65F6;&#x5019;&#xFF1B;&#x4F1A;&#x5230;father&#x7684;&#x7236;&#x4F5C;&#x7528;&#x57DF;&#x627E;&#xFF1B;&#x4E00;&#x76F4;&#x627E;&#x5230;window&#x8FD9;&#x4E2A;&#x6839;&#x4F5C;&#x7528;&#x57DF;&#xFF1B;&#x5C5E;&#x4E8E;&#x4F5C;&#x7528;&#x57DF;&#x94FE;&#x5F0F;&#x67E5;&#x627E;&#xFF1B;</p>
+<p>JavaScript&#x4E2D;&#x4E0D;&#x5E26;var&#x58F0;&#x660E;&#x53D8;&#x91CF;&#xFF0C;&#x53D8;&#x91CF;&#x4F1A;&#x5192;&#x6CE1;&#x5230;&#x4E0A;&#x4E00;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;&#x4E2D;&#xFF1B;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x4F1A;&#x6C61;&#x67D3;&#x5230;&#x4E0A;&#x4E00;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;&#xFF1B;&#x4F46;&#x662F;&#x5BF9;&#x4E0A;&#x4E0A;&#x7EA7;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x662F;&#x6CA1;&#x6709;&#x5F71;&#x54CD;&#x7684;&#xFF1B;&#x5F88;&#x591A;&#x6559;&#x6750;&#x548C;&#x89C6;&#x9891;&#x4E0A;&#x8BF4;&#x4E0D;&#x5E26;var&#x58F0;&#x660E;&#x7684;&#x53D8;&#x91CF;&#xFF1B;&#x53D8;&#x91CF;&#x4F1A;&#x53D8;&#x6210;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#xFF0C;&#x8FD9;&#x4E2A;&#x8BF4;&#x6CD5;&#x662F;&#x4E0D;&#x5168;&#x9762;&#x7684;&#xFF1B;</p>
+<p>&#x3010;&#x5E26;var&#x548C;&#x4E0D;&#x5E26;var&#x7684;&#x533A;&#x522B;&#x548C;&#x5173;&#x7CFB;&#x3011;</p>
+<p>&#x53EA;&#x6709;&#x5728;&#x5168;&#x5C40;&#x4F5C;&#x7528;&#x57DF;&#x4E0B;&#x624D;&#x6709;&#x8FD9;&#x6837;&#x7684;&#x5173;&#x7CFB;</p>
+<p>&#x533A;&#x522B;&#xFF1A;&#x5E26;var&#x7684;&#x53EF;&#x4EE5;&#x5728;&#x4EE3;&#x7801;&#x6267;&#x884C;&#x524D;&#x8FDB;&#x884C;&#x58F0;&#x660E;,&#x800C;&#x4E0D;&#x5E26;var&#x7684;&#x4E0D;&#x80FD;&#x63D0;&#x524D;&#x7684;&#x58F0;&#x660E;;&#x4F8B;&#x5B50;&#x5982;&#x4E0B;;</p>
+<pre><code>//&#x9884;&#x89E3;&#x91CA;&#xFF1A;var num1;
+console.log(num1);//-&gt;undefined
+var num1 = 12;
+console.log(num2);//-&gt;Error:num2 is not defined
+num2 = 12;
+</code></pre><p>&#x5173;&#x7CFB;:&#x5728;&#x5168;&#x5C40;&#x4F5C;&#x7528;&#x57DF;&#x4E0B;,var num1=12,&#x4E0D;&#x4EC5;&#x4EC5;&#x662F;&#x589E;&#x52A0;&#x4E86;&#x4E00;&#x4E2A;&#x5168;&#x5C40;&#x53D8;&#x91CF;,&#x800C;&#x4E14;&#x8FD8;&#x76F8;&#x5F53;&#x4E8E;&#x7ED9;window&#x589E;&#x52A0;&#x4E86;&#x4E00;&#x4E2A;&#x53EB;&#x505A;num1&#x7684;&#x5C5E;&#x6027;&#x540D; -&gt; window.num1=12;</p>
+<pre><code>var num1 = 12;
+console.log(num1);//12
+console.log(window.num1);//12
+
+num2 = 13;
+console.log(num2);
+console.log(window.num2); //&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x628A;window.&#x7701;&#x7565;&#xFF1B;
+</code></pre><blockquote>
+<p>&#x4E0B;&#x9762;&#x662F;&#x51FD;&#x6570;&#x5185;&#x5E26;var&#x548C;&#x4E0D;&#x5E26;var&#x7684;&#xFF1B;</p>
+</blockquote>
+<pre><code>console.log(total); //undefined
+var total = 0;
+function fn() {
+  console.log(total); //undefined
+&#x3000;total += 100;
+  var total = 200;//total&#x662F;&#x88AB;&#x4FDD;&#x62A4;&#x7684;&#xFF1B;
+&#x3000;console.log(total); //200
+}
+fn();
+console.log(total); //0
+</code></pre><p>&#x4E0B;&#x9762;&#x662F;&#x4E0D;&#x5E26;var&#x7684;</p>
+<pre><code>console.log(total);//undefined
+var total = 0;
+function fn(num1, num2) {
+    console.log(total);//0 -&gt;total&#x4E0D;&#x662F;&#x79C1;&#x6709;&#x7684;,&#x627E;&#x5168;&#x5C40;&#x4E0B;&#x7684;total,&#x4E5F;&#x5C31;&#x662F;&#x5728;&#x8FD9;&#x91CC;&#x51FA;&#x73B0;&#x7684;&#x6240;&#x6709;&#x7684;total&#x5176;&#x5B9E;&#x5E94;&#x8BE5;&#x90FD;&#x662F;&#x5168;&#x5C40;&#x7684;
+    total = num1 + num2;//-&gt;&#x5168;&#x5C40;&#x7684;total=300
+    console.log(total);//300
+}
+fn(100, 200);
+console.log(total);//300
+</code></pre><h3 id="JavaScript&#x4E2D;&#x7684;&#x9876;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;&#x662F;&#x8C01;&#xFF1F;"><a href="#JavaScript&#x4E2D;&#x7684;&#x9876;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;&#x662F;&#x8C01;&#xFF1F;" class="headerlink" title="JavaScript&#x4E2D;&#x7684;&#x9876;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;&#x662F;&#x8C01;&#xFF1F;"></a>JavaScript&#x4E2D;&#x7684;&#x9876;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;&#x662F;&#x8C01;&#xFF1F;</h3><p>&#x9876;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;&#x662F;Global&#xFF1B;&#x6570;&#x636E;&#x5F15;&#x7528;&#x9AD8;&#x7A0B;&#x4E09;133&#x9875;&#xFF1B;</p>
+<p>&#x76EE;&#x524D;&#x53EA;&#x6709;nodeJs&#x8FD9;&#x4E2A;&#x8BED;&#x8A00;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;&#x5230;global&#xFF1B;nodeJs&#x4E2D;&#x662F;&#x8FDB;&#x7A0B;&#xFF1B;&#x53EB;process&#xFF1B;&#x540E;&#x53F0;&#x7F16;&#x7A0B;&#x4E2D;&#x662F;&#x4E0D;&#x7BA1;&#x6D4F;&#x89C8;&#x5668;&#x7684;&#x4E8B;&#x7684;&#xFF0C;node&#x4E2D;&#x662F;global&#xFF1B;JavaScript&#x4E2D;&#x53EA;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;&#x5230;window&#xFF1B;</p>
+<p>window&#x76F8;&#x5F53;&#x4E8E;global&#x7684;&#x4EE3;&#x7406;&#x4EBA;&#xFF1B;&#x597D;&#x6BD4;&#x4E0A;&#x5E1D;&#x548C;&#x6559;&#x7687;&#x7684;&#x5173;&#x7CFB;&#xFF1B;&#x4E00;&#x822C;&#x5728;JS&#x4E2D;&#x8BF4;&#x7684;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x90FD;&#x662F;window&#xFF1B;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x5C31;&#x662F;window&#x7684;&#x5C5E;&#x6027;&#xFF1B;&#x901A;&#x8FC7;window.varName&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;&#x5230;&#xFF1B;</p>
+<p>&#x4F46;&#x5E76;&#x4E0D;&#x662F;&#x6240;&#x6709;&#x7684;&#x90FD;&#x5C5E;&#x4E8E;window&#x7684;&#xFF0C;&#x6BD4;&#x5982;Object&#xFF0C;Math&#xFF0C;String&#xFF0C;Function&#x7B49;&#x8FD9;6&#x4E2A;&#x5305;&#x88C5;&#x7C7B;&#xFF0C;&#x5C31;&#x4E0D;&#x5C5E;&#x4E8E;window&#x7684;&#x5C5E;&#x6027;&#xFF1B;&#x548C;window&#x662F;&#x65E0;&#x5173;&#x7684;&#xFF1B;&#x7C7B;&#x4F3C;&#x4E8E;&#x4E2D;&#x56FD;&#x515A;&#x653F;&#x519B;&#x7684;&#x5173;&#x7CFB;&#xFF1B;&#x4E92;&#x76F8;&#x72EC;&#x7ACB;&#x7684;&#xFF1B;</p>
+<p>window&#x53EA;&#x662F;&#x524D;&#x7AEF;&#x7F16;&#x7A0B;&#x91CC;&#x7684;&#x9876;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;&#xFF1B;</p>
+<h3 id="&#x53D8;&#x91CF;&#x548C;&#x5C5E;&#x6027;&#x6709;&#x4EC0;&#x4E48;&#x5173;&#x7CFB;"><a href="#&#x53D8;&#x91CF;&#x548C;&#x5C5E;&#x6027;&#x6709;&#x4EC0;&#x4E48;&#x5173;&#x7CFB;" class="headerlink" title="&#x53D8;&#x91CF;&#x548C;&#x5C5E;&#x6027;&#x6709;&#x4EC0;&#x4E48;&#x5173;&#x7CFB;"></a>&#x53D8;&#x91CF;&#x548C;&#x5C5E;&#x6027;&#x6709;&#x4EC0;&#x4E48;&#x5173;&#x7CFB;</h3><p>&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x662F;window&#x7684;&#x5C5E;&#x6027;&#xFF1B;window&#x7684;&#x5C5E;&#x6027;&#x4E5F;&#x53EF;&#x4EE5;&#x770B;&#x505A;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#xFF1B;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x7684;&#x5C5E;&#x6027;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x770B;&#x505A;&#x4EE5;&#x8FD9;&#x4E2A;&#x5BF9;&#x8C61;&#x4E3A;&#x4F5C;&#x7528;&#x57DF;&#x4E0B;&#x7684;&#x53D8;&#x91CF;with&#x8BED;&#x53E5;&#xFF1B;</p>
+<p>&#x3000;&#x3000;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code>  &lt;div id=&quot;div1&quot;&gt;&lt;/div&gt;
+  &lt;script&gt;
+  var oDiv1=document.getElementById(&quot;div1&quot;);
+  oDiv1.style.width=&quot;100px&quot;;
+&#x3000;oDiv1.style.height=&quot;100px&quot;;
+&#x3000;oDiv1.style.backgroundColor=&quot;red&quot;;
+
+&#x3000;//&#x4E0A;&#x9762;&#x5199;&#x7684;&#x597D;&#x9EBB;&#x70E6;&#xFF01;&#x6BCF;&#x6B21;&#x90FD;&#x8981;&#x5199;oDiv1.style&#xFF1B;&#x53EF;&#x4EE5;&#x7528;with&#x6765;&#x5199;
+with(oDiv1.style){
+  width=&quot;200px&quot;;
+  height=&quot;200px&quot;;
+  backgroundColor=&quot;yellow&quot;;
+}
+</code></pre><p>&#x3000;&#x3000;&#x4E0A;&#x9762;&#x5C31;&#x662F;&#x4EE5;oDiv1.style&#x4E3A;&#x4F5C;&#x7528;&#x57DF;&#x64CD;&#x4F5C;width&#xFF0C;height&#xFF0C;backgroundColor&#x8FD9;&#x4E9B;&#x5C5E;&#x6027;&#xFF1B;</p>
+<p>&#x63D0;&#x793A;:background-color&#x5728;CSS&#x91CC;&#x7528;&#x3002;backgroundColor&#x5728;js&#x5904;&#x7406;CSS&#x91CC;&#x7528;&#xFF0C;&#x662F;DOM.style.backgroundColor,&#x8981;&#x6CE8;&#x610F;&#x5927;&#x5C0F;&#x5199;&#xFF08;&#x5B57;&#x6BCD;C)&#x3002;&#x5728;JS&#x4E2D;&#x6307;&#x5B9A;&#x8BE5;&#x6837;&#x5F0F;&#x65F6;&#xFF0C;&#x8FD9;&#x4E24;&#x4E2A;&#x90FD;&#x80FD;&#x8D77;&#x4F5C;&#x7528;&#xFF0C;&#x4F46;&#x8BF7;&#x5728;JS&#x4E2D;&#x5C3D;&#x91CF;&#x4F7F;&#x7528;backgroundColor;&#x4E0A;&#x9762;&#x7528;background&#x4E5F;&#x662F;&#x6709;&#x6548;&#x679C;&#x7684;&#xFF0C;&#x4F46;&#x662F;&#x4E0D;&#x63A8;&#x8350;&#x90A3;&#x4E48;&#x505A;&#xFF1B;</p>
+<p>&#x5728;JS&#x4E2D;&#x4E0D;&#x63A8;&#x8350;&#x7528;with&#x8BED;&#x53E5;&#xFF1B;&#x4E0D;&#x5229;&#x4E8E;&#x56E2;&#x961F;&#x5408;&#x4F5C;&#xFF1B;&#x56E0;&#x4E3A;&#x5BB9;&#x6613;&#x5F15;&#x8D77;&#x4F5C;&#x7528;&#x57DF;&#x7684;&#x6DF7;&#x4E71;&#xFF1B;</p>
+<p>&#x5982;&#x4E0B;</p>
+<pre><code>var height=&quot;flag&quot;,
+    a=0;
+with(oDiv1.style){
+  &#x3000;&#x3000;width=&quot;200px&quot;;
+  &#x3000;&#x3000;height=&quot;200px&quot;;
+  &#x3000;&#x3000;backgroundColor=&quot;yellow&quot;;
+  &#x3000;&#x3000;console.log(height);//&quot;200px&quot;;&#x8FD9;&#x6837;&#x53EA;&#x80FD;&#x8BBF;&#x95EE;&#x5230;&#x672C;&#x4F5C;&#x7528;&#x57DF;&#x7684;height&#xFF1B;&#x5982;&#x679C;&#x60F3;&#x8BBF;&#x95EE;&#x5168;&#x5C40;&#x7684;height&#xFF1B;&#x9700;&#x8981;&#x7528;window.height&#xFF1B;&#x8BBF;&#x95EE;&#x522B;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x8981;&#x89C6;&#x60C5;&#x51B5;&#x800C;&#x5B9A;
+  &#x3000;&#x3000;console.log(window.height)//&quot;flag&quot;&#xFF1B;&#x8FD9;&#x65F6;&#x5019;&#x8BBF;&#x95EE;&#x7684;&#x662F;&#x5168;&#x5C40;&#x4F5C;&#x7528;&#x57DF;&#xFF1B;
+  &#x3000;&#x3000;var a=1;//&#x7528;var&#x6765;&#x5B9A;&#x4E49;&#x53D8;&#x91CF;&#xFF1B;
+  &#x3000;&#x3000;console.log(a);//1
+}
+console.log(a);//1&#xFF1B;&#x6B64;&#x65F6;with&#x91CC;&#x9762;&#x5B9A;&#x4E49;&#x53D8;&#x91CF;&#xFF0C;&#x5373;&#x65F6;&#x7528;var&#x6765;&#x5B9A;&#x4E49;&#xFF1B;&#x4E5F;&#x4F1A;&#x5192;&#x6CE1;&#x5230;&#x5168;&#x5C40;&#xFF1B;&#x6210;&#x4E3A;&#x5168;&#x5C40;&#x5BF9;&#x8C61;&#xFF1B;
+</code></pre><p>&#x5982;&#x679C;&#x8FD9;&#x4E2A;&#x65F6;&#x5019;with&#x5728;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x91CC;&#x9762;&#x7684;&#xFF1B;&#x90A3;&#x5C31;&#x66F4;&#x70ED;&#x95F9;&#x4E86;&#xFF1B;&#x4E0B;&#x9762;&#x662F;&#x6267;&#x884C;&#x540E;&#x7684;&#x8F93;&#x51FA;&#xFF1B;</p>
+<pre><code>var oDiv1=document.getElementById(&quot;div1&quot;);
+var a=0;
+var height=&quot;window&quot;;
+function fn(){
+    console.log(a);//undefined;
+    console.log(height);//undefined;
+    var a=1;
+    height=&quot;fn&quot;;
+    with(oDiv1.style){
+        height=&quot;200px&quot;;
+    &#x3000;&#x3000;console.log(height);//200px;
+    &#x3000;&#x3000;console.log(window.height);//window;
+    &#x3000;&#x3000;var a=2;
+    &#x3000;&#x3000;var height=&quot;300px&quot;;
+    &#x3000;&#x3000;console.log(a);//2
+    &#x3000;&#x3000;console.log(height);//&quot;300px&quot;
+    }
+  &#x3000;console.log(a);//2&#xFF1B;&#x6B64;&#x65F6;with&#x91CC;&#x9762;&#x5B9A;&#x4E49;&#x53D8;&#x91CF;&#xFF0C;&#x5373;&#x65F6;&#x7528;var&#x6765;&#x5B9A;&#x4E49;&#xFF1B;&#x4E5F;&#x4F1A;&#x5192;&#x6CE1;&#x5230;&#x4E0A;&#x4E00;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;&#xFF1B;
+  &#x3000;console.log(height);//fn
+}
+fn();
+console.log(a);//0&#xFF1B;
+</code></pre><p>&#x5728;&#x51FD;&#x6570;&#x91CC;&#x9762;&#x5199;with&#xFF1B;&#x4E0D;&#x4EC5;&#x80FD;&#x628A;&#x540C;&#x4E8B;&#x5751;&#x54ED;&#xFF1B;&#x81EA;&#x5DF1;&#x4E5F;&#x80FD;&#x88AB;&#x5751;&#x7684;&#x591F;&#x545B;&#xFF1B;&#x5982;&#x679C;&#x51FD;&#x6570;&#x91CC;&#x9762;&#x7684;with&#x518D;&#x8C03;&#x7528;&#x522B;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x5185;&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x4F30;&#x8BA1;&#x540C;&#x4E8B;&#x5C31;&#x76F4;&#x63A5;&#x6380;&#x684C;&#x4E86;&#xFF1B;&#x6240;&#x4EE5;with&#x8FD8;&#x662F;&#x4E0D;&#x8981;&#x7528;&#x4E86;&#xFF0C;&#x5F3A;&#x70C8;&#x4E0D;&#x63A8;&#x8350;&#x7528;with&#xFF1B;</p>
+<p>&#x4E0B;&#x9762;&#x51FD;&#x6570;fn&#x8FD0;&#x884C;&#x540E;&#xFF0C;&#x91CC;&#x9762;&#x7684;a&#x662F;&#x8C01;&#x7684;&#x5C5E;&#x6027;&#xFF1F;</p>
+<p>function fn(){var a=9}<br>fn();</p>
+<p>&#x6B64;&#x65F6;&#x7684;a&#x662F;fn&#x8FD0;&#x884C;&#x6240;&#x4EA7;&#x751F;&#x7684;&#x90A3;&#x4E2A;&#x4F5C;&#x7528;&#x57DF;&#x7684;&#x5C5E;&#x6027;&#xFF1B;&#x5C5E;&#x4E8E;fn&#x4EA7;&#x751F;&#x7684;&#x90A3;&#x4E2A;&#x4F5C;&#x7528;&#x57DF;&#x7684;&#xFF1B;&#x4EA7;&#x751F;&#x7684;&#x90A3;&#x4E2A;&#x4F5C;&#x7528;&#x57DF;&#x662F;&#x6D3B;&#x52A8;&#x7684;&#xFF0C;&#x6709;&#x751F;&#x547D;&#x5468;&#x671F;&#x7684;&#xFF1B;&#x5F53;&#x6D4F;&#x89C8;&#x5668;&#x7A7A;&#x95F2;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4F1A;&#x628A;&#x6CA1;&#x6709;&#x7528;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x7ED9;&#x91CA;&#x653E;&#x6389;&#xFF1B;</p>
+<h3 id="&#x51FD;&#x6570;&#x8FD0;&#x884C;&#x4EA7;&#x751F;&#x7684;&#x4F5C;&#x7528;&#x57DF;"><a href="#&#x51FD;&#x6570;&#x8FD0;&#x884C;&#x4EA7;&#x751F;&#x7684;&#x4F5C;&#x7528;&#x57DF;" class="headerlink" title="&#x51FD;&#x6570;&#x8FD0;&#x884C;&#x4EA7;&#x751F;&#x7684;&#x4F5C;&#x7528;&#x57DF;"></a>&#x51FD;&#x6570;&#x8FD0;&#x884C;&#x4EA7;&#x751F;&#x7684;&#x4F5C;&#x7528;&#x57DF;</h3><p>&#x51FD;&#x6570;&#x7684;&#x8FD0;&#x884C;&#x662F;&#x4E00;&#x4E2A;&#x6709;&#x751F;&#x547D;&#x5468;&#x671F;&#x7684;&#x5185;&#x5B58;&#x5730;&#x5740;&#xFF1B;</p>
+<p>&#x51FD;&#x6570;&#x8FD0;&#x884C;&#x65F6;&#xFF0C;&#x4F1A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x5185;&#x5B58;&#x5730;&#x5740;&#xFF08;&#x4EA7;&#x751F;&#x5806;&#x5185;&#x5B58;,&#x51FD;&#x6570;&#x4FDD;&#x5B58;&#x7684;&#x5C31;&#x662F;&#x8FD9;&#x4E2A;&#x5806;&#x5185;&#x5B58;&#x7684;&#x5730;&#x5740;&#xFF09;&#xFF0C;&#x5F53;&#x6B64;&#x51FD;&#x6570;&#x8FD0;&#x884C;&#x7ED3;&#x675F;&#x65F6;&#xFF0C;&#x6B64;&#x5185;&#x5B58;&#x5730;&#x5740;&#x53C8;&#x4F1A;&#x9500;&#x6BC1;&#xFF1B;&#x8FD9;&#x4E2A;&#x5730;&#x5740;&#xFF0C;&#x6211;&#x4EEC;&#x65E0;&#x6CD5;&#x4FDD;&#x5B58;&#xFF1B;&#x5B83;&#x7684;&#x7075;&#x6D3B;&#x7684;&#xFF0C;&#x6D3B;&#x52A8;&#x7684;&#xFF1B;&#x6709;&#x751F;&#x547D;&#x5468;&#x671F;&#x7684;&#xFF1B;&#x6211;&#x4EEC;&#x4E5F;&#x6CA1;&#x6709;&#x529E;&#x6CD5;&#x7ED9;&#x8FD9;&#x4E2A;&#x4F5C;&#x7528;&#x57DF;&#x8D77;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x540D;&#x5B57;&#xFF0C;&#x4E5F;&#x6CA1;&#x529E;&#x6CD5;&#x4FDD;&#x5B58;&#x8FD9;&#x4E2A;&#x4F5C;&#x7528;&#x57DF;&#xFF0C;JS&#x4E0D;&#x63D0;&#x4F9B;&#x8FD9;&#x79CD;&#x673A;&#x5236;&#xFF1B;</p>
+<p>&#x4E5F;&#x5C31;&#x662F;&#x8BF4;:&#x5728;&#x4F5C;&#x7528;&#x57DF;&#x5916;&#x9762;&#x662F;&#x6CA1;&#x529E;&#x6CD5;&#x63A7;&#x5236;&#x4F5C;&#x7528;&#x57DF;&#x5185;&#x90E8;&#x7684;&#x6570;&#x636E;&#x7684;&#xFF1B;&#x53EA;&#x80FD;&#x5728;&#x4F5C;&#x7528;&#x57DF;&#x5185;&#x90E8;&#x63A7;&#x5236;;&#x800C;&#x4E14;&#x4F5C;&#x7528;&#x57DF;&#x5185;&#x90E8;&#x7684;&#x4EE3;&#x7801;&#x53EF;&#x4EE5;&#x63A7;&#x5236;&#x5916;&#x90E8;&#x7684;&#x6570;&#x636E;&#xFF1B;&#x8FD9;&#x79CD;&#x673A;&#x5236;&#x5C31;&#x53EB;&#x505A;&#x95ED;&#x5305;&#xFF0C;&#x95ED;&#x5305;&#x4E0E;&#x4F5C;&#x7528;&#x57DF;&#x94FE;&#x548C;&#x51FD;&#x6570;&#x7684;&#x8FD0;&#x884C;&#x6709;&#x5173;&#x7CFB;&#x7684;&#xFF1B;</p>
+<p>&#x51FD;&#x6570;&#x91CC;&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x5C31;&#x5728;&#x8FD9;&#x4E2A;&#x5185;&#x5B58;&#x91CC;&#x521B;&#x5EFA;&#xFF1B;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x628A;&#x8FD9;&#x4E2A;&#x5185;&#x5B58;&#x5F53;&#x6210;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#xFF1B;&#x90A3;&#x51FD;&#x6570;&#x91CC;&#x7684;&#x53D8;&#x91CF;&#x5C31;&#x662F;&#x8FD9;&#x4E2A;&#x5185;&#x5B58;&#x5BF9;&#x8C61;&#x7684;&#x5C5E;&#x6027;&#xFF1B;</p>
+<p>&#x51FD;&#x6570;&#x7684;&#x5B9A;&#x4E49;&#x548C;&#x51FD;&#x6570;&#x7684;&#x6267;&#x884C;&#x662F;&#x4E24;&#x7801;&#x4E8B;&#xFF08;fn&#x548C;fn()&#x7684;&#x533A;&#x522B;&#xFF09;&#xFF1B;&#x51FD;&#x6570;&#x7684;&#x6267;&#x884C;&#x4E0E;&#x51FD;&#x6570;&#x7684;&#x5B9A;&#x4E49;&#x5730;&#x65B9;&#x65E0;&#x5173;&#xFF1B;&#x8FD9;&#x4E2A;&#x4E00;&#x5B9A;&#x8981;&#x7406;&#x89E3;&#x7684;&#xFF1B;&#x3010;&#x56FE;&#x3011;</p>
+<h3 id="&#x95ED;&#x5305;"><a href="#&#x95ED;&#x5305;" class="headerlink" title="&#x95ED;&#x5305;"></a>&#x95ED;&#x5305;</h3><p>&#x4F5C;&#x7528;&#x57DF;&#x5C31;&#x662F;&#x95ED;&#x5305;&#xFF1B;&#x6211;&#x7406;&#x89E3;&#x7684;&#x662F;&#x76F8;&#x540C;&#x7684;&#x610F;&#x601D;&#xFF1B;&#x53EA;&#x662F;&#x4E0D;&#x540C;&#x4EBA;&#x5BF9;&#x8FD9;&#x4E2A;&#x673A;&#x5236;&#x7684;&#x53EB;&#x6CD5;&#x4E0D;&#x540C;&#xFF1B;&#x95ED;&#x5305;&#x662F;&#x4E00;&#x79CD;&#x673A;&#x5236;&#xFF1B;&#x5E76;&#x4E0D;&#x662F;&#x67D0;&#x79CD;&#x5F62;&#x5F0F;&#x6216;&#x8005;&#x6982;&#x5FF5;&#xFF1B;&#x6700;&#x5927;&#x7684;&#x95ED;&#x5305;&#x5C31;&#x662F;window&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x628A;window&#x5F53;&#x505A;&#x4E00;&#x4E2A;&#x95ED;&#x5305;&#xFF1B;</p>
+<p>&#x9AD8;&#x7A0B;&#x4E09;&#x7B2C;192&#x5C0F;&#x7ED3;&#x4E2D;&#x7684;&#x89E3;&#x91CA;&#xFF1B;</p>
+<p><img src="http://i.imgur.com/SO7gALy.png" alt=""></p>
+<p>&#x6743;&#x5A01;&#x6307;&#x5357;182&#x9875;&#x4E2D;&#x5BF9;&#x95ED;&#x5305;&#x7684;&#x89E3;&#x91CA;&#xFF1B;</p>
+<p>&#x6743;&#x5A01;&#x6307;&#x5357;&#x89E3;&#x91CA;&#xFF1A;<strong>&#x51FD;&#x6570;&#x7684;&#x6267;&#x884C;&#x4F9D;&#x8D56;&#x4E8E;&#x53D8;&#x91CF;&#x4F5C;&#x7528;&#x57DF;&#xFF0C;&#x8FD9;&#x4E2A;&#x4F5C;&#x7528;&#x57DF;&#x662F;&#x51FD;&#x6570;&#x5B9A;&#x4E49;&#x65F6;&#x51B3;&#x5B9A;&#x7684;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x51FD;&#x6570;&#x8C03;&#x7528;&#x65F6;&#x51B3;&#x5B9A;&#x7684;</strong></p>
+<blockquote>
+<p>&#x6279;&#x6CE8;&#xFF1B;&#x51FD;&#x6570;&#x5BF9;&#x8C61;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4F5C;&#x7528;&#x57DF;&#x94FE;&#x76F8;&#x4E92;&#x5173;&#x8054;&#x8D77;&#x6765;&#xFF1B;&#x51FD;&#x6570;&#x4F53;&#x5185;&#x90E8;&#x7684;&#x53D8;&#x91CF;&#x90FD;&#x53EF;&#x4EE5;&#x4FDD;&#x5B58;&#x5728;&#x51FD;&#x6570;&#x4F5C;&#x7528;&#x57DF;&#x5185;&#xFF0C;&#x8FD9;&#x79CD;&#x7279;&#x6027;&#x53EB;&#x95ED;&#x5305;&#xFF1B;<br>&#x6279;&#x6CE8;&#xFF1A;&#x8FD9;&#x91CC;&#x548C;&#x4F5C;&#x7528;&#x57DF;&#x94FE;&#x6709;&#x5173;&#x7CFB;&#x7684;&#xFF0C;&#x548C;&#x95ED;&#x5305;&#x6CA1;&#x6709;&#x5173;&#x7CFB;&#x7684;&#xFF1B;<strong>&#x51FD;&#x6570;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x662F;&#x8C01;&#xFF0C;&#x548C;&#x5728;&#x54EA;&#x8FD0;&#x884C;&#x6CA1;&#x6709;&#x5173;&#x7CFB;&#xFF1B;&#x53EA;&#x548C;&#x5728;&#x54EA;&#x513F;&#x5B9A;&#x4E49;&#x6709;&#x5173;&#x7CFB;&#xFF1B;</strong></p>
+<p>&#x5982;&#x4E0B;&#x4EE3;&#x7801;&#xFF1B;</p>
+</blockquote>
+<pre><code>var a=0;
+function fn(){
+    var a=1;
+    function fm(){
+        console.log(a);
+    }
+    return fm;
+}
+var testFn1=fn();//hanshu&#x8FD9;&#x4E2A;&#x53D8;&#x91CF;&#x5C31;&#x76F8;&#x5F53;&#x4E8E;fm&#x51FD;&#x6570;&#xFF1B;
+testFn1();//&#x76F8;&#x5F53;&#x4E8E;fm&#x51FD;&#x6570;&#x8FD0;&#x884C;&#xFF1B;&#x6B64;&#x65F6;&#x8F93;&#x51FA;&#x7684;&#x662F;1&#xFF1B;&#x800C;&#x4E0D;&#x662F;0&#xFF1B;&#x867D;&#x7136;&#x662F;&#x5728;window&#x4E2D;&#x8FD0;&#x884C;&#x7684;&#xFF1B;&#x4F46;&#x662F;&#x5728;fn&#x4E2D;&#x5B9A;&#x4E49;&#x7684;&#xFF1B;&#x6240;&#x4EE5;a&#x627E;&#x5230;&#x7684;&#x662F;fm&#x4E0A;&#x4E00;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;fm&#x7684;a&#xFF1B;&#x800C;&#x4E0D;&#x662F;window&#x4E2D;&#x7684;a&#xFF1B;
+</code></pre><p>&#x9AD8;&#x7A0B;&#x4E09;&#x89E3;&#x91CA;&#xFF1A;&#x5F53;&#x5728;&#x51FD;&#x6570;&#x5185;&#x90E8;&#x5B9A;&#x4E49;&#x4E86;&#x5176;&#x5B83;&#x51FD;&#x6570;&#x65F6;&#xFF0C;&#x5C31;&#x521B;&#x5EFA;&#x4E86;&#x95ED;&#x5305;&#xFF1B;&#x95ED;&#x5305;&#x6709;&#x6743;&#x8BBF;&#x95EE;&#x5305;&#x542B;&#x51FD;&#x6570;&#x5185;&#x90E8;&#x7684;&#x6240;&#x6709;&#x53D8;&#x91CF;&#xFF1B;&#xFF08;&#x5176;&#x5B9E;&#x53EA;&#x8981;&#x51FD;&#x6570;&#x8FD0;&#x884C;&#x4E86;&#xFF0C;&#x5C31;&#x5F62;&#x6210;&#x4E86;&#x5C01;&#x95ED;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#xFF0C;&#x5C31;&#x662F;&#x95ED;&#x5305;&#x4E86;&#xFF09;</p>
+<h3 id="&#x4F5C;&#x7528;&#x57DF;&#x4E0D;&#x9500;&#x6BC1;&#x7684;&#x60C5;&#x51B5;-&#x5185;&#x5B58;&#x91CA;&#x653E;"><a href="#&#x4F5C;&#x7528;&#x57DF;&#x4E0D;&#x9500;&#x6BC1;&#x7684;&#x60C5;&#x51B5;-&#x5185;&#x5B58;&#x91CA;&#x653E;" class="headerlink" title="&#x4F5C;&#x7528;&#x57DF;&#x4E0D;&#x9500;&#x6BC1;&#x7684;&#x60C5;&#x51B5;|&#x5185;&#x5B58;&#x91CA;&#x653E;"></a>&#x4F5C;&#x7528;&#x57DF;&#x4E0D;&#x9500;&#x6BC1;&#x7684;&#x60C5;&#x51B5;|&#x5185;&#x5B58;&#x91CA;&#x653E;</h3><p><strong>&#x4F5C;&#x7528;&#x57DF;&#x4E0D;&#x9500;&#x6BC1;&#x7684;&#x603B;&#x7ED3;&#xFF1A;&#x5F53;&#x51FD;&#x6570;&#x5185;return&#x4E00;&#x4E2A;&#x5F15;&#x7528;&#x6570;&#x636E;&#x7C7B;&#x578B;&#xFF1B;&#x5E76;&#x4E14;&#x51FD;&#x6570;&#x5916;&#x9762;&#x6709;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x63A5;&#x6536;&#x8FD9;&#x4E2A;&#x5F15;&#x7528;&#x6570;&#x636E;&#x7C7B;&#x578B;&#xFF1B;&#x6B64;&#x65F6;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x662F;&#x4E0D;&#x9500;&#x6BC1;&#x7684;&#xFF1B;</strong></p>
+<p>&#x5806;&#x5185;&#x5B58;</p>
+<p>&#x5BF9;&#x8C61;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x6216;&#x8005;&#x51FD;&#x6570;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x5728;&#x5B9A;&#x4E49;&#x7684;&#x65F6;&#x5019;&#x9996;&#x5148;&#x90FD;&#x4F1A;&#x5F00;&#x8F9F;&#x4E00;&#x4E2A;&#x5806;&#x5185;&#x5B58;,&#x5806;&#x5185;&#x5B58;&#x6709;&#x4E00;&#x4E2A;&#x5F15;&#x7528;&#x7684;&#x5730;&#x5740;,&#x5982;&#x679C;&#x5916;&#x9762;&#x6709;&#x53D8;&#x91CF;&#x7B49;&#x6307;&#x5230;&#x4E86;&#x8FD9;&#x4E2A;&#x5730;&#x5740;,&#x6211;&#x4EEC;&#x5C31;&#x8BF4;&#x8FD9;&#x4E2A;&#x5185;&#x5B58;&#x88AB;&#x5360;&#x7528;&#x4E86;,&#x5C31;&#x4E0D;&#x80FD;&#x9500;&#x6BC1;&#x4E86;&#xFF1B;</p>
+<p>&#x5806;&#x5185;&#x5B58;&#x91CA;&#x653E;&#x7684;&#x95EE;&#x9898;-&gt;&#x5806;&#x5185;&#x5B58;&#x7528;&#x6765;&#x5B58;&#x50A8;&#x5F15;&#x7528;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x503C;&#x7684;</p>
+<p><strong>[&#x8C37;&#x6B4C;]</strong>:&#x6D4F;&#x89C8;&#x5668;&#x4F1A;&#x6BCF;&#x9694;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;,&#x770B;&#x6211;&#x4EEC;&#x7684;&#x5806;&#x5185;&#x5B58;&#x662F;&#x5426;&#x8FD8;&#x6709;&#x5176;&#x4ED6;&#x7684;&#x4E1C;&#x897F;&#x5F15;&#x7528;&#x7740;,&#x5982;&#x679C;&#x8FD8;&#x5728;&#x88AB;&#x5360;&#x7528;&#x7740;,&#x6D4F;&#x89C8;&#x5668;&#x4E0D;&#x4F1A;&#x8FDB;&#x884C;&#x5904;&#x7406;&#xFF1B;&#x4F46;&#x662F;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x7684;&#x5806;&#x5185;&#x5B58;&#x5DF2;&#x7ECF;&#x6CA1;&#x6709;&#x4EFB;&#x4F55;&#x7684;&#x4E1C;&#x897F;&#x5360;&#x7528;&#x4E86;,&#x90A3;&#x4E48;&#x6D4F;&#x89C8;&#x5668;&#x4F1A;&#x628A;&#x8FD9;&#x4E2A;&#x5806;&#x5185;&#x5B58;&#x8FDB;&#x884C;&#x56DE;&#x6536;&#x91CA;&#x653E;<br><strong>[IE&#x548C;&#x706B;&#x72D0;]</strong>&#xFF1A;&#x5F00;&#x8F9F;&#x4E86;&#x4E00;&#x4E2A;&#x5806;&#x5185;&#x5B58;,&#x6211;&#x4EEC;&#x6709;&#x4E00;&#x4E2A;&#x5360;&#x7528;&#x7684;&#x65F6;&#x5019;&#x6D4F;&#x89C8;&#x5668;&#x8BB0;&#x4E00;&#x4E2A;&#x6570;(&#x8BB0;&#x5F55;&#x6709;&#x591A;&#x5C11;&#x4E2A;&#x5360;&#x7528;&#x8FD9;&#x4E2A;&#x5185;&#x5B58;),&#x5F53;&#x6211;&#x4EEC;&#x51CF;&#x5C11;&#x5F15;&#x7528;&#x7684;&#x65F6;&#x5019;,&#x6D4F;&#x89C8;&#x5668;&#x4F1A;&#x628A;&#x8BB0;&#x6570;&#x51CF;1,&#x5F53;&#x8BB0;&#x7684;&#x6570;&#x5B57;&#x51CF;&#x4E3A;0&#x7684;&#x65F6;&#x5019;,&#x6D4F;&#x89C8;&#x5668;&#x4F1A;&#x628A;&#x6211;&#x4EEC;&#x7684;&#x5806;&#x5185;&#x5B58;&#x56DE;&#x6536;&#x91CA;&#x653E;</p>
+<pre><code>var obj1 = {name: &quot;&#x5F20;&#x4E09;&quot;};
+var obj2 = obj1;
+//&#x6211;&#x4EEC;&#x60F3;&#x8981;&#x8BA9;&#x5806;&#x5185;&#x5B58;&#x91CA;&#x653E;/&#x9500;&#x6BC1;,&#x53EA;&#x9700;&#x8981;&#x628A;&#x6240;&#x6709;&#x5F15;&#x7528;&#x5B83;&#x7684;&#x53D8;&#x91CF;&#x503C;&#x8D4B;&#x503C;&#x4E3A;null&#x5373;&#x53EF;&#xFF0C;&#x5982;&#x679C;&#x5F53;&#x524D;&#x7684;&#x5806;&#x5185;&#x5B58;&#x6CA1;&#x6709;&#x4EFB;&#x4F55;&#x4E1C;&#x897F;&#x88AB;&#x5360;&#x7528;&#x4E86;,&#x90A3;&#x4E48;&#x6D4F;&#x89C8;&#x5668;&#x4F1A;&#x5728;&#x7A7A;&#x95F2;&#x7684;&#x65F6;&#x5019;&#x628A;&#x5B83;&#x9500;&#x6BC1;...
+obj1 = null;
+obj2 = null;
+</code></pre><h5 id="&#x4F18;&#x5316;"><a href="#&#x4F18;&#x5316;" class="headerlink" title="[&#x4F18;&#x5316;]"></a>[&#x4F18;&#x5316;]</h5><p>&#x5BF9;&#x4E8E;&#x5806;&#x5185;&#x5B58;&#x7684;&#x91CA;&#x653E;,&#x6211;&#x4EEC;&#x5728;JS&#x4EE3;&#x7801;&#x7F16;&#x5199;&#x7684;&#x65F6;&#x5019;,&#x5BF9;&#x4E8E;&#x6CA1;&#x6709;&#x7528;&#x7684;&#x5806;&#x5185;&#x5B58;,&#x6211;&#x4EEC;&#x624B;&#x52A8;&#x7ED9;&#x53D8;&#x91CF;&#x8D4B;&#x503C;&#x4E3A;null,&#x6765;&#x53D6;&#x6D88;&#x6240;&#x6709;&#x5BF9;&#x8FD9;&#x4E2A;&#x5806;&#x5185;&#x5B58;&#x7684;&#x5360;&#x7528;,&#x8FD9;&#x6837;&#x6D4F;&#x89C8;&#x5668;&#x5C31;&#x53EF;&#x4EE5;&#x628A;&#x6CA1;&#x6709;&#x88AB;&#x5360;&#x7528;&#x7684;&#x5806;&#x5185;&#x5B58;&#x8FDB;&#x884C;&#x56DE;&#x6536;&#x91CA;&#x653E;&#x2026;</p>
+<p>&#x6808;&#x5185;&#x5B58;&#x91CA;&#x653E;&#x7684;&#x95EE;&#x9898;-&gt;&#x662F;&#x7528;&#x6765;&#x63D0;&#x4F9B;JS&#x4EE3;&#x7801;&#x6267;&#x884C;&#x73AF;&#x5883;&#x7684;</p>
+<ul>
+<li>1&#xFF09;[window&#x5168;&#x5C40;&#x4F5C;&#x7528;&#x57DF;]</li>
+</ul>
+<p>&#x5168;&#x5C40;&#x4F5C;&#x7528;&#x57DF;&#x5728;&#x6253;&#x5F00;&#x5F53;&#x524D;&#x9875;&#x9762;&#x7684;&#x65F6;&#x5019;&#x5C31;&#x4F1A;&#x751F;&#x6210;&#xFF0C;&#x53EA;&#x6709;&#x5728;&#x5173;&#x95ED;&#x5F53;&#x524D;&#x9875;&#x9762;&#x540E;&#x5168;&#x5C40;&#x4F5C;&#x7528;&#x57DF;&#x624D;&#x4F1A;&#x9500;&#x6BC1; -&gt;&#x5168;&#x5C40;&#x4F5C;&#x7528;&#x57DF;&#x5C5E;&#x4E8E;&#x4E0D;&#x9500;&#x6BC1;&#x7684;&#x4F5C;&#x7528;&#x57DF;</p>
+<ul>
+<li>2)&#x79C1;&#x6709;&#x7684;&#x4F5C;&#x7528;&#x57DF;(&#x53EA;&#x6709;&#x51FD;&#x6570;&#x6267;&#x884C;&#x4F1A;&#x4EA7;&#x751F;&#x79C1;&#x6709;&#x7684;&#x4F5C;&#x7528;&#x57DF;)</li>
+</ul>
+<p>&#x4E00;&#x822C;&#x60C5;&#x51B5;&#x4E0B;,&#x51FD;&#x6570;&#x6267;&#x884C;&#x4F1A;&#x5F62;&#x6210;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x79C1;&#x6709;&#x7684;&#x4F5C;&#x7528;&#x57DF;,&#x63A5;&#x4E0B;&#x6765;&#x5728;&#x79C1;&#x6709;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x4E2D;&#x5B8C;&#x6210;&#xFF1A;&#x5F62;&#x53C2;&#x8D4B;&#x503C;-&gt;&#x9884;&#x89E3;&#x91CA;-&gt;&#x4EE3;&#x7801;&#x4ECE;&#x4E0A;&#x5230;&#x4E0B;&#x6267;&#x884C;,&#x5F53;&#x4EE3;&#x7801;&#x6267;&#x884C;&#x5B8C;&#x6210;&#x540E;&#x6211;&#x4EEC;&#x5F53;&#x524D;&#x5F62;&#x6210;&#x8FD9;&#x4E2A;&#x79C1;&#x6709;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x4F1A;&#x201D;&#x7ACB;&#x5373;&#x9500;&#x6BC1;&#x201D;;</p>
+<p><strong>&#x4F46;&#x662F;&#x8FD8;&#x662F;&#x5B58;&#x5728;&#x7279;&#x6B8A;&#x7684;&#x60C5;&#x51B5;&#x7684;&#xFF0C;&#x4F5C;&#x7528;&#x57DF;&#x4E0D;&#x9500;&#x6BC1;:</strong></p>
+<p>&#x5F53;&#x524D;&#x79C1;&#x6709;&#x4F5C;&#x7528;&#x57DF;&#x4E2D;&#x7684;&#x90E8;&#x5206;&#x5185;&#x5B58;&#x88AB;&#x4F5C;&#x7528;&#x57DF;&#x4EE5;&#x5916;&#x7684;&#x4E1C;&#x897F;&#x5360;&#x7528;&#x4E86;,&#x90A3;&#x4E48;&#x5F53;&#x524D;&#x7684;&#x8FD9;&#x4E2A;&#x4F5C;&#x7528;&#x57DF;&#x5C31;&#x4E0D;&#x80FD;&#x9500;&#x6BC1;&#x4E86;</p>
+<pre><code>- a&#x3001;&#x51FD;&#x6570;&#x6267;&#x884C;&#x65F6;&#x8FD4;&#x56DE;&#x4E86;&#x4E00;&#x4E2A;&#x5F15;&#x7528;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x7684;&#x503C;,&#x5E76;&#x4E14;&#x5728;&#x51FD;&#x6570;&#x7684;&#x5916;&#x9762;&#x88AB;&#x4E00;&#x4E2A;&#x5176;&#x4ED6;&#x7684;&#x4E1C;&#x897F;&#x7ED9;&#x63A5;&#x6536;&#x4E86;,&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#x8FD9;&#x4E2A;&#x79C1;&#x6709;&#x4F5C;&#x7528;&#x57DF;&#x5C31;&quot;&#x4E0D;&#x80FD;&#x9500;&#x6BC1;&#x4E86;&quot;; -&gt;&#x5982;&#x679C;A&#x8FD9;&#x4E2A;&#x4F5C;&#x7528;&#x57DF;&#x4E0D;&#x9500;&#x6BC1;,&#x90A3;&#x4E48;&#x5B83;&#x91CC;&#x9762;&#x7684;&#x79C1;&#x6709;&#x53D8;&#x91CF;&#x7B49;&#x90FD;&#x4E0D;&#x4F1A;&#x9500;&#x6BC1;;
+
+    function fn() {
+    &#x3000;&#x3000;var num = 100;
+    &#x3000;&#x3000;return function () {
+      &#x3000;}
+    }
+    var f = fn();//fn&#x6267;&#x884C;&#x5F62;&#x6210;&#x7684;&#x8FD9;&#x4E2A;&#x79C1;&#x6709;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x5C31;&#x4E0D;&#x80FD;&#x518D;&#x9500;&#x6BC1;&#x4E86;
+
+- b&#x3001;&#x5728;&#x4E00;&#x4E2A;&#x79C1;&#x6709;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x4E2D;&#x7ED9;DOM&#x5143;&#x7D20;&#x7684;&#x4E8B;&#x4EF6;&#x7ED1;&#x5B9A;&#x65B9;&#x6CD5;,&#x4E00;&#x822C;&#x60C5;&#x51B5;&#x4E0B;&#x6211;&#x4EEC;&#x7684;&#x79C1;&#x6709;&#x4F5C;&#x7528;&#x57DF;&#x90FD;&#x4E0D;&#x9500;&#x6BC1;
+
+    var oDiv = document.getElementById(&quot;div1&quot;);
+    ~function () {
+        oDiv.onclick = function () {}
+    }();//&#x5F53;&#x524D;&#x81EA;&#x6267;&#x884C;&#x51FD;&#x6570;&#x5F62;&#x6210;&#x7684;&#x8FD9;&#x4E2A;&#x79C1;&#x6709;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x4E5F;&#x4E0D;&#x9500;&#x6BC1;
+
+- c&#x3001;&#x4E0B;&#x8FF0;&#x60C5;&#x51B5;&#x5C5E;&#x4E8E;&#x4E0D;&#x7ACB;&#x5373;&#x9500;&#x6BC1;-&gt;fn&#x8FD4;&#x56DE;&#x7684;&#x51FD;&#x6570;&#x6CA1;&#x6709;&#x88AB;&#x5176;&#x4ED6;&#x7684;&#x4E1C;&#x897F;&#x5360;&#x7528;,&#x4F46;&#x662F;&#x8FD8;&#x9700;&#x8981;&#x6267;&#x884C;&#x4E00;&#x6B21;&#x5462;,&#x6240;&#x4EE5;&#x6682;&#x65F6;&#x4E0D;&#x9500;&#x6BC1;,&#x5F53;&#x8FD4;&#x56DE;&#x7684;&#x503C;&#x6267;&#x884C;&#x5B8C;&#x6210;&#x540E;,&#x6D4F;&#x89C8;&#x5668;&#x4F1A;&#x5728;&#x7A7A;&#x95F2;&#x7684;&#x65F6;&#x5019;&#x628A;&#x5B83;&#x9500;&#x6BC1;&#x4E86; -&gt;&quot;&#x4E0D;&#x7ACB;&#x5373;&#x9500;&#x6BC1;&quot;
+
+    function fn() {
+        var num = 100;
+        return function () {}
+    }
+    fn()();//&#x9996;&#x5148;&#x6267;&#x884C;fn&#xFF0C;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5C0F;&#x51FD;&#x6570;&#x5BF9;&#x5E94;&#x7684;&#x5185;&#x5B58;&#x5730;&#x5740;&#xFF0C;&#x7136;&#x540E;&#x7D27;&#x63A5;&#x7740;&#x8BA9;&#x8FD4;&#x56DE;&#x7684;&#x5C0F;&#x51FD;&#x6570;&#x518D;&#x6267;&#x884C;&#xFF1B;
+</code></pre><p>&#x95ED;&#x5305;&#x9009;&#x9879;&#x5361;&#x7684;&#x5199;&#x6CD5;&#xFF0C;&#x5C31;&#x662F;&#x901A;&#x8FC7;&#x8FD9;&#x4E2A;&#x539F;&#x7406;&#x6765;&#x5199;&#x7684;&#xFF1B;&#x4F46;&#x662F;&#x95ED;&#x5305;&#x6CA1;&#x6709;&#x81EA;&#x5B9A;&#x4E49;&#x5C5E;&#x6027;&#x6765;&#x7684;&#x6027;&#x80FD;&#x597D;&#xFF1B;</p>
+<p>&#x4F8B;&#x4E00;&#xFF1A;</p>
+<pre><code>function fn() {
+  var i = 10;
+  return function (n) {
+    console.log(n + (++i));
+  }
+}
+var f = fn();
+f(10);//-&gt;21
+f(20);//-&gt;32
+fn()(10);//-&gt;21
+fn()(20);//-&gt;31
+</code></pre><p>&#x4F8B;&#x4E8C;&#xFF1B;</p>
+<pre><code>function fn(i) {
+    return function (n) {
+      console.log(n + i++);
+    }
+  }
+  var f = fn(13);
+  f(12);//-&gt;25
+  f(14);//-&gt;28
+  fn(15)(12);//-&gt;27
+  fn(16)(13);//-&gt;29
+</code></pre><h3 id="i&#x548C;i"><a href="#i&#x548C;i" class="headerlink" title="++i&#x548C;i++"></a>++i&#x548C;i++</h3><p>&#x90FD;&#x662F;&#x81EA;&#x8EAB;&#x7D2F;&#x52A0;1,&#x5728;&#x548C;&#x5176;&#x4ED6;&#x7684;&#x503C;&#x8FDB;&#x884C;&#x8FD0;&#x7B97;&#x7684;&#x65F6;&#x5019;&#x662F;&#x6709;&#x533A;&#x522B;&#x7684;</p>
+<ul>
+<li>i++:&#x5148;&#x62FF;i&#x7684;&#x503C;&#x8FDB;&#x884C;&#x8FD0;&#x7B97;,&#x8FD0;&#x7B97;&#x5B8C;&#x6210;&#x672C;&#x8EAB;&#x5728;+1</li>
+<li><p>++i:&#x5148;&#x672C;&#x8EAB;&#x7D2F;&#x52A0;1,&#x7136;&#x540E;&#x62FF;&#x7D2F;&#x52A0;&#x5B8C;&#x6210;&#x7684;&#x7ED3;&#x679C;&#x53BB;&#x8FD0;&#x7B97;</p>
+<p>  var i = 5;<br>  console.log(1 + i++);//6<br>  console.log(1 + (++i));//8<br>  console.log(2 + (i++) + (++i) + (++i) + (i++));//38<br>  console.log(i);//11</p>
+</li>
+</ul>
+<p>&#x601D;&#x8003;&#x9898;:&#x7528;&#x95ED;&#x5305;&#x4F5C;&#x7528;&#x57DF;&#x7684;&#x65B9;&#x5F0F;&#x5B9E;&#x73B0;&#x9009;&#x9879;&#x5361;&#x5FAA;&#x73AF;&#x7ED1;&#x5B9A;&#x4E8B;&#x4EF6;&#x7684;&#x5904;&#x7406;</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/08/预解释-作用域-this关键字-闭包/this关键字/" itemprop="url">
+                  this关键字
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-08T16:34:46+08:00" content="2016-09-08">
+              2016-09-08
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/08/预解释-作用域-this关键字-闭包/this关键字/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/09/08/预解释-作用域-this关键字-闭包/this关键字/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="this&#x5173;&#x952E;&#x5B57;"><a href="#this&#x5173;&#x952E;&#x5B57;" class="headerlink" title="this&#x5173;&#x952E;&#x5B57;"></a>this&#x5173;&#x952E;&#x5B57;</h1><ul>
+<li>this&#x548C;content&#x7684;&#x533A;&#x522B;</li>
+<li>&#x5982;&#x4F55;&#x533A;&#x5206;this&#x5462;</li>
+</ul>
+<p>&#x7814;&#x7A76;&#x7684;this&#x90FD;&#x662F;&#x6307;[&#x51FD;&#x6570;&#x6267;&#x884C;&#x4E2D;&#x7684;this]</p>
+<h3 id="this&#x548C;content&#x7684;&#x533A;&#x522B;"><a href="#this&#x548C;content&#x7684;&#x533A;&#x522B;" class="headerlink" title="this&#x548C;content&#x7684;&#x533A;&#x522B;"></a>this&#x548C;content&#x7684;&#x533A;&#x522B;</h3><p>JS&#x4E2D;this&#x662F;&#x6267;&#x884C;&#x7684;&#x4E3B;&#x4F53;(&#x8C01;&#x6765;&#x6267;&#x884C;&#x7684;this&#x5C31;&#x662F;&#x8C01;),context&#x662F;&#x6267;&#x884C;&#x6240;&#x5728;&#x7684;&#x8303;&#x56F4;(&#x5728;&#x54EA;&#x6267;&#x884C;&#x7684;&#x4E0A;&#x4E0B;&#x6587;&#x5C31;&#x662F;&#x8C01;) -&gt; &#x201C;this&#x548C;context&#x6CA1;&#x6709;&#x5FC5;&#x7136;&#x7684;&#x5173;&#x7CFB;&#x201D;</p>
+<blockquote>
+<p>&#x4F8B;&#x5982;&#xFF1A;&#x5F20;&#x4E09;&#x5728;&#x6C99;&#x53BF;&#x5403;&#x996D;,this-&gt;&#x5F20;&#x4E09;  context-&gt;&#x6C99;&#x53BF;&#x5C0F;&#x5403;&#xFF1B;&#x5F20;&#x4E09;&#x548C;&#x6C99;&#x53BF;&#x5C0F;&#x5403;&#x6CA1;&#x6709;&#x5FC5;&#x7136;&#x5173;&#x7CFB;&#xFF1B;</p>
+</blockquote>
+<pre><code>function &#x5403;&#x996D;(){
+     this-&gt;&#x5F20;&#x4E09;
+ }
+ &#x5F20;&#x4E09;.&#x5403;&#x996D;();
+ ~function(){
+     &#x5F20;&#x4E09;.&#x5403;&#x996D;();
+ }();
+</code></pre><h3 id="&#x5982;&#x4F55;&#x7684;&#x533A;&#x5206;this&#x5462;"><a href="#&#x5982;&#x4F55;&#x7684;&#x533A;&#x5206;this&#x5462;" class="headerlink" title="&#x5982;&#x4F55;&#x7684;&#x533A;&#x5206;this&#x5462;"></a>&#x5982;&#x4F55;&#x7684;&#x533A;&#x5206;this&#x5462;</h3><p>this:&#x5F53;&#x524D;&#x51FD;&#x6570;&#x6267;&#x884C;&#x7684;&#x4E3B;&#x4F53;,&#x5B83;&#x548C;&#x51FD;&#x6570;&#x5728;&#x54EA;&#x5B9A;&#x4E49;&#x7684;&#x6216;&#x8005;&#x5728;&#x54EA;&#x6267;&#x884C;&#x7684;&#x90FD;&#x6CA1;&#x6709;&#x4EFB;&#x4F55;&#x5173;&#x7CFB;&#xFF1B;&#x5982;&#x4F55;&#x7684;&#x533A;&#x5206;this&#x5462;?<br>1&#x3001;&#x51FD;&#x6570;&#x6267;&#x884C;,&#x9996;&#x5148;&#x770B;&#x51FD;&#x6570;&#x540D;&#x524D;&#x9762;&#x662F;&#x5426;&#x6709;&#x201D;.&#x201D;,&#x6709;&#x7684;&#x8BDD;,&#x201D;.&#x201D;&#x524D;&#x9762;&#x662F;&#x8C01;this&#x5C31;&#x662F;&#x8C01;;&#x6CA1;&#x6709;&#x7684;&#x8BDD;this&#x5C31;&#x662F;window<br>2&#x3001;&#x81EA;&#x6267;&#x884C;&#x51FD;&#x6570;&#x4E2D;&#x7684;this&#x6C38;&#x8FDC;&#x662F;window&#xFF0C;&#xFF08;window&#x53BB;&#x6267;&#x884C;&#x7684;&#xFF0C;&#x5F88;&#x591A;&#x65F6;&#x5019;window&#x53EF;&#x4EE5;&#x7701;&#x7565;&#xFF09;<br>3&#x3001;&#x7ED9;&#x5143;&#x7D20;&#x7684;&#x67D0;&#x4E00;&#x4E2A;&#x4E8B;&#x4EF6;&#x7ED1;&#x5B9A;&#x65B9;&#x6CD5;,&#x5F53;&#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x7684;&#x65F6;&#x5019;,&#x6267;&#x884C;&#x5BF9;&#x5E94;&#x7684;&#x65B9;&#x6CD5;,&#x65B9;&#x6CD5;&#x4E2D;&#x7684;this&#x662F;&#x5F53;&#x524D;&#x7684;&#x5143;&#x7D20;&#xFF1B;&#x6BD4;&#x5982;&#x9009;&#x9879;&#x5361;&#x7684;&#x4EE3;&#x7801;&#x4E2D;&#xFF1B;</p>
+<pre><code>function fn() {
+    console.log(this);
+}
+var obj = {fn: fn};
+fn();//this-&gt;window
+obj.fn();//this-&gt;obj
+</code></pre><blockquote>
+<p>&#x4E8B;&#x4EF6;&#x6267;&#x884C;&#xFF0C;&#x4E0D;&#x540C;&#x7684;&#x5199;&#x6CD5;&#xFF0C;this&#x6307;&#x5411;&#x662F;&#x4E0D;&#x540C;&#x7684;</p>
+</blockquote>
+<pre><code>document.getElementById(&quot;div1&quot;).onclick = fn;//fn&#x4E2D;&#x7684;this&#x662F;#div1
+document.getElementById(&quot;div1&quot;).onclick = function () {
+  fn();//this-&gt;window
+};
+function fn() {
+  console.log(this);
+}
+</code></pre><blockquote>
+<p>&#x4E0D;&#x540C;&#x4F5C;&#x7528;&#x57DF;&#x7684;</p>
+</blockquote>
+<pre><code>function sum() {
+  console.log(&quot;sum&quot;,this);//this-&gt;window
+  fn();//this-&gt;window
+}
+sum();
+var oo = {
+    sum: function () {
+      console.log(&quot;oo.sum&quot;,this);//this-&gt;oo
+      fn();//this-&gt;window
+    }
+};
+oo.sum();
+function fn() {
+  console.log(this);
+}
+</code></pre><p>&#x4F60;&#x4EE5;&#x4E3A; &#x4F60;&#x4EE5;&#x4E3A;&#x7684; &#x5C31;&#x662F;&#x4F60;&#x4EE5;&#x4E3A;&#x7684;</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/01/预解释-作用域-this关键字-闭包/投票的实现原理/" itemprop="url">
+                  投票的实现原理
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-01T10:34:46+08:00" content="2016-09-01">
+              2016-09-01
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/01/预解释-作用域-this关键字-闭包/投票的实现原理/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/09/01/预解释-作用域-this关键字-闭包/投票的实现原理/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="&#x6295;&#x7968;&#x7684;&#x5B9E;&#x73B0;&#x539F;&#x7406;"><a href="#&#x6295;&#x7968;&#x7684;&#x5B9E;&#x73B0;&#x539F;&#x7406;" class="headerlink" title="&#x6295;&#x7968;&#x7684;&#x5B9E;&#x73B0;&#x539F;&#x7406;"></a>&#x6295;&#x7968;&#x7684;&#x5B9E;&#x73B0;&#x539F;&#x7406;</h1><p>&#x8981;&#x6C42;&#xFF1A;&#x5B9E;&#x73B0;&#x70B9;&#x51FB;&#x4E00;&#x4E0B;&#xFF0C;&#x52A0;&#x4E00;&#x4E2A;&#x6570;&#x5B57;&#xFF1B;</p>
+<p>&#x6269;&#x5C55;:&#x652F;&#x6301;&#x548C;&#x53CD;&#x5BF9;&#x7684;&#x90FD;&#x6709;,&#x652F;&#x6301;&#x5C31;&#x662F;&#x7D2F;&#x52A0;1,&#x53CD;&#x5BF9;&#x5C31;&#x662F;&#x51CF;1&#xFF1B;&#x4E0D;&#x5C0F;&#x4E8E;0&#xFF1B;</p>
+<pre><code>&lt;div class=&quot;box&quot;&gt;
+    &lt;h2&gt;&#x95EE;&#x9898;: &#x540C;&#x610F;&#x5426;&#xFF1F;&lt;/h2&gt;
+    &lt;div id=&quot;btn&quot;&gt;
+        &#x6211;&#x975E;&#x5E38;&#x8D5E;&#x540C;&#x4EE5;&#x4E0A;&#x7684;&#x89C2;&#x70B9;
+        &lt;span id=&quot;spanNum&quot;&gt;0&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+var oBtn = document.getElementById(&quot;btn&quot;);
+var spanNum = document.getElementById(&quot;spanNum&quot;);
+    oBtn.onclick = function () {
+       var count = 0;
+       count++;
+       spanNum.innerHTML = count;
+    };
+</code></pre><blockquote>
+<p>&#x4E0D;&#x884C;,&#x6BCF;&#x4E00;&#x6B21;&#x70B9;&#x51FB;div&#x7684;&#x65F6;&#x5019;&#x90FD;&#x4F1A;&#x91CD;&#x65B0;&#x7684;&#x6267;&#x884C;&#x6211;&#x4EEC;&#x7684;function,&#x91CD;&#x65B0;&#x7684;&#x5F62;&#x6210;&#x4E00;&#x4E2A;&#x79C1;&#x6709;&#x7684;&#x4F5C;&#x7528;&#x57DF;,&#x4ECE;&#x65B0;&#x7684;&#x5F00;&#x59CB;&#x9884;&#x89E3;&#x91CA;,&#x4EE3;&#x7801;&#x6267;&#x884C;,&#x5E76;&#x4E14;&#x6267;&#x884C;&#x5B8C;&#x6210;&#x540E;&#x5F53;&#x524D;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x8FD8;&#x9500;&#x6BC1;&#x4E86;-&gt;&#x6BCF;&#x4E00;&#x6B21;count&#x90FD;&#x662F;&#x4ECE;0&#x5F00;&#x59CB;&#x7684;</p>
+</blockquote>
+<h5 id="1&#x3001;&#x5229;&#x7528;&#x5168;&#x5C40;&#x4F5C;&#x7528;&#x57DF;&#x4E0D;&#x9500;&#x6BC1;&#x7684;&#x539F;&#x7406;-&#x6211;&#x4EEC;&#x628A;&#x9700;&#x8981;&#x7D2F;&#x52A0;&#x7684;&#x53D8;&#x91CF;count&#x5B9A;&#x4E49;&#x4E3A;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x5B9E;&#x73B0;&#x6570;&#x5B57;&#x7684;&#x4E00;&#x76F4;&#x7D2F;&#x52A0;"><a href="#1&#x3001;&#x5229;&#x7528;&#x5168;&#x5C40;&#x4F5C;&#x7528;&#x57DF;&#x4E0D;&#x9500;&#x6BC1;&#x7684;&#x539F;&#x7406;-&#x6211;&#x4EEC;&#x628A;&#x9700;&#x8981;&#x7D2F;&#x52A0;&#x7684;&#x53D8;&#x91CF;count&#x5B9A;&#x4E49;&#x4E3A;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x5B9E;&#x73B0;&#x6570;&#x5B57;&#x7684;&#x4E00;&#x76F4;&#x7D2F;&#x52A0;" class="headerlink" title="1&#x3001;&#x5229;&#x7528;&#x5168;&#x5C40;&#x4F5C;&#x7528;&#x57DF;&#x4E0D;&#x9500;&#x6BC1;&#x7684;&#x539F;&#x7406;,&#x6211;&#x4EEC;&#x628A;&#x9700;&#x8981;&#x7D2F;&#x52A0;&#x7684;&#x53D8;&#x91CF;count&#x5B9A;&#x4E49;&#x4E3A;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x5B9E;&#x73B0;&#x6570;&#x5B57;&#x7684;&#x4E00;&#x76F4;&#x7D2F;&#x52A0;"></a>1&#x3001;&#x5229;&#x7528;&#x5168;&#x5C40;&#x4F5C;&#x7528;&#x57DF;&#x4E0D;&#x9500;&#x6BC1;&#x7684;&#x539F;&#x7406;,&#x6211;&#x4EEC;&#x628A;&#x9700;&#x8981;&#x7D2F;&#x52A0;&#x7684;&#x53D8;&#x91CF;count&#x5B9A;&#x4E49;&#x4E3A;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x5B9E;&#x73B0;&#x6570;&#x5B57;&#x7684;&#x4E00;&#x76F4;&#x7D2F;&#x52A0;</h5><pre><code>var count = 0;
+oBtn.onclick = function () {
+   count++;
+   spanNum.innerHTML = count;
+};
+</code></pre><blockquote>
+<p>&#x5F0A;&#x7AEF;&#xFF1A;&#x6211;&#x4EEC;&#x5728;&#x771F;&#x5B9E;&#x7684;&#x9879;&#x76EE;&#x4E2D;&#x4E3A;&#x4E86;&#x907F;&#x514D;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x76F8;&#x4E92;&#x4E4B;&#x95F4;&#x7684;&#x51B2;&#x7A81;,&#x6211;&#x4EEC;&#x4E00;&#x822C;&#x662F;&#x51CF;&#x5C11;(&#x7981;&#x7528;)&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x7684;&#x4F7F;&#x7528;&#x7684;</p>
+</blockquote>
+<h5 id="2&#x3001;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x521B;&#x9020;&#x4E00;&#x4E2A;&#x4E0D;&#x9500;&#x6BC1;&#x7684;&#x79C1;&#x6709;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x6765;&#x5B58;&#x50A8;count"><a href="#2&#x3001;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x521B;&#x9020;&#x4E00;&#x4E2A;&#x4E0D;&#x9500;&#x6BC1;&#x7684;&#x79C1;&#x6709;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x6765;&#x5B58;&#x50A8;count" class="headerlink" title="2&#x3001;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x521B;&#x9020;&#x4E00;&#x4E2A;&#x4E0D;&#x9500;&#x6BC1;&#x7684;&#x79C1;&#x6709;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x6765;&#x5B58;&#x50A8;count"></a>2&#x3001;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x521B;&#x9020;&#x4E00;&#x4E2A;&#x4E0D;&#x9500;&#x6BC1;&#x7684;&#x79C1;&#x6709;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x6765;&#x5B58;&#x50A8;count</h5><p>&#x81EA;&#x6267;&#x884C;&#x51FD;&#x6570;&#x6267;&#x884C;,&#x5F62;&#x6210;&#x4E00;&#x4E2A;&#x79C1;&#x6709;&#x7684;&#x4F5C;&#x7528;&#x57DF;A,A&#x4E2D;&#x8FD4;&#x56DE;&#x4E86;&#x4E00;&#x4E2A;&#x5806;&#x5185;&#x5B58;&#x7684;&#x5730;&#x5740;,&#x88AB;A&#x5916;&#x9762;&#x7684;onclick&#x63A5;&#x6536;&#x4E86;,&#x90A3;&#x4E48;A&#x8FD9;&#x4E2A;&#x79C1;&#x6709;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x5C31;&#x4E0D;&#x5728;&#x9500;&#x6BC1;&#x4E86;,&#x4E5F;&#x5C31;&#x662F;&#x91CC;&#x9762;&#x7684;&#x79C1;&#x6709;&#x53D8;&#x91CF;count&#x4E5F;&#x4E0D;&#x518D;&#x9500;&#x6BC1;&#x4E86;,&#x8FD9;&#x6837;&#x7684;&#x8BDD;count&#x5C31;&#x53EF;&#x4EE5;&#x4E00;&#x76F4;&#x7D2F;&#x52A0;&#x4E0B;&#x53BB;&#x4E86;&#x2026;</p>
+<pre><code>oBtn.onclick = (function () {
+    var count = 0;
+    return function () {
+        count++;
+        spanNum.innerHTML = count;
+    }
+})();
+
+//&#x6216;&#x8005;&#x5199;&#x6210;&#x4E0B;&#x9762;&#x7684;&#x4E5F;&#x53EF;&#x4EE5;
+(function () {
+    var count = 0;
+    oBtn.onclick = function () {
+        count++;
+        spanNum.innerHTML = count;
+    }
+})();
+</code></pre><blockquote>
+<p>&#x5F0A;&#x7AEF;:&#x6709;&#x4E00;&#x4E2A;&#x4E0D;&#x9500;&#x6BC1;&#x7684;&#x79C1;&#x6709;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x8FD8;&#x662F;&#x6D6A;&#x8D39;&#x6027;&#x80FD;&#x7684;</p>
+</blockquote>
+<h5 id="3&#x3001;&#x4F7F;&#x7528;&#x81EA;&#x5B9A;&#x4E49;&#x5C5E;&#x6027;-&#x63A8;&#x8350;&#x4F7F;&#x7528;"><a href="#3&#x3001;&#x4F7F;&#x7528;&#x81EA;&#x5B9A;&#x4E49;&#x5C5E;&#x6027;-&#x63A8;&#x8350;&#x4F7F;&#x7528;" class="headerlink" title="3&#x3001;&#x4F7F;&#x7528;&#x81EA;&#x5B9A;&#x4E49;&#x5C5E;&#x6027;(&#x63A8;&#x8350;&#x4F7F;&#x7528;)"></a>3&#x3001;&#x4F7F;&#x7528;&#x81EA;&#x5B9A;&#x4E49;&#x5C5E;&#x6027;(&#x63A8;&#x8350;&#x4F7F;&#x7528;)</h5><p>&#x628A;&#x9700;&#x8981;&#x7D2F;&#x52A0;&#x7684;count&#x5B58;&#x653E;&#x5728;&#x5F53;&#x524D;&#x5143;&#x7D20;&#x7684;&#x81EA;&#x5B9A;&#x4E49;&#x5C5E;&#x6027;&#x4E0A;,&#x5E76;&#x4E14;&#x6BCF;&#x4E00;&#x6B21;&#x70B9;&#x51FB;&#x7684;&#x65F6;&#x5019;&#x5B9E;&#x73B0;&#x7D2F;&#x52A0;</p>
+<pre><code>var oBtn = document.getElementById(&quot;btn&quot;);
+var spanNum = document.getElementById(&quot;spanNum&quot;);
+oBtn.count = 0;
+oBtn.onclick = function () {
+&#x3000;&#x3000;spanNum.innerHTML = ++this.count;
+};
+</code></pre><h5 id="4&#x3001;&#x4F7F;&#x7528;innerHTML&#x7684;&#x65B9;&#x5F0F;"><a href="#4&#x3001;&#x4F7F;&#x7528;innerHTML&#x7684;&#x65B9;&#x5F0F;" class="headerlink" title="4&#x3001;&#x4F7F;&#x7528;innerHTML&#x7684;&#x65B9;&#x5F0F;"></a>4&#x3001;&#x4F7F;&#x7528;innerHTML&#x7684;&#x65B9;&#x5F0F;</h5><p>innerHTML:&#x662F;&#x5143;&#x7D20;&#x7684;&#x4E00;&#x4E2A;&#x5C5E;&#x6027;,&#x7528;&#x6765;&#x5B58;&#x50A8;&#x6216;&#x8005;&#x8BBE;&#x7F6E;&#x5143;&#x7D20;&#x91CC;&#x9762;&#x5185;&#x5BB9;&#x7684;(&#x83B7;&#x53D6;&#x7684;&#x5185;&#x5BB9;&#x90FD;&#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;)</p>
+<pre><code>oBtn.onclick = function () {
+    var oldNum = spanNum.innerHTML;
+    //&#x4E0B;&#x9762;&#x4E24;&#x4E2A;&#x90FD;&#x53EF;&#x4EE5;
+    // spanNum.innerHTML = Number(oldNum) + 1;
+    spanNum.innerHTML++;
+}
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -1854,739 +2952,11 @@ image.src=&quot;smilex.gif&quot;;//&#x6307;&#x5B9A;&#x4E0D;&#x5B58;&#x5728;&#x76
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/17/JS算法原理/JS中的常见算法/" itemprop="url">
-                  JS中的常见算法
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-17T09:01:13+08:00" content="2016-07-17">
-              2016-07-17
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/17/JS算法原理/JS中的常见算法/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/17/JS算法原理/JS中的常见算法/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>&#x5192;&#x6CE1;&#x6392;&#x5E8F;</li>
-<li>&#x5FEB;&#x901F;&#x6392;&#x5E8F;</li>
-<li>&#x63D2;&#x5165;&#x6392;&#x5E8F;</li>
-<li>&#x6570;&#x7EC4;&#x53BB;&#x91CD;&#x590D;</li>
-<li>&#x4ECE;&#x4E00;&#x4E2A;&#x957F;&#x5EA6;10&#x4E07;&#x7684;&#x6570;&#x7EC4;&#x4E2D;&#xFF0C;&#x968F;&#x673A;&#x53D6;&#x51FA;100&#x6761;&#x6570;&#x636E;&#xFF08;&#x53D6;&#x51FA;&#x7684;&#x6570;&#x636E;&#x4E0D;&#x80FD;&#x91CD;&#x590D;&#xFF09;;</li>
-</ul>
-<h3 id="&#x5192;&#x6CE1;&#x6392;&#x5E8F;"><a href="#&#x5192;&#x6CE1;&#x6392;&#x5E8F;" class="headerlink" title="&#x5192;&#x6CE1;&#x6392;&#x5E8F;"></a>&#x5192;&#x6CE1;&#x6392;&#x5E8F;</h3><p><strong>&#x57FA;&#x672C;&#x601D;&#x60F3;</strong>&#xFF1A;&#x5C31;&#x662F;&#x628A;&#x6570;&#x636E;&#x50CF;&#x6CE1;&#x6CE1;&#x4E00;&#x6837;&#x7F51;&#x4E0A;&#x5192;&#xFF0C;&#x8BA9;&#x4F53;&#x79EF;&#x6700;&#x8F7B;&#x7684;&#x6CE1;&#x6CE1;&#x6D6E;&#x5728;&#x6700;&#x4E0A;&#x9762;&#xFF0C;&#x7136;&#x540E;&#x6309;&#x7167;&#x91CD;&#x91CF;&#x5F80;&#x4E0B;&#x4F9D;&#x6B21;&#x6392;&#x5217;&#xFF1B;</p>
-<p><strong>&#x5192;&#x6CE1;&#x6392;&#x5E8F;&#x7684;&#x64CD;&#x4F5C;&#x539F;&#x7406;</strong>&#xFF1A;</p>
-<pre><code>var ary=[11,2,31,45,6,78,37,33,21];
-</code></pre><p>&#x7528;&#x5FAA;&#x73AF;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x5FAA;&#x73AF;&#x6570;&#x7EC4;&#x7684;&#x957F;&#x5EA6;&#xFF0C;&#x7136;&#x540E;&#x6BD4;&#x8F83;&#x6570;&#x7EC4;&#x7684;&#x6570;&#x636E;</p>
-<ul>
-<li>&#x7B2C;&#x4E00;&#x6B21;&#x5FAA;&#x73AF;&#x628A;<strong>ary</strong>&#x7684;&#x6700;&#x5927;&#x503C;&#x653E;&#x5728;ary[ary.length-1]&#x7684;&#x4F4D;&#x7F6E;&#xFF1B;<ul>
-<li>ary[0]&gt;ary[1],&#x5982;&#x679C;&#x662F;true&#xFF0C;&#x8BF4;&#x660E;&#x7B2C;&#x4E00;&#x9879;&#x6BD4;&#x7B2C;&#x4E8C;&#x9879;&#x5927;&#xFF0C;&#x4EA4;&#x6362;ary[0]&#x548C;ary[1]&#x7684;&#x4F4D;&#x7F6E;&#xFF1B;&#x5982;&#x679C;&#x662F;false&#x5219;&#x4E0D;&#x6539;&#x53D8;&#x4F4D;&#x7F6E;&#xFF1B;</li>
-<li>ary[1]&gt;ary[2],&#x5982;&#x679C;&#x662F;true&#xFF0C;&#x8BF4;&#x660E;&#x7B2C;&#x4E8C;&#x9879;&#x6BD4;&#x7B2C;&#x4E09;&#x9879;&#x5927;&#xFF0C;&#x4EA4;&#x6362;ary[1]&#x548C;ary[2]&#x7684;&#x4F4D;&#x7F6E;&#xFF1B;&#x5982;&#x679C;&#x662F;false&#x5219;&#x4E0D;&#x6539;&#x53D8;&#x4F4D;&#x7F6E;&#xFF1B;&#xFF08;&#x6B64;&#x65F6;&#x7684;ary[1]&#x80AF;&#x5B9A;&#x6BD4;ary[0]&#x5927;&#x7684;&#xFF0C;&#x56E0;&#x4E3A;&#x5F00;&#x59CB;&#x7684;&#x65F6;&#x5019;&#x5DF2;&#x7ECF;&#x628A;ary[0]&#x548C;ary[1]&#x6BD4;&#x8F83;&#x4E86;&#xFF09;</li>
-<li>&#x2026;&#x2026;</li>
-<li>ary[ary.length-2]&gt;ary[ary.length-1];&#x6BD4;&#x8F83;&#x5230;&#x8FD9;&#x4E2A;&#x65F6;&#x5019;&#xFF0C;ary[ary.length-1]&#x7684;&#x4F4D;&#x7F6E;&#x80AF;&#x5B9A;&#x662F;&#x6700;&#x5927;&#x7684;&#x6570;&#x636E;&#x4E86;&#xFF1B;</li>
-</ul>
-</li>
-<li>&#x7B2C;&#x4E8C;&#x6B21;&#x5FAA;&#x73AF;&#xFF0C;&#x628A;&#x5012;&#x6570;&#x7B2C;&#x4E8C;&#x5927;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x653E;&#x5728;&#x6570;&#x7EC4;&#x7684;ary[ary.length-2]&#x4F4D;&#x7F6E;;<ul>
-<li>&#x5907;&#x6CE8;&#xFF1A;&#x7B2C;&#x4E8C;&#x6B21;&#x5FAA;&#x73AF;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x6BD4;&#x8F83;&#x5230;ary[ary.length-2]&#x7684;&#x4F4D;&#x7F6E;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#xFF0C;&#x56E0;&#x4E3A;ary[ary.length-1]&#x5DF2;&#x7ECF;&#x662F;&#x6700;&#x5927;&#x503C;&#x4E86;&#xFF0C;&#x65E0;&#x9700;&#x518D;&#x6B21;&#x6BD4;&#x8F83;&#xFF1B;</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>&#x6CE8;&#x610F;&#xFF1A;&#x4EA4;&#x6362;&#x4F4D;&#x7F6E;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x9700;&#x8981;&#x4E00;&#x4E2A;&#x4E2D;&#x95F4;&#x53D8;&#x91CF;&#x6765;&#x534F;&#x52A9;&#xFF0C;&#x5047;&#x8BBE;&#x8BA9;a&#x548C;b&#x8FDB;&#x884C;&#x6570;&#x636E;&#x4EA4;&#x6362;&#xFF1B; var temp=a;a=b;b=temp; &#x8FD9;&#x6837;&#x5C31;&#x53EF;&#x4EE5;&#x628A;a&#x548C;b&#x7684;&#x6570;&#x636E;&#x4EA4;&#x6362;&#x597D;&#x4E86;&#xFF1B;</p>
-</blockquote>
-<pre><code>var ary=[11,2,31,45,6,78,37,33,21];
-
-function sortAry(ary){
-    var aryLen=ary.length;//&#x83B7;&#x53D6;&#x6570;&#x7EC4;&#x7684;&#x957F;&#x5EA6;&#xFF1B;&#x6709;aryLen&#x4E2A;&#x6570;&#x5728;&#x6392;&#x5E8F;&#xFF1B;
-    var temp=null;//&#x4E34;&#x65F6;&#x53D8;&#x91CF;&#xFF0C;&#x4EA4;&#x6362;&#x6570;&#x636E;&#x4E2D;&#x7528;&#x7684;
-    for(var i= 0,iLen=aryLen-1;i&lt;iLen;i++){//&#x5916;&#x5C42;&#x5FAA;&#x73AF;n-1&#x6B21;&#xFF1B;
-        for(var j= 0,jLen=aryLen-1-i;j&lt;jLen;j++){//&#x6BCF;&#x6B21;&#x5FAA;&#x73AF;&#x5B8C;&#xFF0C;&#x90FD;&#x80FD;&#x4ECE;&#x5269;&#x4E0B;&#x7684;&#x6570;&#x7EC4;&#x4E2D;&#x627E;&#x51FA;&#x4E2A;&#x6700;&#x5927;&#x7684;&#x6570;&#x7EC4;&#x653E;&#x5728;aryLen-1-i&#x7684;&#x4F4D;&#x7F6E;&#xFF1B;
-            if(ary[j]&gt;ary[j+1]){
-                temp=ary[j];
-                ary[j]=ary[j+1];
-                ary[j+1]=temp;
-            }
-        }
-    }
-    return ary;
-}
-
-var newAry=sortAry(ary);
-console.log(newAry);//[2, 6, 11, 21, 31, 33, 37, 45, 78]
-</code></pre><blockquote>
-<p>&#x907F;&#x514D;&#x65E0;&#x6548;&#x5FAA;&#x73AF;&#x7684;&#x65B9;&#x6CD5;&#xFF1B;</p>
-</blockquote>
-<pre><code>var ary=[11,2,31,45,6,78,37,33,21];
-
-function sortAry(ary){
-    var aryLen=ary.length;//&#x83B7;&#x53D6;&#x6570;&#x7EC4;&#x7684;&#x957F;&#x5EA6;&#xFF1B;&#x6709;aryLen&#x4E2A;&#x6570;&#x5728;&#x6392;&#x5E8F;&#xFF1B;
-    var temp=null;//&#x4E34;&#x65F6;&#x53D8;&#x91CF;&#xFF0C;&#x4EA4;&#x6362;&#x6570;&#x636E;&#x4E2D;&#x7528;&#x7684;
-    var flag=false;//&#x8BBE;&#x7F6E;&#x6807;&#x5FD7;&#x4F4D;&#xFF0C;&#x521D;&#x59CB;&#x5316;&#x4E3A;false
-    for(var i= 0,iLen=aryLen-1;i&lt;iLen;i++){//&#x5916;&#x5C42;&#x5FAA;&#x73AF;n-1&#x6B21;&#xFF1B;
-        for(var j= 0,jLen=aryLen-1-i;j&lt;jLen;j++){//&#x6BCF;&#x6B21;&#x5FAA;&#x73AF;&#x5B8C;&#xFF0C;&#x90FD;&#x80FD;&#x4ECE;&#x5269;&#x4E0B;&#x7684;&#x6570;&#x7EC4;&#x4E2D;&#x627E;&#x51FA;&#x4E2A;&#x6700;&#x5927;&#x7684;&#x6570;&#x7EC4;&#x653E;&#x5728;aryLen-1-i&#x7684;&#x4F4D;&#x7F6E;&#xFF1B;
-            if(ary[j]&gt;ary[j+1]){
-                temp=ary[j];
-                ary[j]=ary[j+1];
-                ary[j+1]=temp;
-                flag=true;//&#x5982;&#x679C;&#x4EA4;&#x6362;&#x597D;&#x4E86;&#xFF0C;&#x505A;&#x4E2A;&#x6807;&#x8BB0;&#xFF0C;&#x907F;&#x514D;&#x65E0;&#x6548;&#x7684;&#x5FAA;&#x73AF;&#xFF1B;
-            }
-        }
-        if(!!flag){//&#x53EA;&#x8981;&#x4EA4;&#x6362;&#x4E86;&#x4F4D;&#x7F6E;&#xFF0C;flag&#x7684;&#x503C;&#x5C31;&#x91CD;&#x65B0;&#x8BBE;&#x7F6E;&#x4E3A;false&#x4E86;&#xFF1B;
-            flag=false;
-        }else{//&#x5982;&#x679C;&#x6CA1;&#x6709;&#x4EA4;&#x6362;&#xFF0C;&#x8BF4;&#x660E;&#x6570;&#x7EC4;&#x5DF2;&#x7ECF;&#x6392;&#x597D;&#x5E8F;&#x4E86;&#xFF0C;&#x53EF;&#x4EE5;&#x7ED3;&#x675F;&#x5FAA;&#x73AF;&#x4E86;&#xFF1B;
-            break;
-        }
-    }
-    return ary;
-}
-
-var newAry=sortAry(ary);
-console.log(newAry);//[2, 6, 11, 21, 31, 33, 37, 45, 78]
-</code></pre><h3 id="&#x5FEB;&#x901F;&#x6392;&#x5E8F;&#xFF1B;"><a href="#&#x5FEB;&#x901F;&#x6392;&#x5E8F;&#xFF1B;" class="headerlink" title="&#x5FEB;&#x901F;&#x6392;&#x5E8F;&#xFF1B;"></a>&#x5FEB;&#x901F;&#x6392;&#x5E8F;&#xFF1B;</h3><p><strong>&#x57FA;&#x672C;&#x601D;&#x60F3;</strong>&#xFF1A;&#x9996;&#x5148;&#x4ECE;&#x6570;&#x7EC4;ary&#x9009;&#x53D6;&#x4E00;&#x4E2A;&#x57FA;&#x51C6;&#x70B9;&#xFF08;&#x901A;&#x5E38;&#x6211;&#x4EEC;&#x53D6;&#x4E2D;&#x95F4;&#x9879;&#x4F5C;&#x4E3A;&#x57FA;&#x51C6;&#x70B9;&#xFF09;&#xFF0C;&#x7136;&#x540E;&#x904D;&#x5386;&#x6570;&#x7EC4;&#xFF0C;&#x628A;&#x5C0F;&#x4E8E;&#x57FA;&#x51C6;&#x9879;&#x653E;&#x5230;&#x57FA;&#x51C6;&#x70B9;&#x5DE6;&#x8FB9;&#x96C6;&#x5408;&#xFF0C;&#x628A;&#x5927;&#x4E8E;&#x57FA;&#x51C6;&#x9879;&#x653E;&#x5728;&#x57FA;&#x51C6;&#x70B9;&#x53F3;&#x8FB9;&#x96C6;&#x5408;&#xFF1B;&#x7136;&#x540E;&#x5BF9;&#x5DE6;&#x8FB9;&#x548C;&#x53F3;&#x8FB9;&#x4E24;&#x4E2A;&#x96C6;&#x5408;&#x5206;&#x522B;&#x518D;&#x91CD;&#x590D;&#x524D;&#x9762;&#x7684;&#x64CD;&#x4F5C;&#xFF1B;&#xFF08;&#x76F4;&#x5230;&#x6BCF;&#x4E2A;&#x96C6;&#x5408;&#x5C31;&#x5269;&#x4E0B;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x7684;&#x65F6;&#x5019;&#xFF09;&#xFF0C;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x4E00;&#x4E2A;<strong>&#x9012;&#x5F52;&#x7684;&#x601D;&#x60F3;</strong>&#xFF1B;</p>
-<p><strong>&#x64CD;&#x4F5C;&#x6B65;&#x9AA4;</strong>&#xFF1A;</p>
-<pre><code>var ary=[11,2,31,45,6,78,37,33,21];
-</code></pre><p>&#x4F9D;&#x65E7;&#x62FF;&#x4E0A;&#x8FB9;&#x8FD9;&#x4E2A;&#x6570;&#x7EC4;&#x505A;&#x4F8B;&#x5B50;&#xFF0C;&#xFF0C;&#x6211;&#x4EEC;&#x786E;&#x5B9A;&#x4E00;&#x4E2A;&#x57FA;&#x51C6;&#x70B9;&#xFF0C;</p>
-<pre><code>var ary=[11,2,31,45,6,78,37,33,21];
-var pivot=ary[Math.floor(ary.length/2)];
-console.log(pivot);//6
-</code></pre><p>&#x7136;&#x540E;&#x6211;&#x4EEC;&#x5FAA;&#x73AF;&#x6570;&#x636E;&#x4E2D;&#x7684;&#x5269;&#x4F59;&#x9879;&#xFF0C;&#x628A;&#x5C0F;&#x4E8E;6&#x7684;&#x653E;&#x5728;&#x6570;&#x7EC4;left&#x4E2D;&#xFF0C;&#x628A;&#x5927;&#x4E8E;&#x7B49;&#x4E8E;56&#x7684;&#x6570;&#x7EC4;&#x9879;&#x653E;&#x5728;&#x6570;&#x7EC4;right&#x4E2D;&#xFF0C;&#x7B2C;&#x4E00;&#x8F6E;&#x64CD;&#x4F5C;&#x7ED3;&#x675F;&#x540E;left=[2],right=[11,31,45,78,37,33,21]</p>
-<p>&#x7136;&#x540E;&#x5BF9;left&#x91CD;&#x590D;&#x4EE5;&#x4E0A;&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x76F4;&#x5230;left&#x548C;right&#x4EC5;&#x5269;&#x4E00;&#x9879;&#x6216;&#x8005;&#x7A7A;&#x65F6;&#x5019;&#x7ED3;&#x675F;&#xFF0C;&#x6700;&#x7EC8;&#x8FD4;&#x56DE;left+pivot+right;</p>
-<pre><code>var ary=[11,2,31,45,6,78,37,33,21];
-
-function quickSort(ary){
-    var aryLen=ary.length;//&#x83B7;&#x53D6;ary&#x7684;&#x957F;&#x5EA6;&#xFF1B;
-    if(aryLen&lt;=1){//&#x5982;&#x679C;ary&#x5C0F;&#x4E8E;&#x7B49;&#x4E8E;1&#x7684;&#x957F;&#x5EA6;&#xFF0C;&#x5C31;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#x4E86;;&#x8FD9;&#x4E00;&#x6B65;&#x975E;&#x5E38;&#x91CD;&#x8981;&#xFF0C;&#x662F;&#x5224;&#x65AD;&#x662F;&#x5426;&#x5FAA;&#x73AF;&#x5B8C;&#x7684;&#x6807;&#x5FD7;&#xFF1B;
-        return ary;
-    }
-    var pINdex=Math.floor(ary.length/2);//&#x57FA;&#x51C6;&#x9879;&#x7684;&#x6240;&#x5F15;&#x503C;
-    var pivot=ary.splice(pINdex,1);//&#x5220;&#x9664;&#x57FA;&#x51C6;&#x9879;&#xFF0C;&#x5E76;&#x628A;&#x57FA;&#x51C6;&#x9879;&#x8D4B;&#x503C;&#x7ED9;pivot&#xFF1B;
-    var left=[],right=[];
-    for(var i= 0,len=ary.length;i&lt;len;i++){
-        if(ary[i]&lt;pivot[0]){
-            left.push(ary[i]);
-        }else{
-            right.push(ary[i])
-        }
-    }
-    return quickSort(left).concat(pivot,quickSort(right));
-}
-var newAry=quickSort(ary);
-console.log(newAry);//[2, 6, 11, 21, 31, 33, 37, 45, 78]
-</code></pre><h3 id="&#x63D2;&#x5165;&#x6392;&#x5E8F;"><a href="#&#x63D2;&#x5165;&#x6392;&#x5E8F;" class="headerlink" title="&#x63D2;&#x5165;&#x6392;&#x5E8F;"></a>&#x63D2;&#x5165;&#x6392;&#x5E8F;</h3><p><strong>&#x64CD;&#x4F5C;&#x6B65;&#x9AA4;</strong>&#xFF1A;&#x9996;&#x5148;&#x9009;&#x53D6;&#x6570;&#x7EC4;&#x7684;&#x7B2C;&#x4E00;&#x9879;&#x5373;ary[0]&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x8BA4;&#x4E3A;&#x8FD9;&#x4E2A;&#x6570;&#x662F;&#x5DF2;&#x7ECF;&#x5B89;&#x6392;&#x597D;&#x5E8F;&#x7684;&#xFF0C;&#x518D;&#x53D6;ary[1]&#x9879;&#x63D2;&#x5165;&#x5230;&#x5DF2;&#x7ECF;&#x6392;&#x597D;&#x5E8F;&#x7684;&#x5143;&#x7D20;&#x4E2D;&#xFF0C;&#x6B64;&#x65F6;&#x53EA;&#x6709;ary[0]&#xFF0C;&#x6211;&#x4EEC;&#x6BD4;&#x8F83;ary[0]&#x548C;ary[1]&#xFF1B;&#x5927;&#x4E8E;ary[0]&#x5C31;&#x653E;&#x5728;&#x540E;&#x9762;&#xFF0C;&#x5C0F;&#x4E8E;&#x5C31;&#x63D2;&#x5230;ary[0]&#x524D;&#x9762;&#xFF1B;&#x8981;&#x63D2;&#x5165;&#x7684;&#x5143;&#x7D20;&#x4F9D;&#x6B21;&#x4E3A;ary[1]&#x81F3;ary[ary.leng-1]&#x9879;&#xFF1B;&#x63D2;&#x5165;&#x5230;&#x6392;&#x5E8F;&#x597D;&#x7684;&#x6570;&#x7EC4;&#x4E2D;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x63D2;&#x5165;&#x6BCF;&#x4E00;&#x9879;&#x90FD;&#x9700;&#x8981;&#x4ECE;&#x540E;&#x9762;&#x5F80;&#x524D;&#x9762;&#x904D;&#x5386;&#x5DF2;&#x7ECF;&#x6392;&#x5E8F;&#x597D;&#x7684;&#x5143;&#x7D20;&#xFF1B;<strong>&#x5982;&#x679C;&#x6392;&#x5E8F;&#x597D;&#x7684;&#x5143;&#x7D20;&#x6BD4;&#x63D2;&#x5165;&#x7684;&#x5143;&#x7D20;&#x5927;&#xFF0C;&#x5219;&#x628A;&#x8BE5;&#x5143;&#x7D20;&#x5F80;&#x540E;&#x632A;&#x4E00;&#x4F4D;&#xFF0C;&#x77E5;&#x9053;&#x5DF2;&#x7ECF;&#x6392;&#x5E8F;&#x7684;&#x5143;&#x7D20;&#x5C0F;&#x4E8E;&#x7B49;&#x4E8E;&#x8981;&#x63D2;&#x5165;&#x7684;&#x5143;&#x7D20;&#xFF08;&#x6216;&#x8005;&#x5DF2;&#x7ECF;&#x904D;&#x5386;&#x5B8C;&#x5DF2;&#x7ECF;&#x6392;&#x597D;&#x5E8F;&#x7684;&#x6570;&#x7EC4;&#x9879;&#xFF09;&#xFF0C;&#x5219;&#x628A;&#x8981;&#x63D2;&#x5165;&#x7684;&#x5143;&#x7D20;&#x653E;&#x5728;&#x8BE5;&#x4F4D;&#x7F6E;+1&#x7684;&#x7D22;&#x5F15;&#x4F4D;&#x7F6E;&#x4E2D;&#xFF08;&#x53CD;&#x5411;&#x6392;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x9700;&#x8981;&#x653E;&#x5728;&#x6570;&#x7EC4;&#x7684;&#x7B2C;0&#x4E2A;&#x4F4D;&#x7F6E;&#xFF09;</strong>&#xFF0C;&#x5BF9;&#x6BCF;&#x4E2A;&#x63D2;&#x5165;&#x7684;&#x5143;&#x7D20;&#x90FD;&#x6267;&#x884C;&#x4E0A;&#x9762;&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x6700;&#x7EC8;&#x6570;&#x7EC4;&#x5C31;&#x662F;&#x6392;&#x5E8F;&#x597D;&#x7684;&#xFF1B;</p>
-<p>&#x6709;BUG&#x7684;&#x5199;&#x6CD5;&#xFF1B;</p>
-<pre><code>var ary=[11,2,31,45,6,78,37,33,21];
-
-function insertSort(ary){
-    var temp;//&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x4E34;&#x65F6;&#x53D8;&#x91CF;&#xFF0C;&#x4FDD;&#x5B58;&#x8981;&#x63D2;&#x5165;&#x7684;&#x503C;&#xFF1B;
-    for(var i= 1,len=ary.length;i&lt;len;i++){
-        if(ary[i]&lt;ary[i-1]){
-            temp=ary[i];
-            ary[i]=ary[i-1];
-            ary[i-1]=temp;
-        }
-    }
-    return ary;
-}
-var newAry=insertSort(ary);
-console.log(newAry);//[2, 11, 31, 6, 45, 37, 33, 21, 78]
-</code></pre><p>&#x56E0;&#x4E3A;&#x53EA;&#x628A;&#x5C0F;&#x7684;&#x6570;&#x5F80;&#x524D;&#x79FB;&#x52A8;&#x4E86;&#x4E00;&#x6B21;&#xFF1B;&#x8FD9;&#x91CC;&#x9700;&#x8981;&#x7528;&#x5230;while&#x5FAA;&#x73AF;&#xFF0C;&#x628A;6&#x79FB;&#x52A8;2&#x540E;&#x9762;&#xFF1B;</p>
-<pre><code>var ary=[11,2,31,45,6,78,37,33,21];
-
-function insertSort(ary){
-    var temp;//&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x4E34;&#x65F6;&#x53D8;&#x91CF;&#xFF0C;&#x4FDD;&#x5B58;&#x8981;&#x63D2;&#x5165;&#x7684;&#x503C;&#xFF1B;
-    for(var i= 1,len=ary.length;i&lt;len;i++){
-        if(ary[i]&lt;ary[i-1]){
-            temp=ary[i];//&#x9700;&#x8981;&#x63D2;&#x5165;&#x7684;&#x503C;&#xFF1B;
-            var pIndex=i-1;//&#x9700;&#x8981;&#x63D2;&#x5165;&#x503C;&#x7684;&#x524D;&#x4E00;&#x4E2A;&#x7D22;&#x5F15;&#xFF1B;
-            while(temp&lt;ary[pIndex]&amp;&amp;pIndex&gt;=0){
-                ary[pIndex+1]=ary[pIndex];//&#x76F8;&#x5F53;&#x4E8E;ary[i]=ary[i-1];
-                ary[pIndex]=temp;//&#x76F8;&#x5F53;&#x4E8E;ary[i-1]=temp;&#x5B8C;&#x6210;&#x4E00;&#x6CE2;&#x4EA4;&#x6362;&#xFF1B;
-                pIndex--;//&#x51C6;&#x5907;&#x4E0B;&#x4E00;&#x6CE2;&#x4EA4;&#x6362;&#xFF1B;
-            }
-        }
-    }
-    return ary;
-}
-var newAry=insertSort(ary);
-console.log(newAry);//[2, 6, 11, 21, 31, 33, 37, 45, 78]
-</code></pre><h3 id="&#x6570;&#x7EC4;&#x53BB;&#x91CD;&#xFF1B;"><a href="#&#x6570;&#x7EC4;&#x53BB;&#x91CD;&#xFF1B;" class="headerlink" title="&#x6570;&#x7EC4;&#x53BB;&#x91CD;&#xFF1B;"></a>&#x6570;&#x7EC4;&#x53BB;&#x91CD;&#xFF1B;</h3><ul>
-<li><p><strong>&#x7B2C;&#x4E00;&#x79CD;&#x65B9;&#x6CD5;</strong>&#xFF1A;&#x6BCF;&#x4E00;&#x6B21;&#x62FF;&#x51FA;&#x6570;&#x7EC4;&#x4E2D;&#x7684;&#x5F53;&#x524D;&#x9879;&#x548C;&#x540E;&#x9762;&#x7684;&#x6240;&#x6709;&#x9879;&#x8FDB;&#x884C;&#x6BD4;&#x8F83;&#xFF0C;&#x5982;&#x679C;&#x76F8;&#x540C;&#x7684;&#x8BDD;&#xFF0C;&#x5220;&#x9664;&#x5373;&#x53EF;&#xFF1B;</p>
-<pre><code>var ary=[1,2,34,56,6,7,45,3,2,2,12,4,9,8,6,7,4];
-function deleteRepeat(ary){
-    for(var i= 0,len=ary.length-1;i&lt;len;i++){//&#x6BD4;&#x8F83;length-1&#x6B21;&#xFF1B;
-        var temp=ary[i];
-        for(var j=i+1;j&lt;ary.length;j++){
-            if(temp==ary[j]){
-                ary.splice(j,1);
-                j--;//&#x5220;&#x9664;&#x4EE5;&#x540E;&#x9700;&#x8981;&#x628A;j&#x91CD;&#x7F6E;&#x4E0B;&#xFF0C;&#x907F;&#x514D;&#x6570;&#x7EC4;&#x584C;&#x9677;&#xFF1B;
-            }
-        }
-    }
-    return ary;
-}
-var newAry=deleteRepeat(ary);
-console.log(newAry);
-</code></pre></li>
-</ul>
-<blockquote>
-<p>&#x8FD9;&#x79CD;&#x5904;&#x7406;&#x65B9;&#x6CD5;&#xFF0C;&#x5904;&#x7406;&#x5C11;&#x91CF;&#x6570;&#x636E;&#x7684;&#x65F6;&#x5019;&#x6CA1;&#x6709;&#x95EE;&#x9898;&#x7684;&#xFF0C;&#x4F46;&#x662F;&#x505A;&#x5F88;&#x591A;&#x6570;&#x7EC4;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x6027;&#x80FD;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x5F88;&#x5927;&#x7684;&#x95EE;&#x9898;&#x4E86;&#xFF0C;&#x53CC;&#x91CD;&#x5FAA;&#x73AF;&#x6BD5;&#x7ADF;&#x8FD8;&#x662F;&#x6709;&#x4F18;&#x5316;&#x7684;&#x7A7A;&#x95F4;&#x7684;&#xFF0C;&#x901A;&#x5E38;&#x7528;&#x7B2C;&#x4E8C;&#x79CD;&#x65B9;&#x6CD5;&#xFF1B;</p>
-</blockquote>
-<p><strong>&#x7B2C;&#x4E8C;&#x79CD;&#x65B9;&#x6CD5;</strong>&#xFF1A;&#x5229;&#x7528;&#x5BF9;&#x8C61;&#x7684;&#x5C5E;&#x6027;&#x540D;&#x548C;&#x5C5E;&#x6027;&#x503C;&#x4E0D;&#x80FD;&#x91CD;&#x590D;&#x7684;&#x539F;&#x7406;&#xFF0C;&#x628A;&#x6570;&#x7EC4;&#x4E2D;&#x6BCF;&#x4E00;&#x9879;&#x7684;&#x503C;&#x5F53;&#x4F5C;&#x5BF9;&#x8C61;&#x7684;&#x5C5E;&#x6027;&#x540D;&#x5C5E;&#x6027;&#x503C;&#x8FDB;&#x884C;&#x50A8;&#x5B58;&#xFF0C;&#x5728;&#x6BCF;&#x4E00;&#x6B21;&#x50A8;&#x5B58;&#x4E4B;&#x524D;&#x8FDB;&#x884C;&#x5224;&#x65AD;&#xFF0C;&#x5982;&#x679C;&#x5BF9;&#x8C61;&#x4E2D;&#x5DF2;&#x7ECF;&#x5B58;&#x5728;&#x8FD9;&#x4E00;&#x9879;&#xFF0C;&#x6211;&#x4EEC;&#x5C31;&#x5220;&#x9664;&#x6570;&#x7EC4;&#x4E2D;&#x8FD9;&#x9879;&#xFF0C;&#x4E0D;&#x5B58;&#x5728;&#x6211;&#x4EEC;&#x5C31;&#x628A;&#x8FD9;&#x4E00;&#x9879;&#x50A8;&#x5B58;&#x5230;&#x6211;&#x4EEC;&#x7684;&#x65B0;&#x7684;&#x5BF9;&#x8C61;&#x4E2D;&#xFF0C;&#xFF08;&#x6CE8;&#x610F;&#x5BF9;&#x8C61;&#x5728;&#x8FD9;&#x91CC;&#x53EA;&#x662F;&#x4E00;&#x4E2A;&#x4E34;&#x65F6;&#x50A8;&#x5B58;&#x7684;&#x4F5C;&#x7528;&#xFF09;&#xFF0C;&#x5728;&#x5904;&#x7406;&#x5B8C;&#x6210;&#x540E;&#x6700;&#x597D;&#x7F6E;&#x4E3A;null&#xFF1B;&#x517B;&#x6210;&#x597D;&#x4E60;&#x60EF; &#xFF1B;</p>
-<pre><code>var ary=[1,2,34,56,6,7,45,3,2,2,12,4,9,8,6,7,4];
-function deleteRepeat(ary){
-    var obj={};
-    for(var i= 0,len=ary.length;i&lt;len;i++){
-        var temp=ary[i];
-        if(obj[temp]==temp&amp;&amp;temp!=undefined){
-            ary.splice(i,1);
-            i--;
-            continue;
-        }
-        obj[temp]=temp;
-    }
-    obj=null;
-    return ary;
-}
-var newAry=deleteRepeat(ary);
-console.log(newAry);
-</code></pre><h3 id="&#x4ECE;&#x4E00;&#x4E2A;&#x957F;&#x5EA6;10&#x4E07;&#x7684;&#x6570;&#x7EC4;&#x4E2D;&#xFF0C;&#x968F;&#x673A;&#x53D6;&#x51FA;100&#x6761;&#x6570;&#x636E;&#xFF08;&#x53D6;&#x51FA;&#x7684;&#x6570;&#x636E;&#x4E0D;&#x80FD;&#x91CD;&#x590D;&#xFF09;"><a href="#&#x4ECE;&#x4E00;&#x4E2A;&#x957F;&#x5EA6;10&#x4E07;&#x7684;&#x6570;&#x7EC4;&#x4E2D;&#xFF0C;&#x968F;&#x673A;&#x53D6;&#x51FA;100&#x6761;&#x6570;&#x636E;&#xFF08;&#x53D6;&#x51FA;&#x7684;&#x6570;&#x636E;&#x4E0D;&#x80FD;&#x91CD;&#x590D;&#xFF09;" class="headerlink" title="&#x4ECE;&#x4E00;&#x4E2A;&#x957F;&#x5EA6;10&#x4E07;&#x7684;&#x6570;&#x7EC4;&#x4E2D;&#xFF0C;&#x968F;&#x673A;&#x53D6;&#x51FA;100&#x6761;&#x6570;&#x636E;&#xFF08;&#x53D6;&#x51FA;&#x7684;&#x6570;&#x636E;&#x4E0D;&#x80FD;&#x91CD;&#x590D;&#xFF09;;"></a>&#x4ECE;&#x4E00;&#x4E2A;&#x957F;&#x5EA6;10&#x4E07;&#x7684;&#x6570;&#x7EC4;&#x4E2D;&#xFF0C;&#x968F;&#x673A;&#x53D6;&#x51FA;100&#x6761;&#x6570;&#x636E;&#xFF08;&#x53D6;&#x51FA;&#x7684;&#x6570;&#x636E;&#x4E0D;&#x80FD;&#x91CD;&#x590D;&#xFF09;;</h3><p>&#x539F;&#x7406;&#xFF1A;&#x968F;&#x673A;&#x83B7;&#x53D6;100&#x4E2A;&#x7D22;&#x5F15;&#xFF0C;&#x6BCF;&#x4E00;&#x6B21;&#x83B7;&#x53D6;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x90FD;&#x628A;&#x5BF9;&#x5E94;&#x7684;&#x9879;&#x83B7;&#x53D6;&#xFF0C;&#x4E3A;&#x4E86;&#x907F;&#x514D;&#x6570;&#x7EC4;&#x4E2D;&#x7684;&#x9879;&#x91CD;&#x590D;&#xFF0C;&#x6BCF;&#x83B7;&#x53D6;&#x4E00;&#x4E2A;&#x5C31;&#x628A;&#x539F;&#x6709;&#x6570;&#x7EC4;&#x4E2D;&#x7684;&#x8FD9;&#x4E00;&#x9879;&#x5220;&#x9664;&#xFF1B;</p>
-<p>&#x4E3A;&#x4E86;&#x65B9;&#x4FBF;&#x63A9;&#x9970;&#x4ECE;20&#x4E2A;&#x91CC;&#x53D6;5&#x4E2A;&#x968F;&#x673A;&#x6570;&#xFF1B;</p>
-<p>&#x7B2C;&#x4E00;&#x79CD;&#x6BD4;&#x8F83;&#x8017;&#x6027;&#x80FD;&#x7684;&#x5199;&#x6CD5;&#xFF1B;</p>
-<pre><code>var ary=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
-function selectOption(ary,optionNumber){
-    var targetAry=[];
-    if(!optionNumber){
-        console.log(&quot;&#x8BF7;&#x6307;&#x5B9A;&#x9700;&#x8981;&#x5220;&#x9009;&#x7684;&#x6570;&#x91CF;!&quot;);
-    }
-    for(var i=0;i&lt;optionNumber;i++){
-        var ran=Math.round(Math.random()*(ary.length-1));//&#x83B7;&#x53D6;0-&#x6570;&#x7EC4;&#x6700;&#x5927;&#x7D22;&#x5F15;&#x7684;&#x4E00;&#x4E2A;&#x968F;&#x673A;&#x6570;&#xFF1B;
-        targetAry.push(ary[ran]);//&#x6309;&#x7167;&#x83B7;&#x53D6;&#x7684;&#x968F;&#x673A;&#x7D22;&#x5F15;&#xFF0C;&#x628A;&#x5BF9;&#x5E94;&#x7684;&#x503C;&#x53D6;&#x51FA;&#x6765;&#xFF0C;&#x653E;&#x5230;&#x65B0;&#x4E66;&#x7EC4;&#x4E2D;&#xFF1B;
-        ary.splice(ran,1);//&#x6570;&#x7EC4;&#x4E2D;&#x5B9E;&#x73B0;&#x5220;&#x9664;&#x7684;&#x65F6;&#x5019;&#x6BD4;&#x8F83;&#x8017;&#x6027;&#x80FD;&#xFF0C;&#x4E3A;&#x4E86;&#x7275;&#x626F;&#x5230;&#x6570;&#x7EC4;&#x957F;&#x5EA6;&#x7684;&#x6539;&#x53D8;&#xFF0C;&#x6570;&#x7EC4;&#x88AB;&#x5220;&#x9664;&#x7684;&#x9879;&#xFF0C;&#x540E;&#x9762;&#x6240;&#x6709;&#x6570;&#x636E;&#x90FD;&#x524D;&#x8FDB;&#x4E00;&#x4F4D;&#xFF1B;
-    }
-    return targetAry;
-}
-var newAry=selectOption(ary,2);
-console.log(newAry);
-</code></pre><blockquote>
-<p>&#x786E;&#x5B9A;&#x5728;&#x4EE3;&#x7801;&#x540E;&#x9762;&#x5DF2;&#x7ECF;&#x8BF4;&#x660E;&#xFF0C;&#x8FD9;&#x79CD;&#x7684;&#x6BD4;&#x8F83;&#x8017;&#x6027;&#x80FD;&#xFF1B;</p>
-</blockquote>
-<pre><code>var ary=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
-function selectOption(ary,optionNumber){
-    var targetAry=[];
-    if(!optionNumber){
-        console.log(&quot;&#x8BF7;&#x6307;&#x5B9A;&#x9700;&#x8981;&#x5220;&#x9009;&#x7684;&#x6570;&#x91CF;!&quot;);
-    }
-    for(var i=0;i&lt;optionNumber;i++){
-        var ran=Math.round(Math.random()*(ary.length-1));//&#x83B7;&#x53D6;0-&#x6570;&#x7EC4;&#x6700;&#x5927;&#x7D22;&#x5F15;&#x7684;&#x4E00;&#x4E2A;&#x968F;&#x673A;&#x6570;&#xFF1B;
-        targetAry.push(ary[ran]);//&#x6309;&#x7167;&#x83B7;&#x53D6;&#x7684;&#x968F;&#x673A;&#x7D22;&#x5F15;&#xFF0C;&#x628A;&#x5BF9;&#x5E94;&#x7684;&#x503C;&#x53D6;&#x51FA;&#x6765;&#xFF0C;&#x653E;&#x5230;&#x65B0;&#x4E66;&#x7EC4;&#x4E2D;&#xFF1B;
-        ary[ran]=ary[ary.length-1];//&#x628A;&#x6570;&#x7EC4;&#x6700;&#x540E;&#x4E00;&#x9879;&#x653E;&#x5230;&#x5F53;&#x524D;&#x8981;&#x5220;&#x9664;&#x7D22;&#x5F15;&#x7684;&#x8FD9;&#x4E00;&#x9879;&#xFF1B;
-        ary.length=ary.length-1;//&#x5220;&#x9664;&#x6700;&#x540E;&#x4E00;&#x9879;&#xFF1B;
-    }
-    return targetAry;
-}
-var newAry=selectOption(ary,10);
-console.log(newAry);
-</code></pre><blockquote>
-<p>&#x8FD9;&#x79CD;&#x7684;&#x5199;&#x6CD5;&#xFF0C;&#x662F;&#x64CD;&#x4F5C;&#x6570;&#x7EC4;&#x7684;&#x5E38;&#x7528;&#x5904;&#x7406;&#x65B9;&#x5F0F;&#xFF1B;&#x501F;&#x52A9;&#x6570;&#x7EC4;length&#x53EF;&#x4FEE;&#x6539;&#x7684;&#x6027;&#x80FD;&#xFF1B;</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/07/传值和传址/传值和传址/" itemprop="url">
-                  传值和传址
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T16:34:46+08:00" content="2016-07-07">
-              2016-07-07
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/07/传值和传址/传值和传址/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/07/传值和传址/传值和传址/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>&#x5728;js&#x4E2D;&#xFF0C;&#x5BF9;&#x4E8E;&#x7B80;&#x5355;&#x7684;&#x6570;&#x636E;&#x7C7B;&#x578B;(number,string,boolean),&#x51FD;&#x6570;&#x662F;&#x6309;&#x503C;&#x4F20;&#x9012;&#x7684;&#xFF0C;&#x5728;&#x51FD;&#x6570;&#x4E2D;&#x6709;&#x64CD;&#x4F5C;&#x5BF9;&#x5B9E;&#x53C2;&#x6CA1;&#x6709;&#x5F71;&#x54CD;&#xFF0C;&#x4F46;&#x662F;&#x5982;&#x679C;&#x662F;&#x590D;&#x6742;&#x7684;&#x6570;&#x636E;&#x7C7B;&#x578B;(&#x5982;&#x6570;&#x7EC4;&#xFF0C;&#x5BF9;&#x8C61;)&#xFF0C;&#x90A3;&#x4E48;&#x4F20;&#x9012;&#x8FC7;&#x7A0B;&#x4E2D;&#x4F20;&#x7684;&#x662F;&#x6307;&#x9488;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x5F15;&#x7528;&#x4E86;&#x67D0;&#x4E2A;&#x5730;&#x5740;&#x4E0B;&#x9762;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x90A3;&#x4E48;&#x51FD;&#x6570;&#x7684;&#x64CD;&#x4F5C;&#x4F1A;&#x5F71;&#x54CD;&#x88AB;&#x5F15;&#x7528;&#x7684;&#x5BF9;&#x8C61;(&#x672C;&#x4EBA;&#x7684;&#x7406;&#x89E3;&#xFF0C;&#x770B;&#x4E0D;&#x61C2;&#x52FF;&#x602A;)&#xFF0C;&#x4F8B;&#x5982;&#xFF1A;</p>
-<pre><code>var arr1 = [1,2,3,4];
-var arr2 = arr1;
-
-arr2[0] = 10;
-console.log(arr1[0]);
-</code></pre><p>&#x53EF;&#x4EE5;&#x770B;&#x5230;console.log&#x6253;&#x5370;&#x51FA;arr1[0]&#x7684;&#x503C;&#x53D8;&#x6210;&#x4E86;10&#xFF0C;&#x5728;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x5E76;&#x6CA1;&#x6709;&#x5BF9;arr1&#x6709;&#x4EFB;&#x4F55;&#x64CD;&#x4F5C;&#xFF0C;&#x53EA;&#x662F;&#x5C06;arr2&#x6570;&#x7EC4;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x503C;&#x6539;&#x6210;&#x4E86;10&#xFF0C;&#x7ED3;&#x679C;&#x5F71;&#x54CD;&#x4E86;arr1&#x7684;&#x503C;&#xFF0C;&#x8FD9;&#x5C31;&#x662F;&#x56E0;&#x4E3A;arr2&#x7684;&#x5730;&#x5740;&#x7A7A;&#x95F4;&#x548C;arr1&#x7684;&#x5730;&#x5740;&#x7A7A;&#x95F4;&#x662F;&#x4E00;&#x6837;&#x7684;&#xFF0C;&#x4FEE;&#x6539;arr2&#x7684;&#x5185;&#x5BB9;&#x7B49;&#x4E8E;&#x4FEE;&#x6539;&#x4E86;&#x8FD9;&#x4E2A;&#x5730;&#x5740;&#x7A7A;&#x95F4;&#x5185;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x6240;&#x6709;&#x5F15;&#x7528;&#x8FD9;&#x4E2A;&#x5730;&#x5740;&#x7A7A;&#x95F4;&#x7684;&#x6570;&#x636E;&#x5185;&#x5BB9;&#x90FD;&#x4F1A;&#x53D8;&#x5316;&#xFF0C;&#x4F20;&#x5740;&#x5B9E;&#x9645;&#x4E0A;&#x5C31;&#x662F;&#x4F20;&#x9012;&#x8FD9;&#x4E2A;&#x5730;&#x5740;&#x7A7A;&#x95F4;&#x7684;&#x5730;&#x5740;&#xFF0C;&#x6307;&#x9488;&#x5C31;&#x662F;&#x6307;&#x5411;&#x8FD9;&#x4E2A;&#x5730;&#x5740;&#x7A7A;&#x95F4;&#x3002;</p>
-<p>&#x800C;&#x4F20;&#x503C;&#x5C31;&#x662F;&#x590D;&#x5236;&#x4E86;&#x4E00;&#x4E2A;&#x5730;&#x5740;&#x7A7A;&#x95F4;&#x7684;&#x5185;&#x5BB9;&#x5B58;&#x5728;&#x53E6;&#x4E00;&#x4E2A;&#x5730;&#x5740;&#x7A7A;&#x95F4;&#xFF0C;&#x4E8C;&#x8005;&#x4E92;&#x76F8;&#x6CA1;&#x6709;&#x5E72;&#x6270;&#x6240;&#x4EE5;&#x4FEE;&#x6539;&#x4E00;&#x4E2A;&#x5730;&#x5740;&#x7A7A;&#x95F4;&#x7684;&#x5185;&#x5BB9;&#x4E0D;&#x4F1A;&#x5F71;&#x54CD;&#x53E6;&#x4E00;&#x4E2A;&#x5730;&#x5740;&#x7A7A;&#x95F4;(&#x5E94;&#x8BE5;&#x53EF;&#x4EE5;&#x8FD9;&#x4E48;&#x7406;&#x89E3;)&#x3002;</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/05/css居中问题/css居中问题/" itemprop="url">
-                  css居中问题
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-05T16:34:46+08:00" content="2016-07-05">
-              2016-07-05
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/05/css居中问题/css居中问题/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/05/css居中问题/css居中问题/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li><p>&#x7ECF;&#x5E38;&#x9047;&#x89C1;&#x6587;&#x5B57;&#x56FE;&#x7247;&#x4E0D;&#x80FD;&#x5C45;&#x4E2D;&#x5BF9;&#x9F50;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x5728;css&#x4E2D;&#x8BBE;&#x7F6E;&#x56FE;&#x7247;&#x7684;vertical-align&#x5C5E;&#x6027;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#xFF1A;</p>
-  <pre>
-         #img{
-             vertical-align:middle;
-         }
-  </pre>
-</li>
-<li><p>css3&#x5782;&#x76F4;&#x5C45;&#x4E2D;&#x51E0;&#x79CD;&#x601D;&#x8DEF;&#xFF1A;</p>
-<p>  1.&#x5229;&#x7528;position&#x548C;&#x8D1F;&#x8FB9;&#x8DDD;</p>
-<p>  &#x5148;&#x8BBE;&#x7F6E;&#x5BB9;&#x5668;&#x7684;&#x5BBD;&#x9AD8;&#xFF0C;&#x7ED9;&#x4ED6;&#x7236;&#x7EA7;&#x8BBE;&#x7F6E;position: relative;</p>
-<p>  css&#x90E8;&#x5206;&#x662F;&#x8FD9;&#x6837;&#xFF1A;</p>
-  <pre>
-  .selector {
-      position: absolute;
-      top:50%;
-      margin-top:-&#x5143;&#x7D20;&#x81EA;&#x8EAB;&#x9AD8;&#x5EA6;&#x7684;&#x4E00;&#x534A;;(&#x662F;&#x8D1F;&#x8FB9;&#x8DDD;&#xFF0C;&#x524D;&#x9762;&#x6709;&#x4E2A;&#x8D1F;&#x53F7;&#xFF09;
-  }
-  </pre>
-
-<p>  2.table-cell</p>
-<pre><code>&#x7ED3;&#x6784;&#xFF1A;
-&lt;div class=&quot;div1&quot;&gt;
-       &lt;span&gt;&#x8BA9;&#x6211;&#x5C45;&#x4E2D;&#x8BD5;&#x8BD5;&lt;/span&gt;
-&lt;/div&gt;
-
-&#x6837;&#x5F0F;&#xFF1A;
-.box1{
-        display: table-cell;
-    vertical-align: middle;
-    text-align: center;
-}
-</code></pre><p>  3.display:flex  (&#x5F39;&#x6027;&#x5E03;&#x5C40;&#xFF09;</p>
-<pre><code>.box{
-    display: flex;
-    justify-content:center;
-    align-items:Center;
-}
-</code></pre><p>  4.translate&#x53D8;&#x79FB;&#x4F4D;&#x5B9E;&#x73B0;&#x5C45;&#x4E2D;</p>
-<pre><code>.div span{
-    position: absolute;
-    top:50%;
-    left:50%;
-    width:100%;
-    transform:translate(-50%,-50%);
-    text-align: center;
-  }
-</code></pre><p>  5.display:inline-block</p>
-<pre><code>.div{
-     text-align:center;
-     font-size:0;
-}
-.div span{
-     vertical-align:middle;
-     display:inline-block;
-     font-size:16px;
-}
-.div:after{    /*&#x4F7F;&#x7528;after&#x8FD9;&#x4E2A;&#x4F2A;&#x7C7B;&#x6765;&#x6491;&#x5F00;&#x5BB9;&#x5668;&#xFF0C;&#x8FD9;&#x79CD;&#x60F3;&#x6CD5;&#x503C;&#x5F97;&#x501F;&#x9274;&#xFF0C;&#x975E;&#x5E38;&#x5DE7;&#x5999;*/
-     content:&apos;&apos;;            
-     width:0;
-     height:100%;
-     display:inline-block;
-     vertical-align:middle;
-}
-</code></pre></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/28/transition的知识点梳理/transition的知识点梳理/" itemprop="url">
-                  transition的知识点梳理
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-28T20:22:59+08:00" content="2016-06-28">
-              2016-06-28
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/06/28/transition的知识点梳理/transition的知识点梳理/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/28/transition的知识点梳理/transition的知识点梳理/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="transition-&#x8FC7;&#x6E21;"><a href="#transition-&#x8FC7;&#x6E21;" class="headerlink" title="transition(&#x8FC7;&#x6E21;)"></a>transition(&#x8FC7;&#x6E21;)</h3><p>&#x4E3B;&#x8981;&#x6709;&#x4E0B;&#x9762;&#x56DB;&#x4E2A;&#x5C5E;&#x6027;&#xFF1A;</p>
-<p>1.transition-property:;  //&#x6267;&#x884C;&#x8FC7;&#x6E21;&#x53D8;&#x6362;&#x7684;&#x5C5E;&#x6027;&#x540D;</p>
-<p>2.transition-duration:;  //&#x8FC7;&#x6E21;&#x53D8;&#x6362;&#x5EF6;&#x7EED;&#x7684;&#x65F6;&#x95F4;</p>
-<p>3.transition-timing-function:; //&#x8FC7;&#x6E21;&#x53D8;&#x6362;&#x7684;&#x65F6;&#x95F4;&#x66F2;&#x7EBF;&#xFF0C;&#x5373;&#x53D8;&#x6362;&#x7684;&#x901F;&#x7387;&#x6548;&#x679C;&#x548C;&#x65B9;&#x5F0F;</p>
-<p>4.transition-delay:; //&#x5EF6;&#x8FDF;&#x53D8;&#x6362;&#x7684;&#x65F6;&#x95F4;</p>
-<h3 id="transform-2D&#x53D8;&#x5F62;"><a href="#transform-2D&#x53D8;&#x5F62;" class="headerlink" title="transform 2D&#x53D8;&#x5F62;"></a>transform 2D&#x53D8;&#x5F62;</h3><p>transform&#x6709;&#x4E0B;&#x9762;&#x51E0;&#x4E2A;&#x5C5E;&#x6027;:</p>
-<p>   &#x65CB;&#x8F6C;rotate&#x3001;&#x626D;&#x66F2;skew&#x3001;&#x7F29;&#x653E;scale&#x548C;&#x79FB;&#x52A8;translate&#x4EE5;&#x53CA;&#x77E9;&#x9635;&#x53D8;&#x5F62;matrix.</p>
-<h5 id="1-&#x65CB;&#x8F6C;rotate-&#x89D2;&#x5EA6;&#x53C2;&#x6570;deg&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x8D1F;&#x6570;"><a href="#1-&#x65CB;&#x8F6C;rotate-&#x89D2;&#x5EA6;&#x53C2;&#x6570;deg&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x8D1F;&#x6570;" class="headerlink" title="1.&#x65CB;&#x8F6C;rotate(&#x89D2;&#x5EA6;&#x53C2;&#x6570;deg&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x8D1F;&#x6570;)"></a>1.&#x65CB;&#x8F6C;rotate(&#x89D2;&#x5EA6;&#x53C2;&#x6570;deg&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x8D1F;&#x6570;)</h5><p>  &#x901A;&#x8FC7;&#x6307;&#x5B9A;&#x7684;&#x89D2;&#x5EA6;&#x53C2;&#x6570;&#x5BF9;&#x539F;&#x5143;&#x7D20;&#x6307;&#x5B9A;&#x4E00;&#x4E2A;2D rotation (2D&#x65CB;&#x8F6C;)</p>
-<h5 id="transform-origin"><a href="#transform-origin" class="headerlink" title="transform-origin"></a>transform-origin</h5><p>&#x5143;&#x7D20;&#x7684;&#x57FA;&#x70B9;&#x4F4D;&#x7F6E;</p>
-<p>&#x8BA4;&#x57FA;&#x70B9;&#x5C31;&#x662F;&#x5143;&#x7D20;&#x4E2D;&#x5FC3;&#x4F4D;&#x7F6E;,&#x4F8B;&#x5982;&#x5143;&#x7D20;&#x65CB;&#x8F6C;&#x7684;&#x4E2D;&#x5FC3;&#x70B9;&#x8BBE;&#x7F6E;</p>
-<pre><code>transform-origin(X,Y)
-</code></pre><p>&#x5176;&#x4E2D;X&#x548C;Y&#x7684;&#x503C;&#x53EF;&#x4EE5;&#x662F;&#x767E;&#x5206;&#x6BD4;,em,px&#xFF0C;&#x65B9;&#x5411;</p>
-<h5 id="2-&#x79FB;&#x52A8;translate-&#x5176;&#x4E2D;&#x53C2;&#x6570;&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x6210;&#x8D1F;&#x6570;"><a href="#2-&#x79FB;&#x52A8;translate-&#x5176;&#x4E2D;&#x53C2;&#x6570;&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x6210;&#x8D1F;&#x6570;" class="headerlink" title="2.&#x79FB;&#x52A8;translate (&#x5176;&#x4E2D;&#x53C2;&#x6570;&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x6210;&#x8D1F;&#x6570;)"></a>2.&#x79FB;&#x52A8;translate (&#x5176;&#x4E2D;&#x53C2;&#x6570;&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x6210;&#x8D1F;&#x6570;)</h5><p>translate(x,y)&#x6C34;&#x5E73;&#x65B9;&#x5411;&#x548C;&#x5782;&#x76F4;&#x65B9;&#x5411;&#x540C;&#x65F6;&#x79FB;&#x52A8;</p>
-<p>translateX(x)&#x4EC5;&#x6C34;&#x5E73;&#x65B9;&#x5411;&#x79FB;&#x52A8;</p>
-<p>translateY(Y)&#x4EC5;&#x5782;&#x76F4;&#x65B9;&#x5411;&#x79FB;&#x52A8;</p>
-<h5 id="3-&#x7F29;&#x653E;scale-&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x6574;&#x6570;-&#x5C0F;&#x6570;"><a href="#3-&#x7F29;&#x653E;scale-&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x6574;&#x6570;-&#x5C0F;&#x6570;" class="headerlink" title="3.&#x7F29;&#x653E;scale (&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x6574;&#x6570;,&#x5C0F;&#x6570;)"></a>3.&#x7F29;&#x653E;scale (&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x6574;&#x6570;,&#x5C0F;&#x6570;)</h5><p>scale(x,y)&#x4F7F;&#x5143;&#x7D20;&#x6C34;&#x5E73;&#x65B9;&#x5411;&#x548C;&#x5782;&#x76F4;&#x65B9;&#x5411;&#x540C;&#x65F6;&#x7F29;&#x653E;</p>
-<p>scaleX(x)&#x5143;&#x7D20;&#x4EC5;&#x6C34;&#x5E73;&#x65B9;&#x5411;&#x7F29;&#x653E;</p>
-<p>scaleY(y)&#x5143;&#x7D20;&#x4EC5;&#x5782;&#x76F4;&#x65B9;&#x5411;&#x7F29;&#x653E;</p>
-<h5 id="4-&#x626D;&#x66F2;skew-&#x89D2;&#x5EA6;-deg"><a href="#4-&#x626D;&#x66F2;skew-&#x89D2;&#x5EA6;-deg" class="headerlink" title="4.&#x626D;&#x66F2;skew(&#x89D2;&#x5EA6; deg)"></a>4.&#x626D;&#x66F2;skew(&#x89D2;&#x5EA6; deg)</h5><p>skew(x,y)&#x4F7F;&#x5143;&#x7D20;&#x5728;&#x6C34;&#x5E73;&#x548C;&#x5782;&#x76F4;&#x65B9;&#x5411;&#x540C;&#x65F6;&#x626D;&#x66F2;&#x53D8;&#x5F62;</p>
-<p>skewX(x)&#x4EC5;&#x4F7F;&#x5143;&#x7D20;&#x5728;&#x6C34;&#x5E73;&#x65B9;&#x5411;&#x626D;&#x66F2;&#x53D8;&#x5F62;</p>
-<p>skewY(y)&#x4EC5;&#x4F7F;&#x5143;&#x7D20;&#x5728;&#x5782;&#x76F4;&#x65B9;&#x5411;&#x626D;&#x66F2;&#x53D8;&#x5F62;</p>
-<h5 id="5-matrix-&#x77E9;&#x9635;-&#x6CA1;&#x7528;&#x8FC7;-&#x4F5C;&#x4E3A;&#x4E86;&#x89E3;"><a href="#5-matrix-&#x77E9;&#x9635;-&#x6CA1;&#x7528;&#x8FC7;-&#x4F5C;&#x4E3A;&#x4E86;&#x89E3;" class="headerlink" title="5.matrix &#x77E9;&#x9635;(&#x6CA1;&#x7528;&#x8FC7;,&#x4F5C;&#x4E3A;&#x4E86;&#x89E3;)"></a>5.matrix &#x77E9;&#x9635;(&#x6CA1;&#x7528;&#x8FC7;,&#x4F5C;&#x4E3A;&#x4E86;&#x89E3;)</h5><pre><code>transform: matrix(1,1,-1,0,0,0);          
-</code></pre><h3 id="transform-3D"><a href="#transform-3D" class="headerlink" title="transform-3D"></a>transform-3D</h3><h5 id="&#x65CB;&#x8F6C;rotate"><a href="#&#x65CB;&#x8F6C;rotate" class="headerlink" title="&#x65CB;&#x8F6C;rotate"></a>&#x65CB;&#x8F6C;rotate</h5><p>rotateX&#xFF1A;&#x5143;&#x7D20;&#x56F4;&#x7ED5;&#x5176; X &#x8F74;&#x4EE5;&#x7ED9;&#x5B9A;&#x7684;&#x5EA6;&#x6570;&#x8FDB;&#x884C;&#x65CB;&#x8F6C;</p>
-<p>rotateY&#xFF1A;&#x5143;&#x7D20;&#x56F4;&#x7ED5;&#x5176; Y &#x8F74;&#x4EE5;&#x7ED9;&#x5B9A;&#x7684;&#x5EA6;&#x6570;&#x8FDB;&#x884C;&#x65CB;&#x8F6C;</p>
-<p>rotateZ&#xFF1A;&#x5143;&#x7D20;&#x56F4;&#x7ED5;&#x5176; Z &#x8F74;&#x4EE5;&#x7ED9;&#x5B9A;&#x7684;&#x5EA6;&#x6570;&#x8FDB;&#x884C;&#x65CB;&#x8F6C;</p>
-<h5 id="transform-style&#xFF1A;&#x5D4C;&#x5957;&#x5143;&#x7D20;&#x5982;&#x4F55;&#x5728;3D&#x7A7A;&#x95F4;&#x4E2D;&#x5448;&#x73B0;"><a href="#transform-style&#xFF1A;&#x5D4C;&#x5957;&#x5143;&#x7D20;&#x5982;&#x4F55;&#x5728;3D&#x7A7A;&#x95F4;&#x4E2D;&#x5448;&#x73B0;" class="headerlink" title="transform-style&#xFF1A;&#x5D4C;&#x5957;&#x5143;&#x7D20;&#x5982;&#x4F55;&#x5728;3D&#x7A7A;&#x95F4;&#x4E2D;&#x5448;&#x73B0;"></a>transform-style&#xFF1A;&#x5D4C;&#x5957;&#x5143;&#x7D20;&#x5982;&#x4F55;&#x5728;3D&#x7A7A;&#x95F4;&#x4E2D;&#x5448;&#x73B0;</h5><p>transform-style: flat(&#x9ED8;&#x8BA4;&#xFF0C;&#x6240;&#x6709;&#x5B50;&#x5143;&#x7D20;&#x5728;2D&#x5E73;&#x9762;&#x5448;&#x73B0;) | preserve-3d<br>(preserve-3d&#xFF0C;&#x6240;&#x6709;&#x5B50;&#x5143;&#x7D20;&#x5728;3D&#x5E73;&#x9762;&#x5448;&#x73B0;&#xFF0C;&#x8BBE;&#x7F6E;&#x8FD9;&#x4E2A;&#x5C5E;&#x6027;&#x4E4B;&#x540E;&#xFF0C;&#x5C31;&#x4E0D;&#x80FD;<br>overflow:hidden)</p>
-<h5 id="perspective-&#x89C6;&#x8DDD;&#xFF0C;&#x89C6;&#x89D2;-&#x8BBE;&#x7F6E;&#x67E5;&#x770B;&#x8005;&#x7684;&#x4F4D;&#x7F6E;"><a href="#perspective-&#x89C6;&#x8DDD;&#xFF0C;&#x89C6;&#x89D2;-&#x8BBE;&#x7F6E;&#x67E5;&#x770B;&#x8005;&#x7684;&#x4F4D;&#x7F6E;" class="headerlink" title="perspective:&#x89C6;&#x8DDD;&#xFF0C;&#x89C6;&#x89D2; &#x8BBE;&#x7F6E;&#x67E5;&#x770B;&#x8005;&#x7684;&#x4F4D;&#x7F6E;"></a>perspective:&#x89C6;&#x8DDD;&#xFF0C;&#x89C6;&#x89D2; &#x8BBE;&#x7F6E;&#x67E5;&#x770B;&#x8005;&#x7684;&#x4F4D;&#x7F6E;</h5><p>&#x4F8B;&#x5982;:perspective: 600px;</p>
-<p>  transform: perspective(600px) rotateY(45deg);</p>
-<p>perspective-origin &#x89C6;&#x89D2;&#x4E2D;&#x5FC3;</p>
-<pre><code>perspective-origin: x y;
-</code></pre><p>x,y&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x56FA;&#x5B9A;&#x503C;px&#x6216;&#x8005;&#x767E;&#x5206;&#x6BD4;</p>
-<h5 id="backface-visibility&#x8BE5;&#x5C5E;&#x6027;&#x5B9A;&#x4E49;&#x5F53;&#x5143;&#x7D20;&#x4E0D;&#x9762;&#x5411;&#x5C4F;&#x5E55;&#x65F6;&#x662F;&#x5426;&#x53EF;&#x89C1;"><a href="#backface-visibility&#x8BE5;&#x5C5E;&#x6027;&#x5B9A;&#x4E49;&#x5F53;&#x5143;&#x7D20;&#x4E0D;&#x9762;&#x5411;&#x5C4F;&#x5E55;&#x65F6;&#x662F;&#x5426;&#x53EF;&#x89C1;" class="headerlink" title="backface-visibility&#x8BE5;&#x5C5E;&#x6027;&#x5B9A;&#x4E49;&#x5F53;&#x5143;&#x7D20;&#x4E0D;&#x9762;&#x5411;&#x5C4F;&#x5E55;&#x65F6;&#x662F;&#x5426;&#x53EF;&#x89C1;"></a>backface-visibility&#x8BE5;&#x5C5E;&#x6027;&#x5B9A;&#x4E49;&#x5F53;&#x5143;&#x7D20;&#x4E0D;&#x9762;&#x5411;&#x5C4F;&#x5E55;&#x65F6;&#x662F;&#x5426;&#x53EF;&#x89C1;</h5><pre><code>backface-visibility: visible(&#x663E;&#x793A;) | hidden(&#x9690;&#x85CF;)
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2627,20 +2997,13 @@ console.log(arr1[0]);
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-count">42</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           
 
-          
-            <div class="site-state-item site-state-tags">
-              <a href="/tags">
-                <span class="site-state-item-count">1</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
           
 
         </nav>
@@ -2673,8 +3036,8 @@ console.log(arr1[0]);
       <div class="footer-inner">
         <div class="copyright" >
   
-  &copy; 
-  <span itemprop="copyrightYear">2016</span>
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

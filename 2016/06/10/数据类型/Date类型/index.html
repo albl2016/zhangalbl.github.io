@@ -1,0 +1,693 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ALBL的个人博客" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Date &amp;#x7C7B;&amp;#x578B;&amp;#x9996;&amp;#x5148;&amp;#x8F93;&amp;#x51FA;&amp;#x770B;&amp;#x4E0B;Date&amp;#x6709;&amp;#x54EA;&amp;#x4E9B;&amp;#x65B9;&amp;#x6CD5;var testDate=new  Date();
+console.dir(testDate);// &amp;#x67E5;&amp;#x770B;Date&amp;#x7684;&amp;#x65B9;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Date 类型">
+<meta property="og:url" content="http://yoursite.com/2016/06/10/数据类型/Date类型/index.html">
+<meta property="og:site_name" content="章礼俊的个人博客">
+<meta property="og:description" content="Date &amp;#x7C7B;&amp;#x578B;&amp;#x9996;&amp;#x5148;&amp;#x8F93;&amp;#x51FA;&amp;#x770B;&amp;#x4E0B;Date&amp;#x6709;&amp;#x54EA;&amp;#x4E9B;&amp;#x65B9;&amp;#x6CD5;var testDate=new  Date();
+console.dir(testDate);// &amp;#x67E5;&amp;#x770B;Date&amp;#x7684;&amp;#x65B9;">
+<meta property="og:image" content="http://i.imgur.com/0hFfUAc.png">
+<meta property="og:updated_time" content="2016-11-07T07:12:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Date 类型">
+<meta name="twitter:description" content="Date &amp;#x7C7B;&amp;#x578B;&amp;#x9996;&amp;#x5148;&amp;#x8F93;&amp;#x51FA;&amp;#x770B;&amp;#x4E0B;Date&amp;#x6709;&amp;#x54EA;&amp;#x4E9B;&amp;#x65B9;&amp;#x6CD5;var testDate=new  Date();
+console.dir(testDate);// &amp;#x67E5;&amp;#x770B;Date&amp;#x7684;&amp;#x65B9;">
+<meta name="twitter:image" content="http://i.imgur.com/0hFfUAc.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/06/10/数据类型/Date类型/"/>
+
+  <title> Date 类型 | 章礼俊的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?ff33d06371cbc1cc9b3821952ca6c795";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">章礼俊的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">HTML5知识笔记</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Date 类型
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-10T16:34:46+08:00" content="2016-06-10">
+              2016-06-10
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/10/数据类型/Date类型/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/10/数据类型/Date类型/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Date-&#x7C7B;&#x578B;"><a href="#Date-&#x7C7B;&#x578B;" class="headerlink" title="Date &#x7C7B;&#x578B;"></a>Date &#x7C7B;&#x578B;</h1><h5 id="&#x9996;&#x5148;&#x8F93;&#x51FA;&#x770B;&#x4E0B;Date&#x6709;&#x54EA;&#x4E9B;&#x65B9;&#x6CD5;"><a href="#&#x9996;&#x5148;&#x8F93;&#x51FA;&#x770B;&#x4E0B;Date&#x6709;&#x54EA;&#x4E9B;&#x65B9;&#x6CD5;" class="headerlink" title="&#x9996;&#x5148;&#x8F93;&#x51FA;&#x770B;&#x4E0B;Date&#x6709;&#x54EA;&#x4E9B;&#x65B9;&#x6CD5;"></a>&#x9996;&#x5148;&#x8F93;&#x51FA;&#x770B;&#x4E0B;Date&#x6709;&#x54EA;&#x4E9B;&#x65B9;&#x6CD5;</h5><pre><code>var testDate=new  Date();
+console.dir(testDate);// &#x67E5;&#x770B;Date&#x7684;&#x65B9;&#x6CD5;
+</code></pre><p><img src="http://i.imgur.com/0hFfUAc.png" alt=""></p>
+<h5 id="Date&#x4E8B;&#x4EF6;&#x51FD;&#x6570;&#x7684;&#x5E38;&#x7528;&#x65B9;&#x6CD5;"><a href="#Date&#x4E8B;&#x4EF6;&#x51FD;&#x6570;&#x7684;&#x5E38;&#x7528;&#x65B9;&#x6CD5;" class="headerlink" title="Date&#x4E8B;&#x4EF6;&#x51FD;&#x6570;&#x7684;&#x5E38;&#x7528;&#x65B9;&#x6CD5;"></a>Date&#x4E8B;&#x4EF6;&#x51FD;&#x6570;&#x7684;&#x5E38;&#x7528;&#x65B9;&#x6CD5;</h5><pre><code>new Date()//&#x83B7;&#x53D6;&#x5BA2;&#x6237;&#x7AEF;&#x5F53;&#x524D;&#x7684;&#x4E8B;&#x4EF6;&#xFF08;&#x6807;&#x51C6;&#x7684;&#x4E8B;&#x4EF6;&#x683C;&#x5F0F;&#x6570;&#x636E;&#xFF09;
+getFullYear();//&#x83B7;&#x53D6;&#x56DB;&#x4F4D;&#x5E74;
+getMonth();//&#x83B7;&#x53D6;&#x6708;0-11&#x4EE3;&#x8868;1-12&#x6708;;&#x7528;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x8BB0;&#x5F97;&#x8865;1;
+getDate();//&#x83B7;&#x53D6;&#x65E5;
+getDay();//&#x83B7;&#x53D6;&#x661F;&#x671F;0-6&#x4EE3;&#x8868;&#x5468;&#x65E5;-&#x5468;&#x516D;
+getHours();//&#x83B7;&#x53D6;&#x5C0F;&#x65F6;
+getMinutes();//&#x83B7;&#x53D6;&#x5206;
+getSeconds();//&#x83B7;&#x53D6;&#x79D2;
+getMilliseconds();//&#x83B7;&#x53D6;&#x6BEB;&#x79D2;
+getTime();//&#x83B7;&#x53D6;&#x8DDD;&#x79BB;1970&#x5E74;&#x4E00;&#x6708;&#x4E00;&#x65E5;&#x5348;&#x591C;&#x7684;&#x6BEB;&#x79D2;&#x5DEE;&#xFF1B;
+</code></pre><p>&#x5176;&#x4E2D;get&#x5BF9;&#x5E94;&#x7684;&#x6709;set&#xFF1B;&#x6BD4;&#x5982;&#x6709;getMinutes&#x5C31;&#x4F1A;&#x6709;setMinutes&#xFF1B;&#x5982;&#x679C;&#x4F20;&#x5165;&#x7684;&#x503C;&#x8D85;&#x8FC7;59&#x5C31;&#x4F1A;&#x589E;&#x52A0;&#x5C0F;&#x65F6;&#x6570;&#xFF1B;</p>
+<p>set&#x76F8;&#x5173;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x628A;get&#x6539;&#x4E3A;set&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#xFF1B;&#x53C2;&#x6570;&#x4F20;&#x5165;&#x9700;&#x8981;&#x8BBE;&#x7F6E;&#x7684;&#x5BF9;&#x5E94;&#x503C;&#xFF1B;</p>
+<p>&#x5982;&#x679C;&#x662F;getUTCMinutes&#x662F;&#x83B7;&#x53D6;UTC&#x65E5;&#x671F;&#x4E2D;&#x7684;&#x5206;&#x949F;&#x6570;&#xFF1B;</p>
+<p>&#x6709;&#x4E00;&#x4E2A;&#x7279;&#x6B8A;&#x7684;&#x4E8B;&#x4EF6;&#x7EC4;&#x4EF6;&#x65B9;&#x6CD5;&#xFF1B;getTimezoneOffset()&#x8FD4;&#x56DE;&#x672C;&#x5730;&#x65F6;&#x95F4;&#x4E0E;UTC&#x65F6;&#x95F4;&#x76F8;&#x5DEE;&#x7684;&#x5206;&#x949F;&#x6570;&#xFF1B;</p>
+<pre><code>var testDate=new  Date();
+console.log(testDate);
+console.log(testDate.getTimezoneOffset());//&#x8FD4;&#x56DE;&#x672C;&#x5730;&#x65F6;&#x95F4;&#x4E0E;UTC&#x65F6;&#x95F4;&#x76F8;&#x5DEE;&#x7684;&#x5206;&#x949F;&#x6570;&#xFF1B;
+console.dir(testDate);// &#x67E5;&#x770B;Date&#x8FD9;&#x4E2A;&#x7C7B;&#x7684;&#x65B9;&#x6CD5;
+</code></pre><h5 id="JS&#x4E2D;Date&#x5BF9;&#x8C61;getYear-&#xFF09;&#x65B9;&#x6CD5;&#x548C;getFullYear-&#x65B9;&#x6CD5;&#x533A;&#x522B;"><a href="#JS&#x4E2D;Date&#x5BF9;&#x8C61;getYear-&#xFF09;&#x65B9;&#x6CD5;&#x548C;getFullYear-&#x65B9;&#x6CD5;&#x533A;&#x522B;" class="headerlink" title="JS&#x4E2D;Date&#x5BF9;&#x8C61;getYear(&#xFF09;&#x65B9;&#x6CD5;&#x548C;getFullYear()&#x65B9;&#x6CD5;&#x533A;&#x522B;"></a>JS&#x4E2D;Date&#x5BF9;&#x8C61;getYear(&#xFF09;&#x65B9;&#x6CD5;&#x548C;getFullYear()&#x65B9;&#x6CD5;&#x533A;&#x522B;</h5><p>&#x6253;&#x5370;&#x51FA;&#x6765;&#x7684;&#x65B9;&#x6CD5;&#x4E2D;&#xFF0C;&#x6709;&#x4E24;&#x4E2A;getYear&#xFF1B;</p>
+<ul>
+<li>getYear&#xFF08;&#x4E0D;&#x63A8;&#x8350;&#xFF09;</li>
+<li>getFullYear&#xFF08;&#x63A8;&#x8350;&#xFF09;</li>
+</ul>
+<p>&#x63A8;&#x8350;getFullYear;</p>
+<p>&#x4F7F;&#x7528;getYear()&#x51FD;&#x6570;&#x7684;&#x672C;&#x610F;&#x662F;&#x83B7;&#x53D6;&#x5E74;&#x4EFD;&#xFF0C;&#x5982;&#xFF1A;</p>
+<pre><code>var testDate=new  Date();
+console.log(&quot;testDate&quot;,testDate);//testDate Tue Sep 13 2016 17:12:15 GMT+0800 (&#x4E2D;&#x56FD;&#x6807;&#x51C6;&#x65F6;&#x95F4;)
+console.log(&quot;getYear&quot;,testDate.getYear());//getYear 116
+console.log(&quot;getFullYear&quot;,testDate.getFullYear());//getFullYear 2016 
+</code></pre><p>&#x539F;&#x56E0;&#x662F;getYear &#x8FD4;&#x56DE;&#x7684;&#x662F; &#x201C;&#x5F53;&#x524D;&#x5E74;&#x4EFD;-1900&#x201D; &#x7684;&#x503C;&#xFF08;&#x5373;&#x5E74;&#x4EFD;&#x57FA;&#x6570;&#x662F;1900&#xFF09;<br>getFullYear():&#x76F4;&#x63A5;&#x83B7;&#x53D6; Tue Sep 13 2016 17:12:15 GMT+0800 (&#x4E2D;&#x56FD;&#x6807;&#x51C6;&#x65F6;&#x95F4;) &#x4E2D;&#x5F53;&#x524D;&#x7684;&#x5E74;&#x4EFD;&#xFF1B;</p>
+<p>&#x4F7F;&#x7528;js&#x6765;&#x83B7;&#x53D6;&#x5E74;&#x4EFD;&#xFF0C;&#x90FD;&#x662F;&#x4F7F;&#x7528;&#xFF1A;getFullYear();&#x56E0;&#x4E3A;&#x8FD9;&#x4E2A;&#x76F4;&#x63A5;&#x5C31;&#x8FBE;&#x5230;&#x6211;&#x4EEC;&#x7684;&#x76EE;&#x7684;&#x4E86;&#xFF1B;</p>
+<h4 id="new-Date-&#x7684;&#x7528;&#x6CD5;&#xFF1B;"><a href="#new-Date-&#x7684;&#x7528;&#x6CD5;&#xFF1B;" class="headerlink" title="new Date()&#x7684;&#x7528;&#x6CD5;&#xFF1B;"></a>new Date()&#x7684;&#x7528;&#x6CD5;&#xFF1B;</h4><ul>
+<li>&#x201C;&#x6708;/&#x65E5;/&#x5E74;&#x201D;&#xFF0C;&#x5982; 6/13/2004&#xFF1B;</li>
+<li>&#x201C;&#x82F1;&#x6587;&#x6708;&#x540D; &#x65E5;,&#x5E74;&#x201D;&#xFF0C;&#x5982; January 12,2016&#xFF1B;</li>
+<li>&#x201C;&#x82F1;&#x6587;&#x661F;&#x671F;&#x51E0; &#x82F1;&#x6587;&#x6708;&#x540D; &#x65E5; &#x5E74; &#x65F6;:&#x5206;:&#x79D2; &#x65F6;&#x533A;&#x201D;&#xFF0C;&#x5982; Tue May 25 2004 00:00:00 GMT-0700&#x3002;</li>
+<li><p>YYYY-MM-DD HH:mm:ss.sss</p>
+<pre><code>var testDate1=new  Date();
+var testDate2=new  Date(&quot;9/13/2016&quot;);
+var testDate3=new  Date(&quot;09/13/2016&quot;);
+var testDate4=new  Date(&quot;January 12,2016&quot;);
+var testDate5=new  Date(&quot;Tue May 25 2016 00:00:00 GMT-0700&quot;);
+var testDate6=new  Date(&quot;2004-05-25 00:01:02&quot;);
+console.log(&quot;testDate1&quot;,testDate1);
+console.log(&quot;testDate2&quot;,testDate2);
+console.log(&quot;testDate3&quot;,testDate3);
+console.log(&quot;testDate4&quot;,testDate4);
+console.log(&quot;testDate5&quot;,testDate5);
+console.log(&quot;testDate6&quot;,testDate6);
+</code></pre></li>
+</ul>
+<h5 id="&#x8BA1;&#x7B97;&#x7A0B;&#x5E8F;&#x7684;&#x8017;&#x65F6;"><a href="#&#x8BA1;&#x7B97;&#x7A0B;&#x5E8F;&#x7684;&#x8017;&#x65F6;" class="headerlink" title="&#x8BA1;&#x7B97;&#x7A0B;&#x5E8F;&#x7684;&#x8017;&#x65F6;"></a>&#x8BA1;&#x7B97;&#x7A0B;&#x5E8F;&#x7684;&#x8017;&#x65F6;</h5><p>Data.now() &#x65B9;&#x6CD5;&#xFF0C;&#x8FD4;&#x56DE;&#x8868;&#x793A;&#x8C03;&#x7528;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x65F6;&#x7684;&#x65E5;&#x671F;&#x548C;&#x65F6;&#x95F4;&#x7684;&#x6BEB;&#x79D2;&#x6570;&#x3002;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x7B80;&#x5316;&#x4E86;&#x4F7F;&#x7528; Data &#x5BF9;&#x8C61;&#x5206;&#x6790;&#x4EE3;&#x7801;&#x7684;&#x5DE5;&#x4F5C;;</p>
+<pre><code>//&#x53D6;&#x5F97;&#x5F00;&#x59CB;&#x65F6;&#x95F4;
+var start = Date.now();
+//&#x8C03;&#x7528;&#x51FD;&#x6570;
+for(var i=0;i&lt;10000000;i++){
+
+}
+//&#x53D6;&#x5F97;&#x505C;&#x6B62;&#x65F6;&#x95F4;
+var end = Date.now();
+console.log(end-start);
+</code></pre><p>&#x652F;&#x6301; Data.now() &#x65B9;&#x6CD5;&#x7684;&#x6D4F;&#x89C8;&#x5668;&#x5305;&#x62EC; IE9+&#x3001;Firefox 3+&#x3001;Safari 3+&#x3001;Opera 10.5 &#x548C; Chrome&#x3002;&#x5728;&#x4E0D;&#x652F;&#x6301;&#x5B83;&#x7684;&#x6D4F;&#x89C8;&#x5668;&#x4E2D;&#xFF0C;&#x4F7F;&#x7528;+&#x64CD;&#x4F5C;&#x7B26;&#x628A; Data &#x5BF9;&#x8C61;&#x8F6C;&#x6362;&#x6210;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x8FBE;&#x5230;&#x540C;&#x6837;&#x7684;&#x76EE;&#x7684;&#x3002;</p>
+<pre><code>//&#x53D6;&#x5F97;&#x5F00;&#x59CB;&#x65F6;&#x95F4;
+var start = +Date.now();
+//&#x8C03;&#x7528;&#x51FD;&#x6570;
+for(var i=0;i&lt;10000000;i++){
+
+}
+//&#x53D6;&#x5F97;&#x505C;&#x6B62;&#x65F6;&#x95F4;
+var end = +Date.now();
+console.log(end-start);
+</code></pre><h1 id="&#x65E5;&#x671F;&#x7684;&#x6BD4;&#x8F83;&#xFF1B;"><a href="#&#x65E5;&#x671F;&#x7684;&#x6BD4;&#x8F83;&#xFF1B;" class="headerlink" title="&#x65E5;&#x671F;&#x7684;&#x6BD4;&#x8F83;&#xFF1B;"></a>&#x65E5;&#x671F;&#x7684;&#x6BD4;&#x8F83;&#xFF1B;</h1><blockquote>
+<p>&#x539F;&#x7406;&#xFF1A;&#x6BD4;&#x8F83;&#x7684;&#x662F;&#x8F6C;&#x6210;&#x6BEB;&#x79D2;&#x6570;&#x540E;&#xFF0C;&#x7136;&#x540E;&#x518D;&#x6BD4;&#x8F83;&#x6BEB;&#x79D2;&#x6570;&#xFF1B;&#x65E5;&#x671F;&#x8D8A;&#x9760;&#x540E;&#xFF0C;&#x6BEB;&#x79D2;&#x6570;&#x8D8A;&#x5927;&#xFF1B;<br>Date &#x7C7B;&#x4E0A;&#x6709;&#x4E00;&#x4E2A; valueOf() &#x65B9;&#x6CD5;&#xFF0C;&#x8FD4;&#x56DE;&#x65E5;&#x671F;&#x7684;&#x6BEB;&#x79D2;&#x8868;&#x793A;&#xFF08;&#x8DDD;&#x79BB;1970&#x5E74;&#x5348;&#x591C;&#x7684;&#x6BEB;&#x79D2;&#x5DEE;&#xFF09;&#x3002;<br>&#x5982;&#x4E0B;&#xFF1B;</p>
+</blockquote>
+<pre><code>var testDate1=new  Date(&quot;8/13/2016&quot;);
+var testDate2=new  Date(&quot;9/13/2016&quot;);
+var testDate3=new  Date(&quot;1/1/1970&quot;);
+
+console.log(testDate1 &gt; testDate2);//false
+console.log(testDate1 &lt; testDate2);//true
+console.log(testDate1.valueOf());//1471017600000
+console.log(testDate2.valueOf());//1473696000000
+console.log(testDate3.valueOf()-testDate3.getTime());//1473696000000
+</code></pre><h1 id="&#x63A8;&#x8350;&#x7684;&#x65E5;&#x671F;&#x683C;&#x5F0F;&#x5316;&#x65B9;&#x6CD5;-gt-toUTCString"><a href="#&#x63A8;&#x8350;&#x7684;&#x65E5;&#x671F;&#x683C;&#x5F0F;&#x5316;&#x65B9;&#x6CD5;-gt-toUTCString" class="headerlink" title="&#x63A8;&#x8350;&#x7684;&#x65E5;&#x671F;&#x683C;&#x5F0F;&#x5316;&#x65B9;&#x6CD5;-&gt;toUTCString"></a>&#x63A8;&#x8350;&#x7684;&#x65E5;&#x671F;&#x683C;&#x5F0F;&#x5316;&#x65B9;&#x6CD5;-&gt;toUTCString</h1><pre><code>var testDate1=new  Date(&quot;8/13/2016&quot;);
+console.log(testDate1.toUTCString());//1471017600000
+</code></pre><p>&#x6709;&#x4E00;&#x4E2A;&#x540D;&#x53EB; toGMTString() &#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x4E0E;toUTCString() &#x7B49;&#x4EF7;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x5176;&#x5B58;&#x5728;&#x76EE;&#x7684;&#x5728;&#x4E8E;&#x786E;&#x4FDD;&#x5411;&#x540E;&#x517C;&#x5BB9;&#x3002;&#x4E0D;&#x8FC7;&#xFF0C;ECMAScript &#x63A8;&#x8350;&#x73B0;&#x5728;&#x7F16;&#x5199;&#x7684;&#x4EE3;&#x7801;&#x4E00;&#x5F8B;&#x4F7F;&#x7528; toUTCString() &#x65B9;&#x6CD5;&#x3002;</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block； padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="ALBL wechat" style="width: 200px; max-width: 100%;"/>
+    <div>扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/10/数据类型/Function类型/" rel="next" title="Function 类型">
+                <i class="fa fa-chevron-left"></i> Function 类型
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/10/数据类型/Boolean类型/" rel="prev" title="Boolean 类型">
+                Boolean 类型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.ld12.com/upimg358/allimg/c140918/14109CRX22F-H018.jpg"
+               alt="ALBL" />
+          <p class="site-author-name" itemprop="name">ALBL</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Date-类型"><span class="nav-number">1.</span> <span class="nav-text">Date 类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#首先输出看下Date有哪些方法"><span class="nav-number">1.0.0.0.1.</span> <span class="nav-text">首先输出看下Date有哪些方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Date事件函数的常用方法"><span class="nav-number">1.0.0.0.2.</span> <span class="nav-text">Date事件函数的常用方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#JS中Date对象getYear-）方法和getFullYear-方法区别"><span class="nav-number">1.0.0.0.3.</span> <span class="nav-text">JS中Date对象getYear(）方法和getFullYear()方法区别</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#new-Date-的用法；"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">new Date()的用法；</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#计算程序的耗时"><span class="nav-number">1.0.0.1.1.</span> <span class="nav-text">计算程序的耗时</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#日期的比较；"><span class="nav-number">2.</span> <span class="nav-text">日期的比较；</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#推荐的日期格式化方法-gt-toUTCString"><span class="nav-number">3.</span> <span class="nav-text">推荐的日期格式化方法->toUTCString</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ALBL</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'your-disqus-shortname';
+      var disqus_identifier = '2016/06/10/数据类型/Date类型/';
+      var disqus_title = "Date 类型";
+      var disqus_url = 'http://yoursite.com/2016/06/10/数据类型/Date类型/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

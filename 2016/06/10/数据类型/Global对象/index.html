@@ -1,0 +1,676 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ALBL的个人博客" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Global&amp;#x5BF9;&amp;#x8C61;
+isNaN() 
+isFinite() 
+parseInt() &amp;#x4E0E; parseFloat()
+encodeURI() &amp;#x548C; encodeURIComponent()
+decodeURI() &amp;#x548C; decodeURIComponent()
+eval()
+
+encodeURI() &amp;#x548C; encodeURIC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Global对象">
+<meta property="og:url" content="http://yoursite.com/2016/06/10/数据类型/Global对象/index.html">
+<meta property="og:site_name" content="章礼俊的个人博客">
+<meta property="og:description" content="Global&amp;#x5BF9;&amp;#x8C61;
+isNaN() 
+isFinite() 
+parseInt() &amp;#x4E0E; parseFloat()
+encodeURI() &amp;#x548C; encodeURIComponent()
+decodeURI() &amp;#x548C; decodeURIComponent()
+eval()
+
+encodeURI() &amp;#x548C; encodeURIC">
+<meta property="og:updated_time" content="2016-11-07T07:18:50.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Global对象">
+<meta name="twitter:description" content="Global&amp;#x5BF9;&amp;#x8C61;
+isNaN() 
+isFinite() 
+parseInt() &amp;#x4E0E; parseFloat()
+encodeURI() &amp;#x548C; encodeURIComponent()
+decodeURI() &amp;#x548C; decodeURIComponent()
+eval()
+
+encodeURI() &amp;#x548C; encodeURIC">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/06/10/数据类型/Global对象/"/>
+
+  <title> Global对象 | 章礼俊的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?ff33d06371cbc1cc9b3821952ca6c795";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">章礼俊的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">HTML5知识笔记</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Global对象
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-10T16:34:46+08:00" content="2016-06-10">
+              2016-06-10
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/10/数据类型/Global对象/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/10/数据类型/Global对象/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Global&#x5BF9;&#x8C61;"><a href="#Global&#x5BF9;&#x8C61;" class="headerlink" title="Global&#x5BF9;&#x8C61;"></a>Global&#x5BF9;&#x8C61;</h1><ul>
+<li>isNaN() </li>
+<li>isFinite() </li>
+<li>parseInt() &#x4E0E; parseFloat()</li>
+<li>encodeURI() &#x548C; encodeURIComponent()</li>
+<li>decodeURI() &#x548C; decodeURIComponent()</li>
+<li>eval()</li>
+</ul>
+<h2 id="encodeURI-&#x548C;-encodeURIComponent"><a href="#encodeURI-&#x548C;-encodeURIComponent" class="headerlink" title="encodeURI() &#x548C; encodeURIComponent()"></a>encodeURI() &#x548C; encodeURIComponent()</h2><pre><code>var uri1 = &quot;http://www.wrox.com/illegal value.htm#start&quot;;
+var uri2 = &quot;https://www.google.com.hk/webhp?tab=Tw&quot;;
+
+console.log(encodeURI(uri1));//http://www.wrox.com/illegal%20value.htm#start
+console.log(encodeURI(uri2));//https://www.google.com.hk/webhp?tab=Tw
+console.log(encodeURIComponent(uri1));//http%3A%2F%2Fwww.wrox.com%2Fillegal%20value.htm%23start
+console.log(encodeURIComponent(uri2));//https%3A%2F%2Fwww.google.com.hk%2Fwebhp%3Ftab%3DTw
+</code></pre><p><strong>encodeURI() &#x4E0D;&#x4F1A;&#x5BF9;&#x672C;&#x8EAB;&#x5C5E;&#x4E8E; URI &#x7684;&#x7279;&#x6B8A;&#x5B57;&#x7B26;&#x8FDB;&#x884C;&#x7F16;&#x7801;&#xFF0C;&#x4F8B;&#x5982;&#x5192;&#x53F7;&#x3001;&#x6B63;&#x659C;&#x6760;&#x3001;&#x95EE;&#x53F7;&#x548C;&#x4E95;&#x5B57;&#x53F7;&#xFF1B;&#x800C; encodeURIComponent() &#x5219;&#x4F1A;&#x5BF9;&#x5B83;&#x53D1;&#x73B0;&#x7684;&#x4EFB;&#x4F55;&#x975E;&#x6807;&#x51C6;&#x5B57;&#x7B26;&#x8FDB;&#x884C;&#x7F16;&#x7801;&#x3002;</strong></p>
+<p>&#x4F7F;&#x7528; encodeURI() &#x7F16;&#x7801;&#x540E;&#x7684;&#x7ED3;&#x679C;&#x662F;&#x9664;&#x4E86;&#x7A7A;&#x683C;&#x4E4B;&#x5916;&#x7684;&#x5176;&#x4ED6;&#x5B57;&#x7B26;&#x90FD;&#x539F;&#x5C01;&#x4E0D;&#x52A8;&#xFF0C;&#x53EA;&#x6709;&#x7A7A;&#x683C;&#x88AB;&#x66FF;&#x6362;&#x6210;&#x4E86;%20 &#x3002;&#x800C; encodeURIComponent() &#x65B9;&#x6CD5;&#x5219;&#x4F1A;&#x4F7F;&#x7528;&#x5BF9;&#x5E94;&#x7684;&#x7F16;&#x7801;&#x66FF;&#x6362;&#x6240;&#x6709;&#x975E;&#x5B57;&#x6BCD;&#x6570;&#x5B57;&#x5B57;&#x7B26;&#x3002;&#x8FD9;&#x4E5F;&#x6B63;&#x662F;&#x53EF;&#x4EE5;&#x5BF9;&#x6574;&#x4E2A; URI&#x4F7F;&#x7528; encodeURI() &#xFF0C;&#x800C;&#x53EA;&#x80FD;&#x5BF9;&#x9644;&#x52A0;&#x5728;&#x73B0;&#x6709; URI&#x540E;&#x9762;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x4F7F;&#x7528; encodeURIComponent()&#x7684;&#x539F;&#x56E0;&#x6240;&#x5728;&#x3002;</p>
+<p>Global &#x5BF9;&#x8C61;&#x7684; encodeURI() &#x548C; encodeURIComponent() &#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x5BF9; URI&#xFF08;Uniform ResourceIdentifiers&#xFF0C;&#x901A;&#x7528;&#x8D44;&#x6E90;&#x6807;&#x8BC6;&#x7B26;&#xFF09;&#x8FDB;&#x884C;&#x7F16;&#x7801;&#xFF0C;&#x4EE5;&#x4FBF;&#x53D1;&#x9001;&#x7ED9;&#x6D4F;&#x89C8;&#x5668;&#x3002;&#x6709;&#x6548;&#x7684; URI &#x4E2D;&#x4E0D;&#x80FD;&#x5305;&#x542B;&#x67D0;&#x4E9B;&#x5B57;&#x7B26;&#xFF0C;&#x4F8B;&#x5982;&#x7A7A;&#x683C;&#x3002;&#x800C;&#x8FD9;&#x4E24;&#x4E2A; URI &#x7F16;&#x7801;&#x65B9;&#x6CD5;&#x5C31;&#x53EF;&#x4EE5;&#x5BF9; URI &#x8FDB;&#x884C;&#x7F16;&#x7801;&#xFF0C;&#x5B83;&#x4EEC;&#x7528;&#x7279;&#x6B8A;&#x7684; UTF-8 &#x7F16;&#x7801;&#x66FF;&#x6362;&#x6240;&#x6709;&#x65E0;&#x6548;&#x7684;&#x5B57;&#x7B26;&#xFF0C;&#x4ECE;&#x800C;&#x8BA9;&#x6D4F;&#x89C8;&#x5668;&#x80FD;&#x591F;&#x63A5;&#x53D7;&#x548C;&#x7406;&#x89E3;&#x3002;</p>
+<blockquote>
+<p>&#x4F7F;&#x7528; encodeURIComponent() &#x65B9;&#x6CD5;&#x7684;&#x65F6;&#x5019;&#x8981;&#x6BD4;&#x4F7F;&#x7528;encodeURI()&#x66F4;&#x591A;&#xFF0C;&#x56E0;&#x4E3A;&#x5728;&#x5B9E;&#x8DF5;&#x4E2D;&#x66F4;&#x5E38;&#x89C1;&#x7684;&#x662F;&#x5BF9;&#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;&#x53C2;&#x6570;&#x800C;&#x4E0D;&#x662F;&#x5BF9;&#x57FA;&#x7840;URI&#x8FDB;&#x884C;&#x7F16;&#x7801;&#x3002;</p>
+</blockquote>
+<h2 id="decodeURI-&#x548C;-decodeURIComponent"><a href="#decodeURI-&#x548C;-decodeURIComponent" class="headerlink" title="decodeURI() &#x548C; decodeURIComponent()"></a>decodeURI() &#x548C; decodeURIComponent()</h2><p>&#x5176;&#x4E2D;&#xFF0C; decodeURI() &#x53EA;&#x80FD;&#x5BF9;&#x4F7F;&#x7528; encodeURI() &#x66FF;&#x6362;&#x7684;&#x5B57;&#x7B26;&#x8FDB;&#x884C;&#x89E3;&#x7801;,decodeURIComponent&#x53EF;&#x4EE5;&#x89E3;&#x6790;encodeURI&#x7684;&#x3002;</p>
+<pre><code>var uri1 = &quot;https%3A%2F%2Fwww.google.com.hk%2Fwebhp%3Ftab%3DTw&quot;;
+var uri2 = &quot;http://www.wrox.com/illegal%20value.htm#start&quot;;
+console.log(decodeURI(uri1));//https%3A%2F%2Fwww.google.com.hk%2Fwebhp%3Ftab%3DTw
+console.log(decodeURIComponent(uri1));//https://www.google.com.hk/webhp?tab=Tw
+
+console.log(decodeURI(uri2));//http://www.wrox.com/illegal value.htm#start
+console.log(decodeURIComponent(uri2));//http://www.wrox.com/illegal value.htm#start
+</code></pre><h2 id="eval-&#x65B9;&#x6CD5;"><a href="#eval-&#x65B9;&#x6CD5;" class="headerlink" title="eval() &#x65B9;&#x6CD5;"></a>eval() &#x65B9;&#x6CD5;</h2><p>eval()&#x65B9;&#x6CD5;&#x5C31;&#x50CF;&#x662F;&#x4E00;&#x4E2A;&#x5B8C;&#x6574;&#x7684; ECMAScript &#x89E3;&#x6790;&#x5668;,&#x5B83;&#x53EA;&#x63A5;&#x53D7;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x5373;&#x8981;&#x6267;&#x884C;&#x7684; ECMAScript &#xFF08;&#x6216; JavaScript&#xFF09;&#x5B57;&#x7B26;&#x4E32;&#x3002;</p>
+<pre><code>eval(&quot;console.log(&apos;test name&apos;)&quot;); //&quot;test name&quot;
+
+var msg = &quot;hello world&quot;;
+eval(&quot;console.log(msg)&quot;); //&quot;hello world&quot;
+</code></pre><blockquote>
+<p>&#x5728; eval() &#x4E2D;&#x521B;&#x5EFA;&#x7684;&#x4EFB;&#x4F55;&#x53D8;&#x91CF;&#x6216;&#x51FD;&#x6570;&#x90FD;&#x4E0D;&#x4F1A;&#x88AB;&#x63D0;&#x5347;&#xFF0C;&#x56E0;&#x4E3A;&#x5728;&#x89E3;&#x6790;&#x4EE3;&#x7801;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5B83;&#x4EEC;&#x88AB;&#x5305;&#x542B;&#x5728;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x4E2D;&#xFF1B;&#x5B83;&#x4EEC;&#x53EA;&#x5728; eval() &#x6267;&#x884C;&#x7684;&#x65F6;&#x5019;&#x521B;&#x5EFA;&#x3002;</p>
+</blockquote>
+<pre><code>var testVar;
+console.log(testVar);//undefined
+console.log(msg);//Uncaught ReferenceError: msg is not defined
+eval(&apos;var msg = &quot;hello world eval&quot;&apos;);
+eval(&quot;console.log(msg)&quot;); //&quot;hello world&quot;
+</code></pre><blockquote>
+<p>&#x4E25;&#x683C;&#x6A21;&#x5F0F;&#x4E0B;&#xFF0C;&#x5728;&#x5916;&#x90E8;&#x8BBF;&#x95EE;&#x4E0D;&#x5230; eval() &#x4E2D;&#x521B;&#x5EFA;&#x7684;&#x4EFB;&#x4F55;&#x53D8;&#x91CF;&#x6216;&#x51FD;&#x6570;&#xFF0C;&#x56E0;&#x6B64;&#x524D;&#x9762;&#x4E24;&#x4E2A;&#x4F8B;&#x5B50;&#x90FD;&#x4F1A;&#x5BFC;&#x81F4;&#x9519;&#x8BEF;&#x3002;&#x540C;&#x6837;&#xFF0C;&#x5728;&#x4E25;&#x683C;&#x6A21;&#x5F0F;&#x4E0B;&#xFF0C;&#x4E3A; eval &#x8D4B;&#x503C;&#x4E5F;&#x4F1A;&#x5BFC;&#x81F4;&#x9519;&#x8BEF;</p>
+</blockquote>
+<h2 id="json&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x8F6C;&#x4E3A;json&#x5BF9;&#x8C61;&#xFF1B;"><a href="#json&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x8F6C;&#x4E3A;json&#x5BF9;&#x8C61;&#xFF1B;" class="headerlink" title="json&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x8F6C;&#x4E3A;json&#x5BF9;&#x8C61;&#xFF1B;"></a>json&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x8F6C;&#x4E3A;json&#x5BF9;&#x8C61;&#xFF1B;</h2><pre><code>var myJSONText = &apos;{&quot;bindings&quot;: [{&quot;ircEvent&quot;: &quot;PRIVMSG&quot;, &quot;method&quot;: &quot;newURI&quot;, &quot;regex&quot;: &quot;^http://.*&quot;},{&quot;ircEvent&quot;: &quot;PRIVMSG&quot;, &quot;method&quot;: &quot;deleteURI&quot;, &quot;regex&quot;: &quot;^delete.*&quot;},{&quot;ircEvent&quot;: &quot;PRIVMSG&quot;, &quot;method&quot;: &quot;randomURI&quot;, &quot;regex&quot;: &quot;^random.*&quot;}]}&apos;;
+
+console.log(typeof myJSONText);//string
+
+var testJSONObject=eval(&quot;(&quot;+myJSONText+&quot;)&quot;);
+console.log(typeof testJSONObject);//Object
+console.log(testJSONObject.bindings);
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block； padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="ALBL wechat" style="width: 200px; max-width: 100%;"/>
+    <div>扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/10/数据类型/Math对象/" rel="next" title="Math对象">
+                <i class="fa fa-chevron-left"></i> Math对象
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/10/数据类型/Function类型/" rel="prev" title="Function 类型">
+                Function 类型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.ld12.com/upimg358/allimg/c140918/14109CRX22F-H018.jpg"
+               alt="ALBL" />
+          <p class="site-author-name" itemprop="name">ALBL</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Global对象"><span class="nav-number">1.</span> <span class="nav-text">Global对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#encodeURI-和-encodeURIComponent"><span class="nav-number">1.1.</span> <span class="nav-text">encodeURI() 和 encodeURIComponent()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#decodeURI-和-decodeURIComponent"><span class="nav-number">1.2.</span> <span class="nav-text">decodeURI() 和 decodeURIComponent()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#eval-方法"><span class="nav-number">1.3.</span> <span class="nav-text">eval() 方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#json字符串，转为json对象；"><span class="nav-number">1.4.</span> <span class="nav-text">json字符串，转为json对象；</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ALBL</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'your-disqus-shortname';
+      var disqus_identifier = '2016/06/10/数据类型/Global对象/';
+      var disqus_title = "Global对象";
+      var disqus_url = 'http://yoursite.com/2016/06/10/数据类型/Global对象/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

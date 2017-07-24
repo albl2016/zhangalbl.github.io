@@ -1,0 +1,706 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ALBL的个人博客" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="replace:&amp;#x628A;&amp;#x539F;&amp;#x6709;&amp;#x7684;&amp;#x5B57;&amp;#x7B26;&amp;#x66FF;&amp;#x6362;&amp;#x6210;&amp;#x65B0;&amp;#x7684;&amp;#x5B57;&amp;#x7B26; 
+
+&amp;#x5728;&amp;#x4E0D;&amp;#x4F7F;&amp;#x7528;&amp;#x6B63;&amp;#x5219;&amp;#x7684;&amp;#x60C5;&amp;#x51B5;&amp;#x4E0B;,&amp;#x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="replace和实战">
+<meta property="og:url" content="http://yoursite.com/2016/07/08/正则表达式/6.replace和实战/index.html">
+<meta property="og:site_name" content="章礼俊的个人博客">
+<meta property="og:description" content="replace:&amp;#x628A;&amp;#x539F;&amp;#x6709;&amp;#x7684;&amp;#x5B57;&amp;#x7B26;&amp;#x66FF;&amp;#x6362;&amp;#x6210;&amp;#x65B0;&amp;#x7684;&amp;#x5B57;&amp;#x7B26; 
+
+&amp;#x5728;&amp;#x4E0D;&amp;#x4F7F;&amp;#x7528;&amp;#x6B63;&amp;#x5219;&amp;#x7684;&amp;#x60C5;&amp;#x51B5;&amp;#x4E0B;,&amp;#x">
+<meta property="og:updated_time" content="2016-11-07T07:05:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="replace和实战">
+<meta name="twitter:description" content="replace:&amp;#x628A;&amp;#x539F;&amp;#x6709;&amp;#x7684;&amp;#x5B57;&amp;#x7B26;&amp;#x66FF;&amp;#x6362;&amp;#x6210;&amp;#x65B0;&amp;#x7684;&amp;#x5B57;&amp;#x7B26; 
+
+&amp;#x5728;&amp;#x4E0D;&amp;#x4F7F;&amp;#x7528;&amp;#x6B63;&amp;#x5219;&amp;#x7684;&amp;#x60C5;&amp;#x51B5;&amp;#x4E0B;,&amp;#x">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/07/08/正则表达式/6.replace和实战/"/>
+
+  <title> replace和实战 | 章礼俊的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?ff33d06371cbc1cc9b3821952ca6c795";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">章礼俊的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">HTML5知识笔记</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                replace和实战
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-08T16:34:46+08:00" content="2016-07-08">
+              2016-07-08
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/08/正则表达式/6.replace和实战/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/08/正则表达式/6.replace和实战/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong> replace:&#x628A;&#x539F;&#x6709;&#x7684;&#x5B57;&#x7B26;&#x66FF;&#x6362;&#x6210;&#x65B0;&#x7684;&#x5B57;&#x7B26; </strong></p>
+<blockquote>
+<p>&#x5728;&#x4E0D;&#x4F7F;&#x7528;&#x6B63;&#x5219;&#x7684;&#x60C5;&#x51B5;&#x4E0B;,&#x6BCF;&#x5F53;&#x6267;&#x884C;&#x4E00;&#x6B21;&#x53EA;&#x80FD;&#x66FF;&#x6362;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;</p>
+</blockquote>
+<pre><code>var str = &quot;zhu2015zhu2016zhu2017zhu2018&quot;;
+str = str.replace(&quot;zhu&quot;, &quot;-replace-&quot;); //-&gt;&#x6CA1;&#x6709;&#x5B9E;&#x73B0;&#x9700;&#x6C42;
+console.log(str);
+</code></pre><ul>
+<li><p>1&#x3001;replace&#x7B2C;&#x4E00;&#x9879;&#x7684;&#x503C;&#x662F;&#x4E00;&#x4E2A;&#x6B63;&#x5219;&#x5B83;&#x7684;&#x5B9E;&#x73B0;&#x539F;&#x7406;</p>
+<pre><code>var str = &quot;zhu2015zhu2016zhu2017zhu2018&quot;;
+str = str.replace(/zhu/g, &quot;[OK]&quot;);//
+console.log(str);//[OK]2015[OK]2016[OK]2017[OK]2018
+</code></pre><p>  &#x9996;&#x5148;&#x6211;&#x4EEC;&#x548C;exec&#x6355;&#x83B7;&#x4E00;&#x6837;,&#x628A;&#x6240;&#x6709;&#x548C;&#x6211;&#x4EEC;&#x6B63;&#x5219;&#x5339;&#x914D;&#x7684;&#x90FD;&#x6355;&#x83B7;&#x5230;,&#x7136;&#x540E;&#x628A;&#x6355;&#x83B7;&#x7684;&#x5185;&#x5BB9;&#x66FF;&#x6362;&#x6210;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x66FF;&#x6362;&#x7684;&#x65B0;&#x5185;&#x5BB9;</p>
+<pre><code>//-&gt; /zhu/g &#x6309;&#x7167;&#x8FD9;&#x4E2A;&#x6B63;&#x5219;&#x628A;str&#x4E2D;&#x6240;&#x6709;&#x53EF;&#x4EE5;&#x5339;&#x914D;&#x7684;&#x90FD;&#x6355;&#x83B7;&#x5230;,&#x7136;&#x540E;&#x7EDF;&#x4E00;&#x90FD;&#x66FF;&#x6362;&#x6210;&quot;newStr&quot;
+var str = &quot;zhu2015zhu2016&quot;;
+var reg = /zhu/g;
+console.log(reg.exec(str));//-&gt;[&quot;zhu&quot;, index: 0, input: &quot;zhu2015zhu2016&quot;]
+console.log(reg.exec(str));//-&gt;[&quot;zhu&quot;, index: &#xFF1F;, input: &quot;&#xFF1F;&quot;]
+str = str.replace(/zhu/g, function () {
+    //console.log(arguments);
+    //&#x7B2C;&#x4E00;&#x6B21;&#x6267;&#x884C;&#x533F;&#x540D;&#x51FD;&#x6570;&#x7684;&#x7ED3;&#x679C;-&gt;[&quot;zhu&quot;, 0, &quot;zhu2015zhu2016&quot;]
+    //&#x7B2C;&#x4E8C;&#x6B21;&#x6267;&#x884C;&#x533F;&#x540D;&#x51FD;&#x6570;&#x7684;&#x7ED3;&#x679C;-&gt;[&quot;zhu&quot;, &#xFF1F;, &quot;&#xFF1F;&quot;]
+    return &quot;newStr&quot;;
+});
+console.log(str);
+</code></pre></li>
+</ul>
+<ul>
+<li><p>2&#x3001;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#x6362;&#x6210;&#x4E00;&#x4E2A;&#x51FD;&#x6570;</p>
+<ul>
+<li>1)&#x3001;&#x533F;&#x540D;&#x51FD;&#x6570;&#x6267;&#x884C;&#x591A;&#x5C11;&#x6B21;,&#x53D6;&#x51B3;&#x4E8E;&#x6B63;&#x5219;&#x80FD;&#x5728;&#x5B57;&#x7B26;&#x4E32;&#x4E2D;&#x6355;&#x83B7;&#x591A;&#x5C11;&#x6B21; -&gt;&#x6B63;&#x5219;&#x6355;&#x83B7;&#x4E24;&#x6B21;,&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x7684;&#x533F;&#x540D;&#x51FD;&#x6570;&#x4E5F;&#x6267;&#x884C;&#x4E24;&#x6B21;</li>
+<li>2)&#x3001;&#x6BCF;&#x4E00;&#x6B21;&#x6267;&#x884C;&#x533F;&#x540D;&#x51FD;&#x6570;,&#x91CC;&#x9762;&#x4F20;&#x9012;&#x7684;&#x53C2;&#x6570;&#x503C;arguments&#x548C;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x901A;&#x8FC7;exec&#x6355;&#x83B7;&#x5230;&#x7684;&#x7ED3;&#x679C;&#x662F;&#x975E;&#x5E38;&#x7684;&#x7C7B;&#x4F3C;&#x7684;(&#x5373;&#x4F7F;&#x6B63;&#x5219;&#x6709;&#x5206;&#x7EC4;,&#x6211;&#x4EEC;&#x540C;&#x6837;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;arguments&#x83B7;&#x53D6;&#x5230;&#x5206;&#x7EC4;&#x6355;&#x83B7;&#x7684;&#x5185;&#x5BB9;)</li>
+<li><p>3)return: &#x4F60;&#x8FD4;&#x56DE;&#x7684;&#x7ED3;&#x679C;&#x662F;&#x5565;,&#x5C31;&#x76F8;&#x5F53;&#x4E8E;&#x628A;&#x5F53;&#x524D;&#x8FD9;&#x4E00;&#x6B21;&#x5927;&#x6B63;&#x5219;&#x6355;&#x83B7;&#x7684;&#x5185;&#x5BB9;&#x66FF;&#x6362;&#x6210;&#x4F60;&#x8FD4;&#x56DE;&#x7684;&#x5185;&#x5BB9;</p>
+<pre><code>var str = &quot;zhu2015zhu2016&quot;;
+str = str.replace(/\d+/g, function () {
+    console.log(arguments[0]);//&#x6BCF;&#x4E00;&#x6B21;&#x6267;&#x884C;&#x533F;&#x540D;&#x51FD;&#x6570;&#x628A;&#x6211;&#x4EEC;&#x5927;&#x6B63;&#x5219;&#x6355;&#x83B7;&#x7684;&#x5185;&#x5BB9;&#x83B7;&#x53D6;&#x5230;
+    return 1;//&#x6211;&#x8FD4;&#x56DE;&#x7684;1&#x628A;&#x6BCF;&#x4E00;&#x6B21;&#x5927;&#x6B63;&#x5219;&#x5339;&#x914D;&#x6355;&#x83B7;&#x7684;&#x5185;&#x5BB9;&#x90FD;&#x66FF;&#x6362;&#x4E86;
+});
+console.log(str);//-&gt;&quot;zhu1zhu1&quot;
+</code></pre><p>  &#x4F8B;&#x5B50;&#xFF1A;</p>
+<pre><code>var str = &quot;zhu2015zhu2016&quot;;
+var reg = /(\d+)/g;
+str = str.replace(reg, function () {
+    console.log(arguments,RegExp.$1);//&#x83B7;&#x53D6;&#x6BCF;&#x4E00;&#x6B21;&#x6267;&#x884C;&#x533F;&#x540D;&#x51FD;&#x6570;&#x6211;&#x4EEC;&#x6B63;&#x5219;&#x6355;&#x83B7;&#x5230;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x5206;&#x7EC4;&#x4E2D;&#x7684;&#x5185;&#x5BB9;
+    return &quot;----&quot;
+});
+console.log(str);
+console.log(RegExp.$1);//2016 &#x83B7;&#x53D6;&#x7B2C;&#x4E00;&#x4E2A;&#x5206;&#x7EC4;&#x6355;&#x83B7;&#x7684;&#x5185;&#x5BB9;
+</code></pre></li>
+</ul>
+</li>
+</ul>
+<h5 id="&#x66FF;&#x6362;&#x6587;&#x5B57;"><a href="#&#x66FF;&#x6362;&#x6587;&#x5B57;" class="headerlink" title="&#x66FF;&#x6362;&#x6587;&#x5B57;"></a>&#x66FF;&#x6362;&#x6587;&#x5B57;</h5><pre><code>var str = &quot;20151213&quot;;//-&gt;&quot;&#x8D30;&#x96F6;&#x58F9;&#x4F0D;&#x58F9;&#x8D30;&#x58F9;&#x53C1;&quot;
+var ary = [&quot;&#x96F6;&quot;, &quot;&#x58F9;&quot;, &quot;&#x8D30;&quot;, &quot;&#x53C1;&quot;, &quot;&#x8086;&quot;, &quot;&#x4F0D;&quot;, &quot;&#x9646;&quot;, &quot;&#x67D2;&quot;, &quot;&#x634C;&quot;, &quot;&#x7396;&quot;];
+str = str.replace(/\d/g, function () {
+    return ary[arguments[0]];
+});
+console.log(str);
+</code></pre><h5 id="&#x963F;&#x62C9;&#x4F2F;&#x6570;&#x5B57;&#x8F6C;&#x4E3A;&#x8D22;&#x52A1;&#x6570;&#x5B57;&#xFF1B;"><a href="#&#x963F;&#x62C9;&#x4F2F;&#x6570;&#x5B57;&#x8F6C;&#x4E3A;&#x8D22;&#x52A1;&#x6570;&#x5B57;&#xFF1B;" class="headerlink" title="&#x963F;&#x62C9;&#x4F2F;&#x6570;&#x5B57;&#x8F6C;&#x4E3A;&#x8D22;&#x52A1;&#x6570;&#x5B57;&#xFF1B;"></a>&#x963F;&#x62C9;&#x4F2F;&#x6570;&#x5B57;&#x8F6C;&#x4E3A;&#x8D22;&#x52A1;&#x6570;&#x5B57;&#xFF1B;</h5><pre><code>function toChinaNumber (options) {
+    options=options+&quot;&quot;;
+    options = options.replace(/^0+/, &quot;&quot;);
+    var numberAry = [&quot;&#x96F6;&quot;,&quot;&#x58F9;&quot;,&quot;&#x8D30;&quot;,&quot;&#x53C1;&quot;,&quot;&#x8086;&quot;,&quot;&#x4F0D;&quot;,&quot;&#x9646;&quot;,&quot;&#x67D2;&quot;,&quot;&#x634C;&quot;,&quot;&#x7396;&quot;],
+            unitAry = [&quot;&quot;,&quot;&#x62FE;&quot;,&quot;&#x4F70;&quot;,&quot;&#x4EDF;&quot;],
+            bigUnitAry = [&quot;&quot;,&quot;&#x4E07;&quot;,&quot;&#x4EBF;&quot;];
+    var targetStr = &quot;&quot;;
+    var zeroFlag = 0;
+    var i, p, nowAloneNumber;
+    var quotient, modulus;
+    var len=options.length;
+    if(len==0){
+        targetStr += &quot;&#x96F6;&quot;;
+    }else{
+        for (i = 0; i &lt; len; i++) {
+            p = len - i - 1;
+            nowAloneNumber = options.substr(i, 1);
+            quotient = p / 4;//&#x5546;
+            modulus = p % 4;//&#x4F59;&#x6570;
+            if (nowAloneNumber == &quot;0&quot;) {
+                zeroFlag++;
+            } else {
+                if (zeroFlag &gt; 0) {
+                    targetStr += numberAry[0];
+                }
+                zeroFlag = 0;
+                targetStr += numberAry[Number(nowAloneNumber)] + unitAry[modulus];
+            }
+            if (modulus == 0 &amp;&amp; zeroFlag &lt; 4) {
+                targetStr += bigUnitAry[quotient];
+                zeroFlag = 0;
+            }
+        }
+    }
+    targetStr += &quot;&#x5143;&#x6574;&quot;;
+    return targetStr;
+}
+
+var testNumber=35987;
+var testStr=&quot;298&quot;;
+console.log(toChinaNumber(testNumber));
+console.log(toChinaNumber(testStr));
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block； padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="ALBL wechat" style="width: 200px; max-width: 100%;"/>
+    <div>扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/08/正则表达式/7.正则总结/" rel="next" title="正则总结">
+                <i class="fa fa-chevron-left"></i> 正则总结
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/08/正则表达式/4.正则的捕获/" rel="prev" title="正则的捕获 exec">
+                正则的捕获 exec <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.ld12.com/upimg358/allimg/c140918/14109CRX22F-H018.jpg"
+               alt="ALBL" />
+          <p class="site-author-name" itemprop="name">ALBL</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#替换文字"><span class="nav-number">1.</span> <span class="nav-text">替换文字</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#阿拉伯数字转为财务数字；"><span class="nav-number">2.</span> <span class="nav-text">阿拉伯数字转为财务数字；</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ALBL</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'your-disqus-shortname';
+      var disqus_identifier = '2016/07/08/正则表达式/6.replace和实战/';
+      var disqus_title = "replace和实战";
+      var disqus_url = 'http://yoursite.com/2016/07/08/正则表达式/6.replace和实战/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,749 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ALBL的个人博客" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="[]&amp;#x6574;&amp;#x62EC;&amp;#x53F7;&amp;#x7684;&amp;#x6CE8;&amp;#x610F;
+1&amp;#x3001;&amp;#x5728;&amp;#x6574;&amp;#x62EC;&amp;#x53F7;&amp;#x4E2D;&amp;#x51FA;&amp;#x73B0;&amp;#x7684;&amp;#x6240;&amp;#x6709;&amp;#x7684;&amp;#x5B57;&amp;#x7B26;&amp;#x90FD;&amp;#x662F;&amp;#x4EE3;&amp;#x8868;&amp;#x6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="元字符的应用">
+<meta property="og:url" content="http://yoursite.com/2016/07/08/正则表达式/3.元字符的应用/index.html">
+<meta property="og:site_name" content="章礼俊的个人博客">
+<meta property="og:description" content="[]&amp;#x6574;&amp;#x62EC;&amp;#x53F7;&amp;#x7684;&amp;#x6CE8;&amp;#x610F;
+1&amp;#x3001;&amp;#x5728;&amp;#x6574;&amp;#x62EC;&amp;#x53F7;&amp;#x4E2D;&amp;#x51FA;&amp;#x73B0;&amp;#x7684;&amp;#x6240;&amp;#x6709;&amp;#x7684;&amp;#x5B57;&amp;#x7B26;&amp;#x90FD;&amp;#x662F;&amp;#x4EE3;&amp;#x8868;&amp;#x6">
+<meta property="og:updated_time" content="2016-11-07T07:01:25.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="元字符的应用">
+<meta name="twitter:description" content="[]&amp;#x6574;&amp;#x62EC;&amp;#x53F7;&amp;#x7684;&amp;#x6CE8;&amp;#x610F;
+1&amp;#x3001;&amp;#x5728;&amp;#x6574;&amp;#x62EC;&amp;#x53F7;&amp;#x4E2D;&amp;#x51FA;&amp;#x73B0;&amp;#x7684;&amp;#x6240;&amp;#x6709;&amp;#x7684;&amp;#x5B57;&amp;#x7B26;&amp;#x90FD;&amp;#x662F;&amp;#x4EE3;&amp;#x8868;&amp;#x6">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/07/08/正则表达式/3.元字符的应用/"/>
+
+  <title> 元字符的应用 | 章礼俊的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?ff33d06371cbc1cc9b3821952ca6c795";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">章礼俊的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">HTML5知识笔记</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                元字符的应用
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-08T16:34:46+08:00" content="2016-07-08">
+              2016-07-08
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/08/正则表达式/3.元字符的应用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/08/正则表达式/3.元字符的应用/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="&#x6574;&#x62EC;&#x53F7;&#x7684;&#x6CE8;&#x610F;"><a href="#&#x6574;&#x62EC;&#x53F7;&#x7684;&#x6CE8;&#x610F;" class="headerlink" title="[]&#x6574;&#x62EC;&#x53F7;&#x7684;&#x6CE8;&#x610F;"></a>[]&#x6574;&#x62EC;&#x53F7;&#x7684;&#x6CE8;&#x610F;</h4><ul>
+<li><p>1&#x3001;&#x5728;&#x6574;&#x62EC;&#x53F7;&#x4E2D;&#x51FA;&#x73B0;&#x7684;&#x6240;&#x6709;&#x7684;&#x5B57;&#x7B26;&#x90FD;&#x662F;&#x4EE3;&#x8868;&#x672C;&#x8EAB;&#x610F;&#x601D;&#x7684;&#x5B57;&#x7B26;(&#x6CA1;&#x6709;&#x7279;&#x6B8A;&#x7684;&#x542B;&#x4E49;,\d&#x8FD9;&#x79CD;&#x7279;&#x6B8A;)</p>
+<pre><code>var reg = /^[.]\d+$/;
+console.log(reg.test(&quot;46545&quot;));//-&gt;false
+console.log(reg.test(&quot;.89&quot;));//-&gt;true
+
+var reg1 = /^[.]\d+[+]$/;
+console.log(reg1.test(&quot;46545&quot;));//-&gt;false
+console.log(reg1.test(&quot;.89+&quot;));//-&gt;true
+
+var reg2 = /^[.]\d+0[\d+]$/;
+console.log(reg2.test(&quot;46545&quot;));//-&gt;false
+console.log(reg2.test(&quot;.465045&quot;));//-&gt;true &#x5982;&#x679C;&#x662F;465045&#x5C31;&#x662F;false
+console.log(reg2.test(&quot;.890+&quot;));//-&gt;true
+</code></pre></li>
+<li><p>2&#x3001;&#x6574;&#x62EC;&#x53F7;&#x4E2D;&#x4E0D;&#x8BC6;&#x522B;&#x4E24;&#x4F4D;&#x6570;&#xFF0C;&#x6574;&#x62EC;&#x53F7;&#x5185;&#x662F;&#x591A;&#x4E2A;&#x53D6;&#x4E00;&#x4E2A;</p>
+<pre><code>var reg1 = /^[12]$/;//-&gt;1&#x6216;&#x8005;2&#x4E2D;&#x7684;&#x4E00;&#x4E2A;
+console.log(reg1.test(&quot;12&quot;));//false
+console.log(reg1.test(&quot;1&quot;));//true
+console.log(reg1.test(&quot;2&quot;));//true
+
+var reg2 = /^[12-48]$/;//-&gt;1&#x3001;2-6&#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x3001;8 &#x4E09;&#x4E2A;&#x4E2D;&#x7684;&#x4E00;&#x4E2A;
+console.log(reg2.test(&quot;128&quot;));//false
+console.log(reg2.test(&quot;138&quot;));//false
+console.log(reg2.test(&quot;158&quot;));//false
+console.log(reg2.test(&quot;1&quot;));//true
+console.log(reg2.test(&quot;3&quot;));//true
+console.log(reg2.test(&quot;5&quot;));//true
+console.log(reg2.test(&quot;8&quot;));//true
+console.log(reg2.test(&quot;13&quot;));//false
+
+var reg = /^[\w-]$/;//-&gt;&#x6570;&#x5B57;&#x3001;&#x5B57;&#x6BCD;&#x3001;&#x4E0B;&#x5212;&#x7EBF;&#x3001;- &#x4E2D;&#x7684;&#x4E00;&#x4E2A;
+console.log(reg.test(&quot;-&quot;));//true
+console.log(reg.test(&quot;89&quot;));//false
+console.log(reg.test(&quot;_&quot;));//true
+</code></pre></li>
+</ul>
+<h4 id="&#x6574;&#x62EC;&#x53F7;&#x7684;&#x53E6;&#x5916;&#x4F5C;&#x7528;&#xFF1A;&#x6539;&#x53D8;x-y&#x7684;&#x9ED8;&#x8BA4;&#x7684;&#x4F18;&#x5148;&#x7EA7;"><a href="#&#x6574;&#x62EC;&#x53F7;&#x7684;&#x53E6;&#x5916;&#x4F5C;&#x7528;&#xFF1A;&#x6539;&#x53D8;x-y&#x7684;&#x9ED8;&#x8BA4;&#x7684;&#x4F18;&#x5148;&#x7EA7;" class="headerlink" title="()&#x6574;&#x62EC;&#x53F7;&#x7684;&#x53E6;&#x5916;&#x4F5C;&#x7528;&#xFF1A;&#x6539;&#x53D8;x|y&#x7684;&#x9ED8;&#x8BA4;&#x7684;&#x4F18;&#x5148;&#x7EA7;;"></a>()&#x6574;&#x62EC;&#x53F7;&#x7684;&#x53E6;&#x5916;&#x4F5C;&#x7528;&#xFF1A;&#x6539;&#x53D8;x|y&#x7684;&#x9ED8;&#x8BA4;&#x7684;&#x4F18;&#x5148;&#x7EA7;;</h4><blockquote>
+<p>|&#x7684;&#x4F18;&#x5148;&#x7EA7;&#x5F88;&#x9AD8;&#xFF1B;</p>
+<p>&#x529F;&#x80FD;&#xFF1A;&#x66FF;&#x6362;&#xFF0C;&#x201D;&#x6216;&#x201D;&#x64CD;&#x4F5C;&#x5B57;&#x7B26;&#x5177;&#x6709;&#x9AD8;&#x4E8E;&#x66FF;&#x6362;&#x8FD0;&#x7B97;&#x7B26;&#x7684;&#x4F18;&#x5148;&#x7EA7;&#xFF0C;&#x4F7F;&#x5F97;&#x201D;m|food&#x201D;&#x5339;&#x914D;&#x201D;m&#x201D;&#x6216;&#x201D;food&#x201D;&#x3002;&#x82E5;&#x8981;&#x5339;&#x914D;&#x201D;mood&#x201D;&#x6216;&#x201D;food&#x201D;&#xFF0C;&#x8BF7;&#x4F7F;&#x7528;&#x62EC;&#x53F7;&#x521B;&#x5EFA;&#x5B50;&#x8868;&#x8FBE;&#x5F0F;&#xFF0C;&#x4ECE;&#x800C;&#x4EA7;&#x751F;&#x201D;(m|f)ood&#x201D;&#x3002;</p>
+</blockquote>
+<pre><code>var reg1 = /^18|19$/;
+//&#x9519;&#x8BEF;&#x5206;&#x6790;&#xFF1A;&#x60F3;&#x5339;&#x914D;119&#x548C;189&#xFF0C;1&#x5F00;&#x59CB;,9&#x7ED3;&#x5C3E;,&#x4E2D;&#x95F4;&#x662F;8&#x6216;&#x8005;1&#x7684;&#x4EFB;&#x610F;&#x4E00;&#x4E2A;&#xFF1B;
+//&#x5B9E;&#x9645;&#x53EF;&#x4EE5;&#x8FD9;&#x4E9B;&#x6570;&#x5B57;&#x90FD;&#x662F;&#x53EF;&#x4EE5;&#x5339;&#x914D;&#x6210;&#x529F;&#x7684;&#xFF1A;18&#x3001;19&#x3001;181&#x3001;189&#x3001;119&#x3001;819&#x3001;1819...
+console.log(reg1.test(&quot;19&quot;));//true
+console.log(reg1.test(&quot;18&quot;));//true
+console.log(reg1.test(&quot;119&quot;));//true
+console.log(reg1.test(&quot;189&quot;));//true
+console.log(&quot;test 189999999999&quot;,reg1.test(&quot;189999999999&quot;));//true
+console.log(&quot;test 819&quot;,reg1.test(&quot;819&quot;));//true
+console.log(&quot;test 1819&quot;,reg1.test(&quot;1819&quot;));//true
+console.log(&quot;test 1889899819&quot;,reg1.test(&quot;1889899819 &quot;));//true
+
+//&#x6B63;&#x786E;&#x5206;&#x6790;&#xFF1A;18|19 &#x53EF;&#x4EE5;&#x5339;&#x914D;18&#x5F00;&#x5934;&#x6216;&#x8005;19&#x7ED3;&#x5C3E;&#x7684;;&#xFF08;18&#x5F00;&#x5934;&#xFF09;&#x3001;&#xFF08;19&#x7ED3;&#x5C3E;&#xFF09;&#x3001;&#xFF08;18&#x5F00;&#x5934;&#x548C;19&#x51E0;&#x4F4D;&#x7684;&#xFF09;&#xFF0C;&#x90FD;&#x53EF;&#x4EE5;&#x5339;&#x914D;&#x6210;&#x529F;&#xFF1B;
+
+
+//|&#x66FF;&#x6362;&#xFF0C;&quot;&#x6216;&quot;&#x64CD;&#x4F5C;&#x5B57;&#x7B26;&#x5177;&#x6709;&#x9AD8;&#x4E8E;&#x66FF;&#x6362;&#x8FD0;&#x7B97;&#x7B26;&#x7684;&#x4F18;&#x5148;&#x7EA7;&#xFF0C;&#x4F7F;&#x5F97;&quot;m|food&quot;&#x5339;&#x914D;&quot;m&quot;&#x6216;&quot;food&quot;&#x3002;&#x82E5;&#x8981;&#x5339;&#x914D;&quot;mood&quot;&#x6216;&quot;food&quot;&#xFF0C;&#x8BF7;&#x4F7F;&#x7528;&#x62EC;&#x53F7;&#x521B;&#x5EFA;&#x5B50;&#x8868;&#x8FBE;&#x5F0F;&#xFF0C;&#x4ECE;&#x800C;&#x4EA7;&#x751F;&quot;(m|f)ood&quot;&#x3002;
+
+var testReg1=/m|food/;
+//&#x5339;&#x914D;(m&#x5F00;&#x5934;)&#x3001;&#xFF08;food&#x7ED3;&#x5C3E;&#xFF09;&#x3001;&#xFF08;m&#x5F00;&#x5934;&#x6216;&#x8005;food&#x7ED3;&#x5C3E;&#xFF09;&#xFF1B;&#x8FD9;&#x4E09;&#x79CD;&#x90FD;&#x53EF;&#x4EE5;&#x5339;&#x914D;
+console.log(&quot;test m&quot;,testReg1.test(&quot;m&quot;));//true
+console.log(&quot;test m464545646565&quot;,testReg1.test(&quot;m464545646565&quot;));//true
+console.log(&quot;test mood&quot;,testReg1.test(&quot;mood&quot;));//true
+console.log(&quot;test food&quot;,testReg1.test(&quot;food&quot;));//true
+var testReg2=/(m|f)ood/;
+//&#x5339;&#x914D;mood/food
+console.log(&quot;test m&quot;,testReg2.test(&quot;m&quot;));//false
+console.log(&quot;test m464545646565&quot;,testReg2.test(&quot;m464545646565&quot;));//false
+console.log(&quot;test mood&quot;,testReg2.test(&quot;mood&quot;));//true
+console.log(&quot;test food&quot;,testReg2.test(&quot;food&quot;));//true
+
+var reg2 = /^(18|19)$/;
+//18&#x3001;19
+console.log(reg2.test(&quot;19&quot;));//true
+console.log(reg2.test(&quot;18&quot;));//true
+console.log(reg2.test(&quot;119&quot;));//false
+console.log(reg2.test(&quot;189&quot;));//false
+
+var reg3 = /^1[8|1]9$/;
+//119&#x3001;189
+console.log(&quot;test 19&quot;,reg3.test(&quot;19&quot;));//false
+console.log(reg3.test(&quot;18&quot;));//false
+console.log(reg3.test(&quot;119&quot;));//true
+console.log(reg3.test(&quot;189&quot;));//true
+</code></pre><h4 id="&#x6B63;&#x5219;&#x5B9E;&#x8DF5;"><a href="#&#x6B63;&#x5219;&#x5B9E;&#x8DF5;" class="headerlink" title="&#x6B63;&#x5219;&#x5B9E;&#x8DF5;"></a>&#x6B63;&#x5219;&#x5B9E;&#x8DF5;</h4><ul>
+<li><p>1&#x3001;<strong>&#x6709;&#x6548;&#x6570;&#x5B57;&#x7684;&#x6B63;&#x5219;(&#x53EF;&#x4EE5;&#x662F; &#x6B63;&#x6570;&#x3001;&#x8D1F;&#x6570;&#x3001;&#x96F6;&#x3001;&#x5C0F;&#x6570; )</strong></p>
+<ul>
+<li>1)&#x3001;&#x201D;.&#x201D;&#x53EF;&#x4EE5;&#x51FA;&#x73B0;&#x4E5F;&#x53EF;&#x4EE5;&#x4E0D;&#x51FA;&#x73B0;,&#x4F46;&#x662F;&#x4E00;&#x65E6;&#x51FA;&#x73B0;,&#x540E;&#x9762;&#x5FC5;&#x987B;&#x8DDF;&#x7740;&#x4E00;&#x4F4D;&#x6216;&#x8005;&#x591A;&#x4F4D;&#x6570;&#x5B57;</li>
+<li>2)&#x3001;&#x6700;&#x5F00;&#x59CB;&#x53EF;&#x4EE5;&#x6709;+/- &#x4E5F;&#x53EF;&#x4EE5;&#x6CA1;&#x6709;</li>
+<li><p>3)&#x3001;&#x6574;&#x6570;&#x90E8;&#x5206;,&#x4E00;&#x4F4D;&#x6570;&#x53EF;&#x4EE5;&#x662F;0-9&#x4E4B;&#x95F4;&#x7684;&#x4E00;&#x4E2A;,&#x591A;&#x4F4D;&#x6570;&#x4E0D;&#x80FD;&#x4EE5;0&#x5F00;&#x5934;</p>
+<pre><code>var reg = /^[+-]?(\d|([1-9]\d+))(\.\d+)?$/;//.&#x662F;&#x4E00;&#x4E2A;&#x5143;&#x5B57;&#x7B26;&#xFF0C;&#x6240;&#x4EE5;&#x9700;&#x8981;&#x8F6C;&#x4E49;&#xFF1B;
+console.log(&quot;test +1&quot;,reg.test(&quot;+1&quot;));//true
+console.log(&quot;test +-1&quot;,reg.test(&quot;+-1&quot;));//false
+console.log(&quot;test -1.001&quot;,reg.test(&quot;-1.001&quot;));//true
+console.log(&quot;test -1.001.002&quot;,reg.test(&quot;-1.001.002&quot;));//false
+console.log(&quot;test 0&quot;,reg.test(&quot;0&quot;));//true
+</code></pre></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>2&#x3001;&#x5E74;&#x9F84;&#x4ECB;&#x4E8E;18~65&#x4E4B;&#x95F4;</p>
+<ul>
+<li>18~65&#x53EF;&#x4EE5;&#x5206;&#x4E3A;&#x4E09;&#x4EFD;&#xFF1B;18-19  20-59  60-65</li>
+<li>&#x56E0;&#x4E3A;1&#x5F00;&#x5934;&#x7684;&#x4E0D;&#x80FD;&#x662F;12&#xFF0C;15&#xFF0C;14&#x8FD9;&#x4E9B;&#xFF1B;</li>
+<li>6&#x5F00;&#x5934;&#x7684;&#x4E0D;&#x80FD;&#x662F;66&#xFF0C;68&#x8FD9;&#x4E9B;&#xFF1B;</li>
+<li><p>2&#x548C;5&#x5F00;&#x5934;&#xFF0C;&#x540E;&#x9762;&#x53EF;&#x4EE5;&#x968F;&#x4FBF;&#xFF0C;0-9&#x90FD;&#x53EF;&#x4EE5;&#xFF1B;</p>
+<pre><code>var reg = /^(1[8-9]|[2-5]\d|6[0-5])$/;
+console.log(&quot;test 18&quot;,reg.test(&quot;18&quot;));//true
+console.log(&quot;test 12&quot;,reg.test(&quot;12&quot;));//false
+console.log(&quot;test 20&quot;,reg.test(&quot;20&quot;));//true
+console.log(&quot;test 65&quot;,reg.test(&quot;65&quot;));//true
+console.log(&quot;test 69&quot;,reg.test(&quot;69&quot;));//false
+</code></pre></li>
+</ul>
+</li>
+<li><p>3&#x3001;&#x9A8C;&#x8BC1;&#x90AE;&#x7BB1;&#x7684;&#x6B63;&#x5219;(&#x7B80;&#x7248;)</p>
+<ul>
+<li><p>&#x5DE6;&#x8FB9;:&#x6570;&#x5B57;&#x3001;&#x5B57;&#x6BCD;&#x3001;&#x4E0B;&#x73AF;&#x7EBF;&#x3001;.&#x3001;-</p>
+<pre><code>var reg = /^[\w.-]+@[0-9a-zA-Z]+(\.[a-zA-Z]{2,4}){1,2}$/;
+/*
+* \w:&#x6570;&#x5B57;&#x3001;&#x5B57;&#x6BCD;&#x3001;&#x4E0B;&#x5212;&#x7EBF;&#x4E2D;&#x7684;&#x4EFB;&#x610F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;  [0-9a-zA-Z_]
+* [\w.-]:[\w]&#x3001;[.]&#x3001;[-]&#x4E09;&#x8005;&#x4E2D;&#x7684;&#x4EFB;&#x610F;&#x4E00;&#x4E2A;&#xFF0C;&#x51FA;&#x73B0;&#x4E00;&#x6B21;&#x6216;&#x8005;&#x591A;&#x6B21;&#xFF1B;
+* [0-9a-zA-Z]:&#x5927;&#x5C0F;&#x5199;&#xFF0C;&#x6216;&#x8005;&#x6570;&#x5B57;&#xFF1B;
+* (\.[a-zA-Z]{2,4})  .&#x540E;&#x9762;&#x52A0;2-4&#x4F4D;&#x5927;&#x5C0F;&#x5199;&#x7684;&#x57DF;&#x540D;&#xFF0C;&#x6BD4;&#x5982;.com .cn
+* {1,2} &#x51FA;&#x73B0;&#x4E00;&#x6B21;&#x6216;&#x8005;&#x4E24;&#x6B21;&#x3002;&#x53EF;&#x80FD;&#x662F;&#x9876;&#x7EA7;&#x57DF;&#x540D;&#xFF0C;&#x4E5F;&#x53EF;&#x80FD;&#x662F;&#x4E8C;&#x7EA7;&#x57DF;&#x540D;&#xFF1B;
+* */
+console.log(reg.test(&quot;weqwes@sina.com.cn&quot;));//true
+</code></pre></li>
+</ul>
+</li>
+<li><p>4&#x3001;&#x6C49;&#x5B57;&#x6635;&#x79F0; 2-4&#x4F4D;&#x6C49;&#x5B57;</p>
+<pre><code>var reg = /^[\u4e00-\u9fa5]{2,4}$/;
+</code></pre></li>
+<li><p>5&#x3001;&#x8EAB;&#x4EFD;&#x8BC1;&#x53F7;&#x7801;</p>
+<pre><code>var reg1 = /^\d{17}(\d|X|x)$/;
+
+//342224199004281111X
+var reg2 = /^(\d{2})(\d{4})(\d{4})(\d{2})(\d{2})(\d{2})(\d)(\d|X|x)$/;
+
+console.log(&quot;test 34222819000428111x&quot;,reg1.test(&quot;34222819000428111x&quot;));//true
+console.log(&quot;test 34222819000428111X&quot;,reg1.test(&quot;34222819000428111X&quot;));//true
+console.log(&quot;test 34222819000428111x&quot;,reg2.test(&quot;34222819000428111x&quot;));//true
+console.log(&quot;test 34222819000428111X&quot;,reg2.exec(&quot;34222819000428111X&quot;));//[&quot;34222819000428111X&quot;, &quot;34&quot;, &quot;2228&quot;, &quot;1900&quot;, &quot;04&quot;, &quot;28&quot;, &quot;11&quot;, &quot;1&quot;, &quot;X&quot;, index: 0, input: &quot;34222819000428111X&quot;]
+</code></pre></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block； padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="ALBL wechat" style="width: 200px; max-width: 100%;"/>
+    <div>扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/02/传值和传址/传值和传址/" rel="next" title="传值和传址">
+                <i class="fa fa-chevron-left"></i> 传值和传址
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/08/正则表达式/7.正则总结/" rel="prev" title="正则总结">
+                正则总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.ld12.com/upimg358/allimg/c140918/14109CRX22F-H018.jpg"
+               alt="ALBL" />
+          <p class="site-author-name" itemprop="name">ALBL</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#整括号的注意"><span class="nav-number">1.</span> <span class="nav-text">[]整括号的注意</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#整括号的另外作用：改变x-y的默认的优先级"><span class="nav-number">2.</span> <span class="nav-text">()整括号的另外作用：改变x|y的默认的优先级;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#正则实践"><span class="nav-number">3.</span> <span class="nav-text">正则实践</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ALBL</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'your-disqus-shortname';
+      var disqus_identifier = '2016/07/08/正则表达式/3.元字符的应用/';
+      var disqus_title = "元字符的应用";
+      var disqus_url = 'http://yoursite.com/2016/07/08/正则表达式/3.元字符的应用/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

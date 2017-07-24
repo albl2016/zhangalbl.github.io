@@ -1,0 +1,759 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ALBL的个人博客" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="&amp;#x95ED;&amp;#x5305;&amp;#x5728;&amp;#x4EC0;&amp;#x4E48;&amp;#x573A;&amp;#x5408;&amp;#x4E0B;&amp;#x7528;
+1&amp;#x3001;&amp;#x4FDD;&amp;#x62A4;&amp;#x53D8;&amp;#x91CF;&amp;#xFF1B;&amp;#x7528;&amp;#x81EA;&amp;#x8FD0;&amp;#x884C;&amp;#x7684;&amp;#x533F;&amp;#x540D;&amp;#x51FD;&amp;#x6570;&amp;#x676">
+<meta property="og:type" content="article">
+<meta property="og:title" content="闭包适用场景">
+<meta property="og:url" content="http://yoursite.com/2016/07/18/预解释-作用域-this关键字-闭包/闭包在什么场合下用/index.html">
+<meta property="og:site_name" content="章礼俊的个人博客">
+<meta property="og:description" content="&amp;#x95ED;&amp;#x5305;&amp;#x5728;&amp;#x4EC0;&amp;#x4E48;&amp;#x573A;&amp;#x5408;&amp;#x4E0B;&amp;#x7528;
+1&amp;#x3001;&amp;#x4FDD;&amp;#x62A4;&amp;#x53D8;&amp;#x91CF;&amp;#xFF1B;&amp;#x7528;&amp;#x81EA;&amp;#x8FD0;&amp;#x884C;&amp;#x7684;&amp;#x533F;&amp;#x540D;&amp;#x51FD;&amp;#x6570;&amp;#x676">
+<meta property="og:updated_time" content="2016-11-07T06:39:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="闭包适用场景">
+<meta name="twitter:description" content="&amp;#x95ED;&amp;#x5305;&amp;#x5728;&amp;#x4EC0;&amp;#x4E48;&amp;#x573A;&amp;#x5408;&amp;#x4E0B;&amp;#x7528;
+1&amp;#x3001;&amp;#x4FDD;&amp;#x62A4;&amp;#x53D8;&amp;#x91CF;&amp;#xFF1B;&amp;#x7528;&amp;#x81EA;&amp;#x8FD0;&amp;#x884C;&amp;#x7684;&amp;#x533F;&amp;#x540D;&amp;#x51FD;&amp;#x6570;&amp;#x676">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/07/18/预解释-作用域-this关键字-闭包/闭包在什么场合下用/"/>
+
+  <title> 闭包适用场景 | 章礼俊的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?ff33d06371cbc1cc9b3821952ca6c795";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">章礼俊的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">HTML5知识笔记</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                闭包适用场景
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-18T10:34:46+08:00" content="2016-07-18">
+              2016-07-18
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/18/预解释-作用域-this关键字-闭包/闭包在什么场合下用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/18/预解释-作用域-this关键字-闭包/闭包在什么场合下用/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="&#x95ED;&#x5305;&#x5728;&#x4EC0;&#x4E48;&#x573A;&#x5408;&#x4E0B;&#x7528;"><a href="#&#x95ED;&#x5305;&#x5728;&#x4EC0;&#x4E48;&#x573A;&#x5408;&#x4E0B;&#x7528;" class="headerlink" title="&#x95ED;&#x5305;&#x5728;&#x4EC0;&#x4E48;&#x573A;&#x5408;&#x4E0B;&#x7528;"></a>&#x95ED;&#x5305;&#x5728;&#x4EC0;&#x4E48;&#x573A;&#x5408;&#x4E0B;&#x7528;</h3><ul>
+<li>1&#x3001;&#x4FDD;&#x62A4;&#x53D8;&#x91CF;&#xFF1B;&#x7528;&#x81EA;&#x8FD0;&#x884C;&#x7684;&#x533F;&#x540D;&#x51FD;&#x6570;&#x6765;&#x5B9E;&#x73B0;&#xFF1B;</li>
+<li>2&#x3001;&#x534F;&#x8C03;&#x5F02;&#x6B65;&#x4EE3;&#x7801;&#xFF1B;&#x81EA;&#x8FD0;&#x884C;&#x7684;&#x533F;&#x540D;&#x51FD;&#x6570;&#x6765;&#x5B9E;&#x73B0;&#xFF0C;&#x5E76;&#x4E14;&#x4F20;&#x53C2;&#x8FDB;&#x53BB;&#xFF08;&#x5F02;&#x6B65;&#x4EE3;&#x7801;&#x9700;&#x8981;&#x7528;&#x5230;&#x539F;&#x6765;&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x901A;&#x8FC7;&#x4F5C;&#x4E3A;&#x51FD;&#x6570;&#x7684;&#x53C2;&#x6570;&#x4F20;&#x8FDB;&#x53BB;&#xFF1B;&#xFF09;&#xFF1B;</li>
+</ul>
+<p>&#x3000;&#x3000;&#x5B9E;&#x4F8B;</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;
+  &lt;title&gt;Document&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&quot;div1&quot;&gt;
+  &lt;p&gt;0000&lt;/p&gt;
+  &lt;p&gt;1111&lt;/p&gt;
+  &lt;p&gt;2222&lt;/p&gt;
+  &lt;p&gt;3333&lt;/p&gt;
+  &lt;p&gt;4444&lt;/p&gt;
+&lt;/div&gt;
+&lt;script&gt;
+var oDiv = document.getElementById(&quot;div1&quot;);
+var oPs = oDiv.getElementsByTagName(&quot;p&quot;);
+for (i = 0; i &lt; oPs.length; i++) {
+  ;(function (i){
+    oPs[i].onclick = function () {
+      console.log(i);
+    }
+  })(i);
+}
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>&#x4E0A;&#x9762;&#x7684;&#x4E5F;&#x53EF;&#x4EE5;&#x6539;&#x9020;&#x6210;&#x8FD9;&#x6837;&#x7684;&#xFF1B;[&#x4E5F;&#x662F;&#x95ED;&#x5305;&#x7684;&#x5E94;&#x7528;]</p>
+<pre><code>for (i = 0; i &lt; oPs.length; i++) {
+    oPs[i].onclick = function (i) {
+        return function(){console.log(i);}
+    }(i)
+}
+</code></pre><p>&#x9AD8;&#x7A0B;&#x4E09;&#x4E0A;&#x8BF4;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x91CC;&#x9762;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#xFF0C;&#x8FD9;&#x6837;&#x662F;&#x624D;&#x53EB;&#x95ED;&#x5305;&#xFF1B;&#xFF08;&#x4E2A;&#x4EBA;&#x8BA4;&#x4E3A;&#x95ED;&#x5305;&#x662F;&#x4E00;&#x79CD;&#x673A;&#x5236;&#xFF1B;&#x662F;&#x4E00;&#x4E2A;&#x5C01;&#x95ED;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#xFF1B;&#x53EA;&#x6709;&#x5F62;&#x6210;&#x5C01;&#x95ED;&#x4F5C;&#x7528;&#x57DF;&#x90FD;&#x53EF;&#x4EE5;&#x53EB;&#x505A;&#x95ED;&#x5305;&#x7684;&#xFF09;&#xFF1B;&#x4E0A;&#x9762;&#x5C31;&#x662F;&#x9AD8;&#x7A0B;&#x4E0A;&#x8BF4;&#x7684;&#x6807;&#x51C6;&#x95ED;&#x5305;&#x5199;&#x6CD5;&#xFF1B;</p>
+<p>&#x4F46;&#x662F;&#x95ED;&#x5305;&#x7684;&#x6027;&#x80FD;&#x5176;&#x5B9E;&#x6CA1;&#x6709;&#x81EA;&#x5B9A;&#x4E49;&#x5C5E;&#x6027;&#x597D;&#xFF1B;&#x53EF;&#x4EE5;&#x7528;&#x81EA;&#x5B9A;&#x4E49;&#x5C5E;&#x6027;&#x6765;&#x5199;&#xFF1B;&#x4E0B;&#x9762;&#x662F;&#x7528;&#x81EA;&#x5B9A;&#x4E49;&#x5C5E;&#x6027;&#x7684;&#x5199;&#x6CD5;&#x6765;&#x505A;&#x7684;&#xFF1B;</p>
+<pre><code>for (i = 0; i &lt; oPs.length; i++) {
+    oPs[i].index=i;
+    oPs[i].onclick = function () {
+        console.log(this.index);
+    }
+}
+</code></pre><h5 id="&#x5173;&#x4E8E;&#x4F5C;&#x7528;&#x57DF;-&#x95ED;&#x5305;&#x7684;&#x5176;&#x5B83;&#x7406;&#x89E3;&#xFF1B;"><a href="#&#x5173;&#x4E8E;&#x4F5C;&#x7528;&#x57DF;-&#x95ED;&#x5305;&#x7684;&#x5176;&#x5B83;&#x7406;&#x89E3;&#xFF1B;" class="headerlink" title="&#x5173;&#x4E8E;&#x4F5C;&#x7528;&#x57DF;/&#x95ED;&#x5305;&#x7684;&#x5176;&#x5B83;&#x7406;&#x89E3;&#xFF1B;"></a>&#x5173;&#x4E8E;&#x4F5C;&#x7528;&#x57DF;/&#x95ED;&#x5305;&#x7684;&#x5176;&#x5B83;&#x7406;&#x89E3;&#xFF1B;</h5><pre><code>var name = &quot;china&quot;;
+var age = 5000;
+(function (name, age) {//&#x5F62;&#x53C2;&#x53D8;&#x91CF;&#x4E5F;&#x662F;&#x79C1;&#x6709;&#x4F5C;&#x7528;&#x57DF;&#x4E2D;&#x7684;&#x79C1;&#x6709;&#x53D8;&#x91CF;
+  name = &quot;zhu&quot;;
+  age = 17;
+  alert(&quot;zz&quot;);
+  console.log(name, age);
+})(name, age);//&#x6267;&#x884C;&#x51FD;&#x6570;&#x4F20;&#x9012;&#x53C2;&#x6570;&#x503C;,&#x5B83;&#x53EA;&#x662F;&#x628A;&#x5168;&#x5C40;&#x7684;name&#x548C;age&#x7684;&#x503C;&#x5206;&#x522B;&#x7684;&#x8D4B;&#x503C;&#x7ED9;&#x6211;&#x4EEC;&#x7684;&#x5F62;&#x53C2; -&gt;&quot;&#x6267;&#x884C;&#x7684;&#x65F6;&#x5019;&#x4F20;&#x9012;&#x7684;&#x6C38;&#x8FDC;&#x662F;&#x4E00;&#x4E2A;&#x503C;&quot;
+alert(&quot;22&quot;)
+console.log(name, age);//&#x5148;&#x6267;&#x884C;&#x81EA;&#x6267;&#x884C;&#x51FD;&#x6570;&#xFF0C;&#x7136;&#x540E;&#x518D;&#x6267;&#x884C;&#x6B64;&#x884C;
+</code></pre><p>&#x5728;&#x51FD;&#x6570;&#x91CC;&#x9762;&#x4FEE;&#x6539;&#x5168;&#x5C40;&#x7684;name&#x548C;age(&#x524D;&#x63D0;&#x662F;&#x79C1;&#x6709;&#x7684;name&#x548C;age&#x4F9D;&#x7136;&#x5B58;&#x5728;)</p>
+<pre><code>var name = &quot;china&quot;;
+var age = 5000;
+(function (name, age) {
+    name = &quot;zhu&quot;;
+    age = 17;
+    //&#x628A;&#x5168;&#x5C40;&#x7684;&#x4E5F;&#x4FEE;&#x6539;&#x4E3A;&quot;zhu&quot;&#x3001;7 -&gt;&#x5728;&#x79C1;&#x6709;&#x4F5C;&#x7528;&#x57DF;&#x4E2D;&#x901A;&#x8FC7;&#x6307;&#x5B9A;&#x524D;&#x7F00;&#x6765;&#x5F3A;&#x884C;&#x7684;&#x4FEE;&#x6539;&#x7684;&#x5168;&#x5C40;&#x4E0B;&#x7684;&#x503C;
+    window.name = name;
+    window.age = age;
+})(name, age);
+console.log(name, age);//zhu ,17 
+</code></pre><p>jQuery&#x90E8;&#x5206;&#x5B9E;&#x73B0;&#x7684;&#x539F;&#x7406;:&#x5728;&#x79C1;&#x6709;&#x4E2D;&#x5B9A;&#x4E49;jQuery,&#x901A;&#x8FC7;window.xxx&#x8BA9;&#x5176;&#x5728;&#x5168;&#x5C40;&#x4E0B;&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;</p>
+<pre><code>(function () {
+    var jQuery = function () {
+      console.log(&quot;&#x6838;&#x5FC3;&#x4EE3;&#x7801;&quot;);
+    };
+    window.jQuery = window.$ = jQuery;
+})();
+jQuery();
+$();
+</code></pre><h5 id="&#x95ED;&#x5305;&#x7528;&#x5728;&#x9009;&#x9879;&#x5361;&#x7B49;&#x6548;&#x679C;&#x4E0A;"><a href="#&#x95ED;&#x5305;&#x7528;&#x5728;&#x9009;&#x9879;&#x5361;&#x7B49;&#x6548;&#x679C;&#x4E0A;" class="headerlink" title="&#x95ED;&#x5305;&#x7528;&#x5728;&#x9009;&#x9879;&#x5361;&#x7B49;&#x6548;&#x679C;&#x4E0A;"></a>&#x95ED;&#x5305;&#x7528;&#x5728;&#x9009;&#x9879;&#x5361;&#x7B49;&#x6548;&#x679C;&#x4E0A;</h5><pre><code>var banner = document.getElementById(&quot;banner&quot;);
+var tip = document.getElementById(&quot;tip&quot;);
+var oDivs = banner.getElementsByTagName(&quot;div&quot;);
+var oLis = tip.getElementsByTagName(&quot;li&quot;);
+//&#x9F20;&#x6807;&#x6ED1;&#x8FC7;&#x67D0;&#x4E00;&#x4E2A;li,&#x6211;&#x4EEC;&#x8BA9;&#x6240;&#x6709;&#x7684;li&#x548C;&#x6240;&#x6709;&#x7684;div&#x90FD;&#x6CA1;&#x6709;&#x9009;&#x4E2D;&#x7684;&#x6837;&#x5F0F;(select),&#x7136;&#x540E;&#x8BA9;&#x5F53;&#x524D;&#x9009;&#x4E2D;&#x7684;&#x8FD9;&#x4E2A;li&#x548C;&#x5BF9;&#x5E94;&#x7684;div&#x6709;&#x9009;&#x4E2D;&#x7684;&#x6837;&#x5F0F;
+
+function changeTab(nIndex) {
+  for (var i = 0; i &lt; oLis.length; i++) {
+  &#x3000;oLis[i].className = null;
+  &#x3000;oDivs[i].className = null;
+  }
+  oLis[nIndex].className = &quot;select&quot;;
+  oDivs[nIndex].className = &quot;select&quot;;
+}
+</code></pre><p>1&#x3001;&#x4F20;&#x7EDF;&#x7684;&#x5FAA;&#x73AF;&#x7ED1;&#x5B9A;&#x4E8B;&#x4EF6;&#x7684;&#x65B9;&#x5F0F;</p>
+<pre><code>for (var i = 0; i &lt; oLis.length; i++) {
+    oLis[i].onmouseover = function () {
+        changeTab(i);
+    };
+}
+</code></pre><p>&#x3000;&#x3000;&gt; &#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x4E0D;&#x80FD;&#x5B9E;&#x73B0;&#x6211;&#x4EEC;&#x7684;&#x6548;&#x679C;,&#x4E3A;&#x4EC0;&#x4E48;?<br>&#x3000;&#x3000;&gt; &#x6211;&#x4EEC;&#x662F;&#x5FAA;&#x73AF;&#x6240;&#x6709;&#x7684;li,&#x7ED9;&#x6BCF;&#x4E00;&#x4E2A;li&#x90FD;&#x7ED1;&#x5B9A;&#x4E86;&#x9F20;&#x6807;&#x6ED1;&#x8FC7;&#x7684;&#x4E8B;&#x4EF6;-&gt;</p>
+<pre><code>/*
+i=0
+oLis[0].onmouseover=function(){changeTab(i);}; &#x6211;&#x4EEC;&#x7ED1;&#x5B9A;&#x4E8B;&#x4EF6;&#x5176;&#x5B9E;&#x662F;&#x628A;&#x533F;&#x540D;&#x51FD;&#x6570;&#x5B9A;&#x4E49;&#x7684;&#x4E3B;&#x4F53;&#x8D4B;&#x503C;&#x7ED9;&#x5143;&#x7D20;&#x7684;&#x4E8B;&#x4EF6;&#x884C;&#x4E3A; -&gt; oLis[0].onmouseover=xxxfff000;
+i=1
+oLis[1].onmouseover=function(){changeTab(i);};
+...
+i=4
+oLis[4].onmouseover=function(){changeTab(i);};
+i=5
+&#x5FAA;&#x73AF;&#x7ED3;&#x675F;
+*/
+</code></pre><p>&#x5F53;&#x6211;&#x4EEC;&#x624B;&#x52A8;&#x89E6;&#x53D1;&#x7684;&#x8FD9;&#x4E9B;&#x884C;&#x4E3A;&#x7684;&#x65F6;&#x5019;,&#x6BD4;&#x5982;&#x89E6;&#x53D1;&#x7B2C;&#x4E00;&#x4E2A;li&#x7684;onmouseover,&#x6267;&#x884C;&#x7B2C;&#x4E00;&#x4E2A;&#x7ED1;&#x5B9A;&#x7684;&#x65B9;&#x6CD5;:&#x884C;&#x7A0B;&#x4E00;&#x4E2A;&#x79C1;&#x6709;&#x7684;&#x4F5C;&#x7528;&#x57DF;-&gt;&#x5F62;&#x53C2;&#x8D4B;&#x503C;-&gt;&#x9884;&#x89E3;&#x91CA;-&gt;&#x4EE3;&#x7801;&#x6267;&#x884C;,&#x9047;&#x5230;&#x4E86;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;i,&#x4E0D;&#x662F;&#x81EA;&#x5DF1;&#x7684;&#x79C1;&#x6709;&#x7684;,&#x627E;&#x5168;&#x5C40;&#x4F5C;&#x7528;&#x57DF;&#x4E0B;&#x7684;i,&#x8FD9;&#x4E2A;i&#x7684;&#x503C;&#x5DF2;&#x7ECF;&#x53D8;&#x4E3A;&#x5FAA;&#x73AF;&#x7ED3;&#x675F;&#x540E;&#x7684;5,&#x6240;&#x4EE5;&#x4E0D;&#x662F;&#x6211;&#x4EEC;&#x671F;&#x671B;&#x7684;&#x7D22;&#x5F15;&#x503C;&#x2026;</p>
+<p>2&#x3001;&#x5982;&#x4F55;&#x89E3;&#x51B3;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;?</p>
+<p><strong>[&#x4F5C;&#x7528;&#x57DF;&#x5F0F;&#x89E3;&#x51B3;]</strong></p>
+<p>&#x5F53;&#x89E6;&#x53D1;onmouseover&#x7684;&#x65F6;&#x5019;,&#x5168;&#x5C40;&#x7684;i&#x53D8;&#x4E3A;&#x4E86;5,&#x6211;&#x4EEC;&#x627E;&#x5168;&#x5C40;&#x7684;&#x80AF;&#x5B9A;&#x4E0D;&#x884C;,&#x4F46;&#x662F;&#x6211;&#x53EF;&#x4E00;&#x8FD9;&#x6837;&#x6765;&#x64CD;&#x4F5C;:</p>
+<p>&#x5728;&#x5F53;&#x524D;&#x79C1;&#x6709;&#x4F5C;&#x7528;&#x57DF;&#x548C;&#x5168;&#x5C40;&#x4F5C;&#x7528;&#x57DF;&#x4E4B;&#x95F4;&#x5728;&#x5D4C;&#x5165;&#x4E00;&#x5C42;&#x4F5C;&#x7528;&#x57DF;A,&#x7136;&#x540E;&#x8BA9;A&#x4E2D;&#x6709;&#x4E00;&#x4E2A;&#x79C1;&#x6709;&#x7684;&#x53D8;&#x91CF;i,&#x5B58;&#x50A8;&#x7684;&#x662F;&#x81EA;&#x5DF1;&#x7684;&#x7D22;&#x5F15;&#x5373;&#x53EF;</p>
+<pre><code>for (var i = 0; i &lt; oLis.length; i++) {
+    (function (i) {
+        oLis[i].onmouseover = function () {
+            changeTab(i);
+        };
+    })(i);//&#x6BCF;&#x4E00;&#x6B21;&#x5FAA;&#x73AF;&#x628A;&#x5F53;&#x524D;i&#x7684;&#x503C;(0,1,2,3,4)&#x8D4B;&#x503C;&#x7ED9;&#x5F62;&#x53C2;i
+}
+</code></pre><p>&#x51FD;&#x6570;&#x6267;&#x884C;&#x5F62;&#x6210;&#x4E0D;&#x9500;&#x6BC1;&#x7684;&#x79C1;&#x6709;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x7684;&#x7B2C;&#x4E8C;&#x79CD;&#x60C5;&#x51B5;:</p>
+<p>&#x5728;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x4E2D;,&#x7ED9;&#x51FD;&#x6570;&#x5916;&#x9762;&#x7684;DOM&#x5143;&#x7D20;&#x7ED1;&#x5B9A;&#x4E8B;&#x4EF6; -&gt; &#x7531;&#x4E8E;&#x7ED9;&#x4E8B;&#x4EF6;&#x7ED1;&#x5B9A;&#x7684;&#x65B9;&#x6CD5;&#x662F;&#x4E00;&#x4E2A;&#x5F15;&#x7528;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x503C;,&#x800C;&#x5143;&#x7D20;&#x4E0D;&#x5C5E;&#x4E8E;&#x8FD9;&#x4E2A;&#x4F5C;&#x7528;&#x57DF;,&#x800C;&#x662F;&#x51FD;&#x6570;&#x5916;&#x9762;&#x7684;&#x53D8;&#x91CF;,&#x8FD9;&#x6837;&#x4E5F;&#x76F8;&#x5F53;&#x4E8E;&#x5916;&#x9762;&#x7684;&#x4E1C;&#x897F;&#x5360;&#x7528;&#x4E86;&#x51FD;&#x6570;&#x91CC;&#x9762;&#x7684;&#x5185;&#x5B58;,&#x5F53;&#x524D;&#x7684;&#x79C1;&#x6709;&#x4F5C;&#x7528;&#x57DF;&#x4E0D;&#x9500;&#x6BC1;</p>
+<pre><code>for (var i = 0; i &lt; oLis.length; i++) {
+    oLis[i].onmouseover = function (i) {
+        return function () {
+            changeTab(i);
+        };
+    }(i);
+}
+</code></pre><p>&#x5F0A;&#x7AEF;:&#x4F1A;&#x5F62;&#x6210;&#x591A;&#x4E2A;&#x4E0D;&#x9500;&#x6BC1;&#x7684;&#x79C1;&#x6709;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#xFF0C;&#x5360;&#x5185;&#x5B58;</p>
+<p><strong>[&#x81EA;&#x5B9A;&#x4E49;&#x5C5E;&#x6027;&#x7684;&#x65B9;&#x5F0F;]</strong></p>
+<p>&#x81EA;&#x5B9A;&#x4E49;&#x5C5E;&#x6027;&#x5904;&#x7406;&#x95EE;&#x9898;&#x662F;JS&#x4E2D;&#x6700;&#x5E38;&#x7528;&#x7684;&#x7F16;&#x7A0B;&#x601D;&#x60F3;</p>
+<pre><code>for (var i = 0; i &lt; oLis.length; i++) {
+    oLis[i].index = i;//&#x6BCF;&#x4E00;&#x6B21;&#x5FAA;&#x73AF;&#x628A;&#x5F53;&#x524D;li&#x7684;&#x7D22;&#x5F15;&#x5B58;&#x50A8;&#x5230;&#x81EA;&#x5DF1;&#x7684;&#x81EA;&#x5B9A;&#x4E49;&#x5C5E;&#x6027;index&#x4E0A;,&#x540E;&#x671F;&#x9700;&#x8981;&#x7528;&#x5230;&#x7D22;&#x5F15;&#x7684;&#x65F6;&#x5019;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x628A;&#x81EA;&#x5B9A;&#x4E49;&#x5C5E;&#x6027;index&#x7684;&#x503C;&#x83B7;&#x53D6;&#x5230;&#x62FF;&#x6765;&#x7528;&#x5373;&#x53EF;
+    oLis[i].onmouseover = function () {
+        //this-&gt;&#x5F53;&#x524D;&#x9F20;&#x6807;&#x6ED1;&#x8FC7;&#x7684;&#x8FD9;&#x4E2A;li
+        changeTab(this.index);
+    };
+}
+</code></pre><p><strong>&#x6848;&#x4F8B;2&#xFF1A;&#x7528;setTimeout&#x5B9E;&#x73B0;&#x628A;p&#x76F8;&#x5BF9;&#x4E0A;&#x4E00;&#x4E2A;p&#x5411;&#x53F3;&#x79FB;&#x52A8;100px&#xFF1B;1&#x79D2;&#x4E2D;&#x53EA;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;P&#x7684;&#x79FB;&#x52A8;&#xFF1B;</strong></p>
+<p>setTimeout&#x672C;&#x8EAB;&#x662F;&#x540C;&#x6B65;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x4F46;&#x662F;setTimeout&#x91CC;&#x9762;&#x7684;&#x51FD;&#x6570;&#x662F;&#x5F02;&#x6B65;&#x7684;&#x4EE3;&#x7801;&#xFF1B;setTimeout&#x544A;&#x8BC9;&#x6D4F;&#x89C8;&#x5668;&#x9694;&#x591A;&#x5C11;&#x79D2;&#x6267;&#x884C;&#x91CC;&#x9762;&#x7684;&#x51FD;&#x6570;&#xFF1B;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x662F;&#x8131;&#x79BB;&#x6267;&#x884C;&#x987A;&#x5E8F;&#x7684;&#xFF1B;&#x5C5E;&#x4E8E;&#x5F02;&#x6B65;&#x4EE3;&#x7801;&#xFF1B;<br>&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code>var oDiv = document.getElementById(&quot;div1&quot;);
+var oPs = oDiv.getElementsByTagName(&quot;p&quot;);
+for (i = 0; i &lt; oPs.length; i++) {
+    (function(i){
+        setTimeout(function(){
+            oPs[i].style.left=100*i+&quot;px&quot;;
+        },i*1000)
+    })(i);
+}
+</code></pre><p>&#x56E0;&#x4E3A;&#x5B9A;&#x65F6;&#x5668;&#x91CC;&#x9762;&#x7684;&#x51FD;&#x6570;&#x662F;&#x5F02;&#x6B65;&#x7684;&#xFF0C;&#x800C;setTimeout&#x672C;&#x8EAB;&#x662F;&#x540C;&#x6B65;&#x7684;&#xFF1B;&#x6240;&#x4EE5;i&#x548C;&#x91CC;&#x9762;&#x7684;i&#x4E0D;&#x4E00;&#x81F4;&#xFF1B;&#x7528;&#x4E00;&#x4E2A;&#x95ED;&#x5305;&#x628A;&#x4ED6;&#x4EEC;&#x5305;&#x8D77;&#x6765;&#xFF1B;&#x7136;&#x540E;&#x4F20;i&#x8FDB;&#x53BB;&#xFF1B;&#x6216;&#x8005;&#x76F4;&#x63A5;&#x5305;&#x4F4F;setTimeout&#x91CC;&#x9762;&#x7684;&#x51FD;&#x6570;&#xFF1B;</p>
+<pre><code>setTimeout((function(i){
+    return function(){oPs[i].style.left=100*i+&quot;px&quot;;}
+})(i),i*1000);
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block； padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="ALBL wechat" style="width: 200px; max-width: 100%;"/>
+    <div>扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/17/JS算法原理/JS中的常见算法/" rel="next" title="JS中的常见算法">
+                <i class="fa fa-chevron-left"></i> JS中的常见算法
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/29/错误处理与调试/错误处理与调试/" rel="prev" title="兼容性处理、错误处理与调试">
+                兼容性处理、错误处理与调试 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.ld12.com/upimg358/allimg/c140918/14109CRX22F-H018.jpg"
+               alt="ALBL" />
+          <p class="site-author-name" itemprop="name">ALBL</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包在什么场合下用"><span class="nav-number">1.</span> <span class="nav-text">闭包在什么场合下用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#关于作用域-闭包的其它理解；"><span class="nav-number">1.0.1.</span> <span class="nav-text">关于作用域/闭包的其它理解；</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#闭包用在选项卡等效果上"><span class="nav-number">1.0.2.</span> <span class="nav-text">闭包用在选项卡等效果上</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ALBL</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'your-disqus-shortname';
+      var disqus_identifier = '2016/07/18/预解释-作用域-this关键字-闭包/闭包在什么场合下用/';
+      var disqus_title = "闭包适用场景";
+      var disqus_url = 'http://yoursite.com/2016/07/18/预解释-作用域-this关键字-闭包/闭包在什么场合下用/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

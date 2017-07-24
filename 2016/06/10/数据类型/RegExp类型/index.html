@@ -1,0 +1,786 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ALBL的个人博客" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="RegExp &amp;#x7C7B;&amp;#x578B;&amp;#x4E3B;&amp;#x8981;&amp;#x662F;&amp;#x4EE5;&amp;#x4E0B;&amp;#x51E0;&amp;#x4E2A;&amp;#x65B9;&amp;#x9762;
+
+&amp;#x521B;&amp;#x5EFA;
+&amp;#x5143;&amp;#x5B57;&amp;#x7B26;
+&amp;#x4FEE;&amp;#x9970;&amp;#x7B26;
+&amp;#x5C5E;&amp;#x6027;
+&amp;#x65B9;&amp;#x6CD5;
+
+&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RegExp 类型">
+<meta property="og:url" content="http://yoursite.com/2016/06/10/数据类型/RegExp类型/index.html">
+<meta property="og:site_name" content="章礼俊的个人博客">
+<meta property="og:description" content="RegExp &amp;#x7C7B;&amp;#x578B;&amp;#x4E3B;&amp;#x8981;&amp;#x662F;&amp;#x4EE5;&amp;#x4E0B;&amp;#x51E0;&amp;#x4E2A;&amp;#x65B9;&amp;#x9762;
+
+&amp;#x521B;&amp;#x5EFA;
+&amp;#x5143;&amp;#x5B57;&amp;#x7B26;
+&amp;#x4FEE;&amp;#x9970;&amp;#x7B26;
+&amp;#x5C5E;&amp;#x6027;
+&amp;#x65B9;&amp;#x6CD5;
+
+&amp;">
+<meta property="og:updated_time" content="2016-11-07T07:20:35.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RegExp 类型">
+<meta name="twitter:description" content="RegExp &amp;#x7C7B;&amp;#x578B;&amp;#x4E3B;&amp;#x8981;&amp;#x662F;&amp;#x4EE5;&amp;#x4E0B;&amp;#x51E0;&amp;#x4E2A;&amp;#x65B9;&amp;#x9762;
+
+&amp;#x521B;&amp;#x5EFA;
+&amp;#x5143;&amp;#x5B57;&amp;#x7B26;
+&amp;#x4FEE;&amp;#x9970;&amp;#x7B26;
+&amp;#x5C5E;&amp;#x6027;
+&amp;#x65B9;&amp;#x6CD5;
+
+&amp;">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/06/10/数据类型/RegExp类型/"/>
+
+  <title> RegExp 类型 | 章礼俊的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?ff33d06371cbc1cc9b3821952ca6c795";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">章礼俊的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">HTML5知识笔记</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                RegExp 类型
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-10T16:34:46+08:00" content="2016-06-10">
+              2016-06-10
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/10/数据类型/RegExp类型/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/10/数据类型/RegExp类型/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="RegExp-&#x7C7B;&#x578B;"><a href="#RegExp-&#x7C7B;&#x578B;" class="headerlink" title="RegExp &#x7C7B;&#x578B;"></a>RegExp &#x7C7B;&#x578B;</h1><p>&#x4E3B;&#x8981;&#x662F;&#x4EE5;&#x4E0B;&#x51E0;&#x4E2A;&#x65B9;&#x9762;</p>
+<ul>
+<li>&#x521B;&#x5EFA;</li>
+<li>&#x5143;&#x5B57;&#x7B26;</li>
+<li>&#x4FEE;&#x9970;&#x7B26;</li>
+<li>&#x5C5E;&#x6027;</li>
+<li>&#x65B9;&#x6CD5;</li>
+</ul>
+<h1 id="&#x521B;&#x5EFA;"><a href="#&#x521B;&#x5EFA;" class="headerlink" title="&#x521B;&#x5EFA;"></a>&#x521B;&#x5EFA;</h1><p>&#x6709;&#x4E24;&#x79CD;&#x65B9;&#x6CD5;&#xFF0C;&#x5B57;&#x9762;&#x91CF;&#x548C;&#x6784;&#x9020;&#x51FD;&#x6570;&#x6A21;&#x5F0F;</p>
+<ul>
+<li><p>&#x5B57;&#x9762;&#x91CF;</p>
+<pre><code>var reg=/\d+/g;
+console.log(reg.test(&quot;789456&quot;));//true
+</code></pre></li>
+<li><p>&#x6784;&#x9020;&#x51FD;&#x6570;</p>
+<pre><code>var reg2=new RegExp(&quot;\\d+&quot;,&quot;g&quot;);
+console.log(reg2.test(&quot;1234444456&quot;));//true
+console.log(reg2.test(&quot;asdsa&quot;));//false
+</code></pre></li>
+</ul>
+<h1 id="&#x5143;&#x5B57;&#x7B26;"><a href="#&#x5143;&#x5B57;&#x7B26;" class="headerlink" title="&#x5143;&#x5B57;&#x7B26;"></a>&#x5143;&#x5B57;&#x7B26;</h1><ul>
+<li>&#x5355;&#x4E2A;&#x5B57;&#x7B26;&#x6570;&#x5B57;<ul>
+<li>. &#x5339;&#x914D;&#x9664;&#x6362;&#x884C;&#x7B26;&#x4EE5;&#x5916;&#x7684;&#x4EFB;&#x610F;&#x5B57;&#x7B26;</li>
+<li>[a-zA-Z0-p] &#x4E0E; [^a-zA-Z0-p] &#x5339;&#x914D;&#x65B9;&#x62EC;&#x53F7;&#x4E2D;&#x7684;&#x4EFB;&#x610F;&#x5B57;&#x7B26;&#xFF0C;&#x524D;&#x9762;&#x4EE3;^&#x662F;&#x5339;&#x914D;&#x4E0D;&#x5728;&#x65B9;&#x62EC;&#x53F7;&#x4E2D;&#x7684;&#x4EFB;&#x610F;&#x5B57;&#x7B26;&#xFF1B;<ul>
+<li>\d &#x4E0E; \D    &#x5339;&#x914D;&#x6570;&#x5B57;&#x548C;&#x5339;&#x914D;&#x975E;&#x6570;&#x5B57;&#xFF1B;</li>
+<li>\w &#x4E0E; \W    &#x5339;&#x914D;&#x5B57;&#x7B26;&#x548C;&#x5339;&#x914D;&#x975E;&#x5B57;&#x6BCD;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>&#x7A7A;&#x767D;&#x5B57;&#x7B26;<ul>
+<li>\O        &#x5339;&#x914D;null&#x5B57;&#x7B26;</li>
+<li>\b        &#x5339;&#x914D;&#x7A7A;&#x683C;&#x5B57;&#x7B26;</li>
+<li>\f        &#x5339;&#x914D;&#x6362;&#x9875;&#x7B26;</li>
+<li>\n        &#x5339;&#x914D;&#x6362;&#x884C;&#x7B26;</li>
+<li>\r        &#x5339;&#x914D;&#x56DE;&#x8F66;&#x7B26;</li>
+<li>\s &#x548C; \S        &#x5339;&#x914D;&#x7A7A;&#x767D;&#x5B57;&#x7B26;&#xFF0C;&#x7A7A;&#x683C;&#x3001;&#x5236;&#x8868;&#x7B26;&#x6216;&#x6362;&#x884C;&#x7B26;&#x3002;&#x5927;&#x5199;&#x7684;S&#x662F;&#x5339;&#x914D;&#x975E;&#x7A7A;&#x5B57;&#x7B26;</li>
+<li>\t        &#x5339;&#x914D;&#x5236;&#x8868;&#x7B26;</li>
+</ul>
+</li>
+<li>&#x5B9A;&#x4F4D;&#x7B26;<ul>
+<li>^        &#x884C;&#x9996;&#x5339;&#x914D;</li>
+<li>$        &#x884C;&#x5C3E;&#x5339;&#x914D;</li>
+<li>\A        &#x53EA;&#x5339;&#x914D;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x5F00;&#x59CB;&#x5904;</li>
+<li>\b \B    &#x5339;&#x914D;&#x5355;&#x8BCD;&#x4FBF;&#x6377;&#xFF0C;&#x8BCD;&#x5728;[]&#x5185;&#x65E0;&#x6548;&#xFF0C;&#x5339;&#x914D;&#x975E;&#x5355;&#x8BCD;&#x8FB9;&#x754C;</li>
+<li>G        &#x5339;&#x914D;&#x5F53;&#x524D;&#x641C;&#x7D22;&#x7684;&#x5F00;&#x59CB;&#x4F4D;&#x7F6E;</li>
+<li>\Z \z    &#x5339;&#x914D;&#x5B57;&#x7B26;&#x4E32;&#x7ED3;&#x675F;&#x5904;&#x6216;&#x884C;&#x5C3E;&#xFF0C;&#x53EA;&#x5339;&#x914D;&#x5B57;&#x7B26;&#x4E32;&#x7ED3;&#x675F;&#x5904;</li>
+</ul>
+</li>
+<li>&#x9650;&#x5B9A;&#x7B26;<ul>
+<li>x?        &#x5339;&#x914D;0&#x4E2A;&#x6216;&#x4E00;&#x4E2A;x </li>
+<li>x*        &#x5339;&#x914D;0&#x4E2A;&#x6216;&#x8005;&#x4EFB;&#x610F;&#x591A;&#x4E2A;x</li>
+<li>x+        &#x5339;&#x914D;&#x4E00;&#x4E2A;&#x6216;&#x8005;&#x591A;&#x4E2A;</li>
+<li>x{m,n}    &#x5339;&#x914D;m-n&#x4E2A;x&#xFF1B;</li>
+</ul>
+</li>
+<li>&#x5206;&#x7EC4;<ul>
+<li>(?:x)        &#x5339;&#x914D;x&#x4F46;&#x4E0D;&#x8BB0;&#x5F55;&#x5339;&#x914D;&#x7ED3;&#x679C;&#xFF08;&#x5339;&#x914D;&#x4E0D;&#x6355;&#x83B7;&#xFF09;</li>
+<li>x(?=y)        &#x5F53;x&#x540E;&#x9762;&#x63A5;y&#x65F6;&#x5339;&#x914D;x</li>
+<li>x(?!y)        &#x5F53;x&#x540E;&#x4E0D;&#x662F;y&#x65F6;&#x5339;&#x914D;x</li>
+</ul>
+</li>
+<li>&#x5F15;&#x7528;<ul>
+<li>\1&#x2026;\9    $1&#x2026;$9        &#x8FD4;&#x56DE;&#x5C31;&#x5272;&#x5728;&#x6A21;&#x5F0F;&#x5339;&#x914D;&#x671F;&#x95F4;&#x627E;&#x5230;&#x7684;&#xFF0C;&#x6700;&#x8FD1;&#x4FDD;&#x5B58;&#x7684;&#x90E8;&#x5206;</li>
+</ul>
+</li>
+<li>&#x6216;&#x6A21;&#x5F0F;<ul>
+<li>x|y|z        &#x5339;&#x914D;x&#x6216;&#x8005;y&#x6216;&#x8005;z</li>
+</ul>
+</li>
+</ul>
+<h1 id="&#x4FEE;&#x9970;&#x7B26;"><a href="#&#x4FEE;&#x9970;&#x7B26;" class="headerlink" title="&#x4FEE;&#x9970;&#x7B26;"></a>&#x4FEE;&#x9970;&#x7B26;</h1><p>&#x53EF;&#x4EE5;&#x8BB0;img&#xFF0C;&#x8FD9;&#x6837;&#x65B9;&#x4FBF;&#x8BB0;&#x4F4F;&#xFF1B;</p>
+<ul>
+<li>i         &#x5FFD;&#x7565;&#x5927;&#x5C0F;&#x5199;&#x6A21;&#x5F0F;</li>
+<li>m        &#x591A;&#x884C;&#x5339;&#x914D;</li>
+<li>g        &#x5168;&#x5C40;&#x6A21;&#x5F0F;</li>
+</ul>
+<h1 id="&#x5C5E;&#x6027;"><a href="#&#x5C5E;&#x6027;" class="headerlink" title="&#x5C5E;&#x6027;"></a>&#x5C5E;&#x6027;</h1><ul>
+<li>&#x5B9E;&#x4F8B;&#x5C5E;&#x6027;<ul>
+<li>global            &#x5E03;&#x5C14;&#x503C;&#xFF0C;&#x68C0;&#x6D4B;&#x662F;&#x8D70;&#x8BBE;&#x7F6E;g&#x6807;&#x8BB0;</li>
+<li>ignoreCase        &#x5E03;&#x5C14;&#x503C;&#xFF0C;&#x68C0;&#x6D4B;&#x662F;&#x5426;&#x8BBE;&#x7F6E;i&#x6807;&#x8BB0;</li>
+<li>nultiline        &#x5E03;&#x5C14;&#x503C;&#xFF0C;&#x68C0;&#x6D4B;&#x662F;&#x5426;&#x8BBE;&#x7F6E;&#x4E86;m&#x6807;&#x8BB0;</li>
+<li>lastIndex        &#x6574;&#x6570;&#xFF0C;&#x8868;&#x793A;&#x5F00;&#x59CB;&#x641C;&#x7D22;&#x4E0B;&#x4E00;&#x4E2A;&#x5339;&#x914D;&#x9879;&#x7684;&#x5B57;&#x7B26;&#x4F4D;&#x7F6E;&#xFF0C;&#x4ECE; 0 &#x7B97;&#x8D77;&#x3002;</li>
+<li>source            &#x8FD4;&#x56DE;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x8868;&#x793A;,&#x6309;&#x7167;&#x5B57;&#x9762;&#x91CF;&#x5F62;&#x5F0F;&#x800C;&#x975E;&#x4F20;&#x5165;&#x6784;&#x9020;&#x51FD;&#x6570;&#x4E2D;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x6A21;&#x5F0F;&#x8FD4;&#x56DE;&#x3002;</li>
+</ul>
+</li>
+</ul>
+<p>&#x901A;&#x8FC7;&#x8FD9;&#x4E9B;&#x5C5E;&#x6027;&#x53EF;&#x4EE5;&#x83B7;&#x77E5;&#x4E00;&#x4E2A;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x7684;&#x5404;&#x65B9;&#x9762;&#x4FE1;&#x606F;&#xFF0C;&#x4F46;&#x5374;&#x6CA1;&#x6709;&#x591A;&#x5927;&#x7528;&#x5904;&#xFF0C;&#x56E0;&#x4E3A;&#x8FD9;&#x4E9B;&#x4FE1;&#x606F;&#x5168;&#x90FD;&#x5305;&#x542B;&#x5728;&#x6A21;&#x5F0F;&#x58F0;&#x660E;&#x4E2D;</p>
+<pre><code>var pattern1 = /\[bc\]at/i;
+console.log(pattern1.global); //false
+console.log(pattern1.ignoreCase); //true
+console.log(pattern1.multiline); //false
+console.log(pattern1.lastIndex); //0
+console.log(pattern1.source); //&quot;\[bc\]at&quot;
+var pattern2 = new RegExp(&quot;\\[bc\\]at&quot;, &quot;i&quot;);
+console.log(pattern2.global); //false
+console.log(pattern2.ignoreCase); //true
+console.log(pattern2.multiline); //false
+console.log(pattern2.lastIndex); //0
+console.log(pattern2.source); //&quot;\[bc\]at&quot;
+</code></pre><p>&#x5C3D;&#x7BA1;&#x7B2C;&#x4E00;&#x4E2A;&#x6A21;&#x5F0F;&#x4F7F;&#x7528;&#x7684;&#x662F;&#x5B57;&#x9762;&#x91CF;&#xFF0C;&#x7B2C;&#x4E8C;&#x4E2A;&#x6A21;&#x5F0F;&#x4F7F;&#x7528;&#x4E86; RegExp &#x6784;&#x9020;&#x51FD;&#x6570;&#xFF0C;&#x4F46;&#x5B83;&#x4EEC;&#x7684;source &#x5C5E;&#x6027;&#x662F;&#x76F8;&#x540C;&#x7684;&#x3002;&#x53EF;&#x89C1;&#xFF0C; source &#x5C5E;&#x6027;&#x4FDD;&#x5B58;&#x7684;&#x662F;&#x89C4;&#x8303;&#x5F62;&#x5F0F;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5373;&#x5B57;&#x9762;&#x91CF;&#x5F62;&#x5F0F;&#x6240;&#x7528;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x3002;</p>
+<ul>
+<li>&#x6784;&#x9020;&#x51FD;&#x6570;&#x5C5E;&#x6027;<ul>
+<li>$_        input    &#x8FD4;&#x56DE;&#x6700;&#x8FD1;&#x4E00;&#x6B21;&#x5339;&#x914D;&#x7684;&#x5B57;&#x7B26;&#x4E32;</li>
+<li>$&amp;        lastMatch    &#x8FD4;&#x56DE;&#x6700;&#x8FD1;&#x4E00;&#x6B21;&#x7684;&#x5339;&#x914D;&#x9879;</li>
+<li>$+        lastParen    &#x8FD4;&#x56DE;&#x6700;&#x8FD1;&#x4E00;&#x6B21;&#x5339;&#x914D;&#x7684;&#x6355;&#x83B7;&#x7EC4;</li>
+<li>$`        leftContext    &#x8FD4;&#x56DE;&#x88AB;&#x67E5;&#x627E;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x4E2D;&#x4ECE;&#x5B57;&#x7B26;&#x4E32;&#x5F00;&#x59CB;&#x4F4D;&#x7F6E;&#x5230;&#x6700;&#x540E;&#x5339;&#x914D;&#x4E4B;&#x524D;&#x7684;&#x4F4D;&#x7F6E;&#x4E4B;&#x95F4;&#x7684;&#x5B57;&#x7B26;</li>
+<li>$&#x2019;        rightContext    &#x8FD4;&#x56DE;&#x88AB;&#x641C;&#x7D22;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x4E2D;&#x4ECE;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x5339;&#x914D;&#x4F4D;&#x7F6E;&#x5F00;&#x59CB;&#x5230;&#x5B57;&#x7B26;&#x4E32;&#x7ED3;&#x5C3E;&#x4E4B;&#x95F4;&#x7684;&#x5B57;&#x7B26;</li>
+<li>$*        multiline        &#x68C0;&#x6D4B;&#x8868;&#x8FBE;&#x5F0F;&#x662F;&#x5426;&#x91C7;&#x7528;&#x591A;&#x884C;&#x5339;&#x914D;m</li>
+</ul>
+</li>
+</ul>
+<h1 id="&#x65B9;&#x6CD5;"><a href="#&#x65B9;&#x6CD5;" class="headerlink" title="&#x65B9;&#x6CD5;"></a>&#x65B9;&#x6CD5;</h1><ul>
+<li><p>&#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;</p>
+<ul>
+<li>test    &#x5728;&#x5B57;&#x7B26;&#x4E32;&#x4E2D;&#x68C0;&#x6D4B;&#x6A21;&#x5F0F;&#x5339;&#x914D;&#xFF0C;&#x8FD4;&#x56DE;true&#x6216;false</li>
+<li><p>exec    &#x8BE5;&#x65B9;&#x6CD5;&#x662F;&#x4E13;&#x95E8;&#x4E3A;&#x6355;&#x83B7;&#x7EC4;&#x800C;&#x8BBE;&#x8BA1;&#x7684;</p>
+<ul>
+<li>&#x529F;&#x80FD;&#xFF1A;&#x6B63;&#x5219;&#x6355;&#x83B7;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#xFF1B;</li>
+<li>&#x53C2;&#x6570;&#xFF1A;&#x8981;&#x5E94;&#x7528;&#x6A21;&#x5F0F;&#x5339;&#x914D;&#x7684;&#x5B57;&#x7B26;&#x4E32;</li>
+<li>&#x7279;&#x6027;&#xFF1A;<ul>
+<li>&#x4F7F;&#x7528;&#x5168;&#x5C40;&#x6807;&#x8BB0;g&#xFF1B;&#x6301;&#x7EED;&#x67E5;&#x627E;&#x6240;&#x6709;&#x5339;&#x914D;&#x9879;&#x5E76;&#x8FD4;&#x56DE;</li>
+<li>&#x4E0D;&#x4F7F;&#x7528;&#x5168;&#x5C40;&#x6807;&#x8BB0;g&#xFF1B;&#x59CB;&#x7EC8;&#x8FD4;&#x56DE;&#x7B2C;&#x4E00;&#x4E2A;&#x5339;&#x914D;&#x9879;&#x4FE1;&#x606F;</li>
+</ul>
+</li>
+<li>&#x6267;&#x884C;&#x7684;&#x8FC7;&#x7A0B;<ul>
+<li>&#x68C0;&#x6D4B;&#x5B57;&#x7B26;&#x4E32;&#x53C2;&#x6570;&#xFF0C;&#x83B7;&#x53D6;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x5339;&#x914D;&#x6587;&#x672C;</li>
+<li>&#x627E;&#x5230;&#x5339;&#x914D;&#x6587;&#x672C;&#x5219;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x6570;&#x7EC4; <ul>
+<li>&#x7B2C;0&#x4E2A;&#x5143;&#x7D20;&#xFF1A;&#x4E0E;&#x6574;&#x4E2A;&#x6A21;&#x5F0F;&#x5339;&#x914D;&#x7684;&#x5B57;&#x7B26;&#x4E32;</li>
+<li>&#x5176;&#x4ED6;&#x5143;&#x7D20;&#xFF1A;&#x4E0E;&#x6355;&#x83B7;&#x7EC4;&#x5339;&#x914D;&#x7684;&#x5B57;&#x7B26;&#x4E32;</li>
+</ul>
+</li>
+<li>&#x5426;&#x5219;&#x8FD4;&#x56DE;null</li>
+</ul>
+</li>
+<li>&#x6D3E;&#x751F;&#x5C5E;&#x6027;<ul>
+<li>index        &#x5339;&#x914D;&#x9879;&#x5728;&#x5B57;&#x7B26;&#x4E32;&#x4E2D;&#x7684;&#x4F4D;&#x7F6E;</li>
+<li>input        &#x5E94;&#x7528;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x7684;&#x5B57;&#x7B26;&#x4E32;</li>
+<li>length        &#x8FD4;&#x56DE;&#x6570;&#x7EC4;&#x5143;&#x7D20;&#x7684;&#x4E2A;&#x6570;</li>
+</ul>
+</li>
+</ul>
+<p>var text = &#x201C;cat, bat, sat, fat&#x201D;;<br>var pattern1 = /.at/;<br>var matches = pattern1.exec(text);<br>console.log(matches.index); //0<br>console.log(matches[0]); //cat<br>console.log(pattern1.lastIndex); //0<br>matches = pattern1.exec(text);<br>console.log(matches.index); //0<br>console.log(matches[0]); //cat<br>console.log(pattern1.lastIndex); //0</p>
+<p>var pattern2 = /.at/g;<br>var matches = pattern2.exec(text);<br>console.log(matches.index); //0<br>console.log(matches[0]); //cat<br>console.log(pattern2.lastIndex); //3</p>
+<p>matches = pattern2.exec(text);<br>console.log(matches.index); //5<br>console.log(matches[0]); //bat<br>console.log(pattern2.lastIndex); //8</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>&#x7B2C;&#x4E00;&#x4E2A;&#x6A21;&#x5F0F; pattern1 &#x4E0D;&#x662F;&#x5168;&#x5C40;&#x6A21;&#x5F0F;&#xFF0C;&#x56E0;&#x6B64;&#x6BCF;&#x6B21;&#x8C03;&#x7528; exec() &#x8FD4;&#x56DE;&#x7684;&#x90FD;&#x662F;&#x7B2C;&#x4E00;&#x4E2A;&#x5339;&#x914D;&#x9879;&#xFF08; &#x201C;cat&#x201D; &#xFF09;&#x3002;&#x800C;&#x7B2C;&#x4E8C;&#x4E2A;&#x6A21;&#x5F0F; pattern2 &#x662F;&#x5168;&#x5C40;&#x6A21;&#x5F0F;&#xFF0C;&#x56E0;&#x6B64;&#x6BCF;&#x6B21;&#x8C03;&#x7528; exec() &#x90FD;&#x4F1A;&#x8FD4;&#x56DE;&#x5B57;&#x7B26;&#x4E32;&#x4E2D;&#x7684;&#x4E0B;&#x4E00;&#x4E2A;&#x5339;&#x914D;&#x9879;&#xFF0C;&#x76F4;&#x81F3;&#x641C;&#x7D22;&#x5230;&#x5B57;&#x7B26;&#x4E32;&#x672B;&#x5C3E;&#x4E3A;&#x6B62;&#x3002;&#x6B64;&#x5916;&#xFF0C;&#x8FD8;&#x5E94;&#x8BE5;&#x6CE8;&#x610F;&#x6A21;&#x5F0F;&#x7684; lastIndex &#x5C5E;&#x6027;&#x7684;&#x53D8;&#x5316;&#x60C5;&#x51B5;&#x3002;&#x5728;&#x5168;&#x5C40;&#x5339;&#x914D;&#x6A21;&#x5F0F;&#x4E0B;&#xFF0C; lastIndex &#x7684;&#x503C;&#x5728;&#x6BCF;&#x6B21;&#x8C03;&#x7528; exec() &#x540E;&#x90FD;&#x4F1A;&#x589E;&#x52A0;&#xFF0C;&#x800C;&#x5728;&#x975E;&#x5168;&#x5C40;&#x6A21;&#x5F0F;&#x4E0B;&#x5219;&#x59CB;&#x7EC8;&#x4FDD;&#x6301;&#x4E0D;&#x53D8;&#x3002;\</p>
+<blockquote>
+<p>IE &#x7684; JavaScript &#x5B9E;&#x73B0;&#x5728; lastIndex &#x5C5E;&#x6027;&#x4E0A;&#x5B58;&#x5728;&#x504F;&#x5DEE;&#xFF0C;&#x5373;&#x4F7F;&#x5728;&#x975E;&#x5168;&#x5C40;&#x6A21;&#x5F0F;&#x4E0B;&#xFF0C;lastIndex &#x5C5E;&#x6027;&#x6BCF;&#x6B21;&#x4E5F;&#x4F1A;&#x53D8;&#x5316;&#x3002;</p>
+</blockquote>
+<ul>
+<li>&#x5B57;&#x7B26;&#x4E32;&#x65B9;&#x6CD5;<ul>
+<li>match        &#x627E;&#x5230;&#x4E00;&#x4E2A;&#x6216;&#x8005;&#x591A;&#x4E2A;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x7684;&#x5339;&#x914D;</li>
+<li>replace    &#x66FF;&#x6362;&#x4E0E;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x5339;&#x914D;&#x7684;&#x5B50;&#x4E32;</li>
+<li>search        &#x68C0;&#x7D22;&#x4E0E;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x5339;&#x914D;&#x7684;&#x503C;</li>
+<li>split        &#x628A;&#x5B57;&#x7B26;&#x4E32;&#x5206;&#x5272;&#x4E3A;&#x5B57;&#x7B26;&#x4E32;&#x6570;&#x7EC4;</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block； padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="ALBL wechat" style="width: 200px; max-width: 100%;"/>
+    <div>扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/10/数据类型/String类型/" rel="next" title="String类型">
+                <i class="fa fa-chevron-left"></i> String类型
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/10/数据类型/Object类型/" rel="prev" title="Object类型的知识点">
+                Object类型的知识点 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.ld12.com/upimg358/allimg/c140918/14109CRX22F-H018.jpg"
+               alt="ALBL" />
+          <p class="site-author-name" itemprop="name">ALBL</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RegExp-类型"><span class="nav-number">1.</span> <span class="nav-text">RegExp 类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建"><span class="nav-number">2.</span> <span class="nav-text">创建</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#元字符"><span class="nav-number">3.</span> <span class="nav-text">元字符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修饰符"><span class="nav-number">4.</span> <span class="nav-text">修饰符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#属性"><span class="nav-number">5.</span> <span class="nav-text">属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方法"><span class="nav-number">6.</span> <span class="nav-text">方法</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ALBL</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'your-disqus-shortname';
+      var disqus_identifier = '2016/06/10/数据类型/RegExp类型/';
+      var disqus_title = "RegExp 类型";
+      var disqus_url = 'http://yoursite.com/2016/06/10/数据类型/RegExp类型/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
